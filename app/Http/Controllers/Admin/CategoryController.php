@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Http\Requests\CategoryStoreRequest;
+use App\Models\CategoryModel;
 
 class CategoryController extends Controller
 {
@@ -12,8 +14,8 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $categories = Category::all();
-        view('admin.categories.index', compact('categories'));
+        $categories = CategoryModel::all();
+        return view('admin.categories.index', compact('categories'));
     }
 
     /**
@@ -21,15 +23,38 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        view('admin.categories.create');
+        return view('admin.categories.create');
     }
 
     /**
      * Store a newly created resource in storage.
      */
+
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'category' => 'required',
+            'description' => 'required',
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:5000',
+        ]);
+
+        $existingCategory = CategoryModel::firstWhere('name', $request->category);
+        if ($existingCategory) {
+            return back()->withErrors(['category' => 'This Category already exists.']);
+        }
+
+        $imgName = date('dmy_H_s_i') . uniqid() . '.' . $request->image->extension();
+        $request->image->move(public_path('categories'), $imgName);
+
+        $categoryController = new CategoryModel();
+        $categoryController->name = $request->category;
+        $categoryController->description = $request->description;
+        $categoryController->image = $imgName;
+        $categoryController->save();
+
+        $request->session()->flash('status', $request->category . ' Category is successfully added!');
+
+        return redirect()->route('admin.categories.index');
     }
 
     /**
@@ -45,7 +70,14 @@ class CategoryController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        // $menus = MenuModel::all();
+
+        $categories = CategoryModel::find($id);
+        return view('admin.categories.edit', ['category' => $categories]);
+
+        // ->with('menus',$menus)
+
+        
     }
 
     /**
@@ -53,7 +85,39 @@ class CategoryController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $categoryController = CategoryModel::find($id);
+        $request->validate([
+            'category' => 'required',
+            'description' => 'required',
+            // 'category_id' => 'required',
+        ]);
+
+        // Check if a new image is uploaded
+        if ($request->hasFile('image')) {
+            $request->validate([
+                'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:5000',
+            ]);
+
+            // Delete the old image
+            $oldImagePath = public_path('categories/' . $categoryController->image);
+            if (file_exists($oldImagePath)) {
+                unlink($oldImagePath);
+            }
+
+            // Upload the new image
+            $imgName = date('dmy_H_s_i') . uniqid() . '.' . $request->image->extension();
+            $request->image->move(public_path('categories'), $imgName);
+            $categoryController->image = $imgName;
+        }
+
+        // Update other fields
+        $categoryController->name = $request->category;
+        $categoryController->description = $request->description;
+        // $categoryController->category_id = $request->category_id;
+        $categoryController->save();
+        $request->session()->flash('status', $request->category . ' category is successfully updated!');
+
+        return redirect()->route('admin.categories.index');
     }
 
     /**
@@ -61,6 +125,10 @@ class CategoryController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $category = CategoryModel::find($id);
+        $category->delete();
+        session()->flash('deletestatus', $category->name. ' category is successfully deleted!');
+    
+        return redirect()->route('admin.categories.index');
     }
 }

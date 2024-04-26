@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Admin\CategoryController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -11,13 +12,36 @@ Route::get('/admin', function () {
     return view('admin.index');
 })->name('admin.index');
 
+
+
+Route::put('admin/categories/{id}', [CategoryController::class, 'update'])->name('admin.categories.update');
+
+
+
 //Admin Routes => Categories
-Route::get('/admin/categories', function () {
-    return view('admin.categories.index');
-})->name('admin.categories.index');
-Route::get('/admin/categories/create', function () {
-    return view('admin.categories.create');
-})->name('admin.categories.create');
+Route::resource('admin/categories', CategoryController::class)->names([
+    'index' => 'admin.categories.index',
+    'create' => 'admin.categories.create',
+    'store' => 'admin.categories.store',
+    'edit' => 'admin.categories.edit',
+    'update' => 'admin.categories.update',
+    'destroy' => 'admin.categories.destroy',
+]);
+
+// Route::resources([
+//     '/admin/categories' => CategoryController::class,
+//     '/management/menu' => MenuController::class,
+//     '/management/table' => TableRoomController::class,
+// ]);
+
+// Route::resource('/admin/categories', CategoryController::class)->names([
+//     'index' => 'admin.categories.index',
+//     'create' => 'admin.categories.create',
+//     'store' => 'admin.categories.store',
+//     // Add more names here for the other resource routes
+// ]);
+
+
 
 //Admin Routes => Menus
 Route::get('/admin/menus', function () {
