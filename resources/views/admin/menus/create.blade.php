@@ -7,40 +7,82 @@
 
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 ">
-            
-            <form class="max-w-sm mx-auto bg-slate-300 p-6 rounded-md" enctype="multipart/form-data">
+
+            <form class="max-w-sm mx-auto bg-slate-300 p-6 rounded-md" action="{{ route('admin.menus.store') }}"
+                method="POST" enctype="multipart/form-data">
+                @csrf
                 <div class="flex justify-end">
                     <x-create-button href="{{ route('admin.menus.index') }}">
                         Menu List
                     </x-create-button>
                 </div>
                 <div class="mb-5">
-                    <label for="category" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">New
-                        category</label>
-                    <input type="text" id="category"
+                    <label for="menu" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">New
+                        Menu</label>
+                    <input type="text" id="menu"
                         class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                        placeholder="name@flowbite.com" required />
+                        placeholder="Menu" name="menu" required />
                 </div>
                 <div class="mb-5">
-                    <label for="description" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Description</label>
-                    <textarea id="description" rows="4" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500" placeholder="Description..."></textarea>
+                    <label for="description"
+                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Description</label>
+                    <textarea id="description" name="description" rows="4"
+                        class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500"
+                        placeholder="Description..."></textarea>
                 </div>
                 <div class="mb-5">
-                    <label class="block mb-2 text-sm font-medium text-gray-900">Upload
+                    <label for="image" class="block mb-2 text-sm font-medium text-gray-900">Upload
                         file</label>
-                    <input
+                    <div id="imagePreview" class="hidden my-2 rounded-sm"></div>
+                    <input name="image" id="image"
                         class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none"
                         type="file">
+                </div>
+                <div class="mb-5">
+                    <label for="price" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">New
+                        Price</label>
+                    <input type="number" id="price"
+                        class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                        placeholder="Price" name="price" min="0" step="0.01" required />
+                </div>
+                <div class="mb-5">
+                    <label for="category" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                        Category</label>
+                        <select name="category_id" id="category" class=" w-full">
+                            @foreach ($categories as $category)
+                            <option value="{{$category->id}}">{{$category->name}}</option>
+                            @endforeach
+                        </select>
                 </div>
                 <div class="mb-5 mx-auto">
                     <x-button>
                         Save
                     </x-button>
                 </div>
-                
+
             </form>
         </div>
     </div>
 
 
 </x-app-layout>
+<script>
+    document.getElementById('image').addEventListener('change', function(e) {
+        var image = document.getElementById('imagePreview');
+        image.classList.remove('hidden'); // Show the preview element
+        image.innerHTML = ''; // Clear previous image content (if any)
+
+        // Check if a file is selected
+        if (e.target.files && e.target.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function(e) {
+                var img = document.createElement('img');
+                img.setAttribute('src', e.target.result);
+                image.appendChild(img);
+            };
+
+            reader.readAsDataURL(e.target.files[0]);
+        }
+    });
+</script>

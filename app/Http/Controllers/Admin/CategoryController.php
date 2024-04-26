@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Http\Requests\CategoryStoreRequest;
 use App\Models\CategoryModel;
 
 class CategoryController extends Controller
@@ -73,7 +72,7 @@ class CategoryController extends Controller
         // $menus = MenuModel::all();
 
         $categories = CategoryModel::find($id);
-        return view('admin.categories.edit', ['category' => $categories]);
+        return view('admin.categories.edit',  compact('categories'));
 
         // ->with('menus',$menus)
 
