@@ -16,11 +16,17 @@
                         <x-nav-link href="{{ route('admin.index') }}" :active="request()->routeIs('admin.index')">
                             {{ __('Admin Dashboard') }}
                         </x-nav-link>
-                        <x-nav-link href="{{ route('admin.index') }}" :active="request()->routeIs('admin.index')">
-                            {{ __('Users') }}
+                        <x-nav-link href="{{ route('admin.categories.index') }}" :active="request()->routeIs('admin.categories.index')">
+                            {{ __('Categories') }}
                         </x-nav-link>
-                        <x-nav-link href="{{ route('admin.index') }}" :active="request()->routeIs('admin.index')">
+                        <x-nav-link href="{{ route('admin.menus.index') }}" :active="request()->routeIs('admin.menus.index')">
                             {{ __('Menu') }}
+                        </x-nav-link>
+                        <x-nav-link href="{{ route('admin.tables.index') }}" :active="request()->routeIs('admin.tables.index')">
+                            {{ __('Tables') }}
+                        </x-nav-link>
+                        <x-nav-link href="{{ route('admin.reservations.index') }}" :active="request()->routeIs('admin.reservations.index')">
+                            {{ __('Reservation') }}
                         </x-nav-link>
                     @else
                         <x-nav-link href="{{ route('customer.index') }}" :active="request()->routeIs('dashboard')">
