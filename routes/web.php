@@ -37,7 +37,7 @@ Route::resource('admin/menus', MenuController::class)->names([
 ]);
 
 //Admin Routes => Tables
-Route::resource('admin/tables', MenuController::class)->names([
+Route::resource('admin/tables', TableController::class)->names([
     'index' => 'admin.tables.index',
     'create' => 'admin.tables.create',
     'store' => 'admin.tables.store',
@@ -47,7 +47,7 @@ Route::resource('admin/tables', MenuController::class)->names([
 ]);
 
 //Admin Routes => Reservations
-Route::resource('admin/reservations', MenuController::class)->names([
+Route::resource('admin/reservations', ReservationController::class)->names([
     'index' => 'admin.reservations.index',
     'create' => 'admin.reservations.create',
     'store' => 'admin.reservations.store',

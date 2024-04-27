@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\TableModel;
+
 
 class TableController extends Controller
 {
@@ -12,8 +14,8 @@ class TableController extends Controller
      */
     public function index()
     {
-        $tables = Table::all();
-        view('admin.tables.index', compact('tables'));
+        $tables = TableModel::all();
+        return view('admin.tables.index', compact('tables'));
     }
 
     /**
@@ -21,7 +23,7 @@ class TableController extends Controller
      */
     public function create()
     {
-        view('admin.tables.create');
+        return view('admin.tables.create');
     }
 
     /**
@@ -29,7 +31,28 @@ class TableController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'table' => 'required',
+            'capacity' => 'required',
+            'status' => 'required',
+            'location' => 'required',
+        ]);
+
+        $existingTable = TableModel::firstWhere('name', $request->table);
+        if ($existingTable) {
+            return back()->withErrors(['table' => 'This Table already exists.']);
+        }
+
+        $tableController = new TableModel();
+        $tableController->name = $request->capacity;
+        $tableController->capacity = $request->capacity;
+        $tableController->status = $request->status;
+        $tableController->location = $request->location;
+        $tableController->save();
+
+        $request->session()->flash('status', $request->capacity . ' Table is successfully added!');
+
+        return redirect()->route('admin.tables.index');
     }
 
     /**
@@ -45,7 +68,8 @@ class TableController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $table = TableModel::find($id);
+        return view('admin.tables.edit',  compact('table'));
     }
 
     /**
@@ -53,7 +77,24 @@ class TableController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $tableController = TableModel::find($id);
+        $request->validate([
+            'table' => 'required',
+            'capacity' => 'required',
+            'status' => 'required',
+            'location' => 'required',
+        ]);
+
+
+        // Update other fields
+        $tableController->name = $request->table;
+        $tableController->capacity = $request->capacity;
+        $tableController->status = $request->status;
+        $tableController->location = $request->location;
+        $tableController->save();
+        $request->session()->flash('status', $request->table . ' table is successfully updated!');
+
+        return redirect()->route('admin.tables.index');
     }
 
     /**
@@ -61,6 +102,10 @@ class TableController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $table = TableModel::find($id);
+        $table->delete();
+        session()->flash('deletestatus', $table->name. ' table is successfully deleted!');
+    
+        return redirect()->route('admin.tables.index');
     }
 }
