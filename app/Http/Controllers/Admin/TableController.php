@@ -44,13 +44,13 @@ class TableController extends Controller
         }
 
         $tableController = new TableModel();
-        $tableController->name = $request->capacity;
+        $tableController->name = $request->table;
         $tableController->capacity = $request->capacity;
         $tableController->status = $request->status;
         $tableController->location = $request->location;
         $tableController->save();
 
-        $request->session()->flash('status', $request->capacity . ' Table is successfully added!');
+        $request->session()->flash('status', $request->table . ' Table is successfully added!');
 
         return redirect()->route('admin.tables.index');
     }

@@ -26,8 +26,6 @@ Route::resource('admin/categories', CategoryController::class)->names([
     'restore' => 'admin.categories.restore',
 ]);
 
-Route::put('admin/categories/{id}', [CategoryController::class, 'update'])->name('admin.categories.update');
-
 //Admin Routes => Menus
 Route::resource('admin/menus', MenuController::class)->names([
     'index' => 'admin.menus.index',
@@ -62,17 +60,6 @@ Route::resource('admin/reservations', ReservationController::class)->names([
 Route::get('/customer', function () {
     return view('customer.index');
 })->name('customer.index');
-
-// Route::get('/', function () {
-//     if ( auth()->user()->is_admin) { 
-//         return redirect()->route('admin.index');
-//     }
-//     return view('welcome');
-// });
-// Route::resources([
-//     '/management/category' => CategoryController::class,
-// ]);
-
 
 // Auth Checks
 Route::middleware([
