@@ -37,6 +37,8 @@ class CategoryController extends Controller
             'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:5000',
         ]);
 
+    
+
         $existingCategory = CategoryModel::firstWhere('name', $request->category);
         if ($existingCategory) {
             return back()->withErrors(['category' => 'This Category already exists.']);
@@ -92,7 +94,6 @@ class CategoryController extends Controller
         $request->validate([
             'category' => 'required',
             'description' => 'required',
-            // 'category_id' => 'required',
         ]);
 
         // Check if a new image is uploaded

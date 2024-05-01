@@ -10,6 +10,7 @@
             <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
                 This is the admin page.
                 $table->softDeletes(); Consider softDelete in migration file.
+                Also search funciton for all tables.
             </div>
         </div>
     </div>

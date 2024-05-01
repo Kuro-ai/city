@@ -41,6 +41,11 @@ class ReservationController extends Controller
             'guest_number' => 'required',
         ]);
 
+        $existingReservation = ReservationModel::firstWhere('res_date', $request->res_date);
+        if ($existingReservation) {
+            return back()->withErrors(['res_date' => 'This time slot is not available.']);
+        }
+
         $reservationController = new ReservationModel();
         $reservationController->first_name = $request->first_name;
         $reservationController->last_name = $request->last_name;
@@ -95,6 +100,10 @@ class ReservationController extends Controller
             'guest_number' => 'required',
         ]);
 
+        $existingReservation = ReservationModel::firstWhere('res_date', $request->res_date);
+        if ($existingReservation) {
+            return back()->withErrors(['res_date' => 'This time slot is not available.']);
+        }
         // Update other fields
         $reservationController->first_name = $request->first_name;
         $reservationController->last_name = $request->last_name;
