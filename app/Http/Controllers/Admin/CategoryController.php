@@ -69,14 +69,18 @@ class CategoryController extends Controller
      */
     public function edit(string $id)
     {
-        // $menus = MenuModel::all();
+        $category = CategoryModel::find($id);
+
+        if (!$category) {
+            // Handle the case where the category doesn't exist
+            return redirect()
+            ->back()
+            ->withErrors(['error' => 'Category not found']);
+        }
+
 
         $categories = CategoryModel::find($id);
-        return view('admin.categories.edit',  compact('categories'));
-
-        // ->with('menus',$menus)
-
-        
+        return view('admin.categories.edit', compact('category'));
     }
 
     /**
@@ -125,9 +129,18 @@ class CategoryController extends Controller
     public function destroy(string $id)
     {
         $category = CategoryModel::find($id);
-        $category->delete();
-        session()->flash('deletestatus', $category->name. ' category is successfully deleted!');
-    
+        $category->forceDelete();
+        session()->flash('deletestatus', $category->name . ' category is successfully deleted permanently!');
+
+        return redirect()->route('admin.categories.index');
+    }
+
+    public function restore(string $id)
+    {
+        $category = CategoryModel::withTrashed()->find($id);
+        $category->restore();
+        session()->flash('status', $category->name . ' category is successfully restored!');
+
         return redirect()->route('admin.categories.index');
     }
 }

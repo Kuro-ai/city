@@ -23,7 +23,9 @@ Route::resource('admin/categories', CategoryController::class)->names([
     'edit' => 'admin.categories.edit',
     'update' => 'admin.categories.update',
     'destroy' => 'admin.categories.destroy',
+    'restore' => 'admin.categories.restore',
 ]);
+
 Route::put('admin/categories/{id}', [CategoryController::class, 'update'])->name('admin.categories.update');
 
 //Admin Routes => Menus
