@@ -21,7 +21,7 @@
                         Name</label>
                     <input type="text" id="first_name"
                         class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 @error('first_name') border-red-600 @enderror"
-                        placeholder="First Name" name="first_name"/>
+                        placeholder="First Name" name="first_name" />
                     @error('first_name')
                         <div class="text-red-500">{{ $message }}</div>
                     @enderror
@@ -31,7 +31,7 @@
                         Name</label>
                     <input type="text" id="last_name"
                         class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 @error('last_name') border-red-600 @enderror"
-                        placeholder="Last Name" name="last_name"/>
+                        placeholder="Last Name" name="last_name" />
                     @error('last_name')
                         <div class="text-red-500">{{ $message }}</div>
                     @enderror
@@ -40,7 +40,7 @@
                     <label for="email" class="block mb-2 text-sm font-medium text-gray-900 ">Email</label>
                     <input type="email" id="email"
                         class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 @error('email') border-red-600 @enderror"
-                        placeholder="example@gmail.com" name="email"/>
+                        placeholder="example@gmail.com" name="email" />
                     @error('email')
                         <div class="text-red-500">{{ $message }}</div>
                     @enderror
@@ -59,11 +59,12 @@
                     <label for="res_date" class="block mb-2 text-sm font-medium text-gray-900 ">
                         Reservation Date</label>
                     <input type="datetime-local" id="res_date"
-                        class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 @error('res_date') border-red-600 @enderror"
-                        placeholder="" name="res_date"/>
+                        class="message shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 @error('res_date') border-red-600 @enderror"
+                        placeholder="" name="res_date" />
                     @error('res_date')
                         <div class="text-red-500">{{ $message }}</div>
                     @enderror
+                    <div id="message" class="text-red-500 border-red-600"></div>
                 </div>
                 <div class="mb-5">
                     <label for="table" class="block mb-2 text-sm font-medium text-gray-900 ">
@@ -80,8 +81,7 @@
                         Guest Number</label>
                     <input type="number" id="guest_number"
                         class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 @error('guest_number') border-red-600 @enderror"
-                        placeholder="guest_number" name="guest_number" min="1" max="12" step="1"
-                       />
+                        placeholder="guest_number" name="guest_number" min="1" max="12" step="1" />
                     @error('guest_number')
                         <div class="text-red-500">{{ $message }}</div>
                     @enderror
@@ -101,5 +101,45 @@
         if (charCode > 31 && (charCode < 48 || charCode > 57))
             return false;
         return true;
+    }
+
+    window.onload = function() {
+        var now = new Date(),
+            minDateTime,
+            month, date, hours, minutes,
+            resDate = document.getElementById('res_date');
+
+        month = (now.getMonth() + 1).toString().padStart(2, '0');
+        date = now.getDate().toString().padStart(2, '0');
+        hours = now.getHours().toString().padStart(2, '0');
+        minutes = now.getMinutes().toString().padStart(2, '0');
+
+        minDateTime = now.getFullYear() + '-' + month + '-' + date + 'T' + hours + ':' + minutes;
+
+        resDate.min = minDateTime;
+
+        resDate.onblur = function() {
+            var selectedDate = new Date(resDate.value),
+                selectedHours = selectedDate.getHours();
+
+            if (selectedDate < now || selectedHours < 14 || selectedHours > 21) {
+                var resetDate = new Date();
+                resetDate.setHours(14, 0, 0, 0); // Set the time to 14:00:00.000
+                var resetMonth = (resetDate.getMonth() + 1).toString().padStart(2, '0');
+                var resetDay = resetDate.getDate().toString().padStart(2, '0');
+                var resetHours = resetDate.getHours().toString().padStart(2, '0');
+                var resetMinutes = resetDate.getMinutes().toString().padStart(2, '0');
+                var resetDateTime = resetDate.getFullYear() + '-' + resetMonth + '-' + resetDay + 'T' +
+                    resetHours + ':' + resetMinutes;
+                resDate.value = resetDateTime;
+
+                // Show message to the user
+                var messageDiv = document.getElementById('message');
+                messageDiv.textContent = 'Your chosen time is not available. The time has been reset to 2 PM.';
+
+                // Add border-red class to res_date input
+                resDate.classList.add('message', 'border-red-600');
+            }
+        }
     }
 </script>

@@ -15,4 +15,13 @@ class ReservationModel extends Model
     {
         return $this->hasmany("App\Models\TableModel", "id", "table_id");
     }
+
+    protected $dates = [
+        'res_date'
+    ];
+    
+    public function tables()
+    {
+        return $this->belongsTo(Table::class);
+    }
 }

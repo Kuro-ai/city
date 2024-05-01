@@ -37,7 +37,7 @@ class ReservationController extends Controller
             'last_name' => 'required',
             'email' => 'required',
             'tel_number' => 'required',
-            'res_date' => 'required',
+            'res_date' => 'required | date | after_or_equal:now',
             'guest_number' => 'required',
         ]);
 
