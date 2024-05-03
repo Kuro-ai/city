@@ -50,7 +50,7 @@ class TableController extends Controller
         $tableController->location = $request->location;
         $tableController->save();
 
-        $request->session()->flash('status', $request->table . ' Table is successfully added!');
+        session()->flash('status', $request->table . ' Table is successfully added!');
 
         return redirect()->route('admin.tables.index');
     }
@@ -92,7 +92,7 @@ class TableController extends Controller
         $tableController->status = $request->status;
         $tableController->location = $request->location;
         $tableController->save();
-        $request->session()->flash('status', $request->table . ' table is successfully updated!');
+        session()->flash('status', $request->table . ' table is successfully updated!');
 
         return redirect()->route('admin.tables.index');
     }

@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Enums\TableStatus;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\ReservationModel;
 use App\Models\TableModel;
+use Illuminate\Validation\ValidationException;
 
 class ReservationController extends Controller
 {
@@ -23,7 +25,7 @@ class ReservationController extends Controller
      */
     public function create()
     {
-        $tables = TableModel::all();
+        $tables = TableModel::where('status', TableStatus::Available)->get();
         return view('admin.reservations.create')->with('tables', $tables);
     }
 
@@ -41,9 +43,14 @@ class ReservationController extends Controller
             'guest_number' => 'required',
         ]);
 
-        $existingReservation = ReservationModel::firstWhere('res_date', $request->res_date);
+        $existingReservation = ReservationModel::where('table_id', $request->table_id)
+            ->where('res_date', $request->res_date)
+            ->first();
+
         if ($existingReservation) {
-            return back()->withErrors(['res_date' => 'This time slot is not available.']);
+            throw ValidationException::withMessages([
+                'table_id' => ['This table is already booked at the selected date and time by another reservation.'],
+            ]);
         }
 
         $reservationController = new ReservationModel();
@@ -56,7 +63,13 @@ class ReservationController extends Controller
         $reservationController->guest_number = $request->guest_number;
         $reservationController->save();
 
-        $request->session()->flash('status', 'You are successfully Reserved!');
+        $table = TableModel::find($request->table_id);
+        if ($table) {
+            $table->status = TableStatus::Unavailable;
+            $table->save();
+        }
+
+        session()->flash('status', 'Table is successfully reserved!');
 
         return redirect()->route('admin.reservations.index');
     }
@@ -81,7 +94,7 @@ class ReservationController extends Controller
                 ->withErrors(['error' => 'Menu not found']);
         }
 
-        $tables = TableModel::all();
+        $tables = TableModel::where('status', TableStatus::Available)->get();
         return view('admin.reservations.edit')->with('reservation', $reservation)->with('tables', $tables);
     }
 
@@ -100,10 +113,6 @@ class ReservationController extends Controller
             'guest_number' => 'required',
         ]);
 
-        $existingReservation = ReservationModel::firstWhere('res_date', $request->res_date);
-        if ($existingReservation) {
-            return back()->withErrors(['res_date' => 'This time slot is not available.']);
-        }
         // Update other fields
         $reservationController->first_name = $request->first_name;
         $reservationController->last_name = $request->last_name;
@@ -114,7 +123,13 @@ class ReservationController extends Controller
         $reservationController->guest_number = $request->guest_number;
         $reservationController->save();
 
-        $request->session()->flash('status', 'Your Reservation is successfully updated!');
+        $table = TableModel::find($request->table_id);
+        if ($table) {
+            $table->status = TableStatus::Unavailable;
+            $table->save();
+        }
+
+        session()->flash('status', 'Reservation is successfully updated!');
 
         return redirect()->route('admin.reservations.index');
     }
@@ -125,8 +140,13 @@ class ReservationController extends Controller
     public function destroy(string $id)
     {
         $reservation = ReservationModel::find($id);
+        $table = TableModel::find($reservation->table_id);
+        if ($table) {
+            $table->status = TableStatus::Available;
+            $table->save();
+        }
         $reservation->delete();
-        session()->flash('deletestatus',  'Your Reservation is successfully deleted!');
+        session()->flash('deletestatus', 'Reservation is successfully deleted!');
 
         return redirect()->route('admin.reservations.index');
     }

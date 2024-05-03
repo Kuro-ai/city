@@ -55,7 +55,7 @@ class MenuController extends Controller
         $menuController->category_id = $request->category_id;
         $menuController->save();
 
-        $request->session()->flash('status', $request->menu . ' menu is successfully added!');
+        session()->flash('status', $request->menu . ' menu is successfully added!');
 
         return redirect()->route('admin.menus.index');
     }
@@ -124,7 +124,7 @@ class MenuController extends Controller
         $menuController->price = $request->price;
         $menuController->category_id = $request->category_id;
         $menuController->save();
-        $request->session()->flash('status', $request->menu . ' menu is successfully updated!');
+        session()->flash('status', $request->menu . ' menu is successfully updated!');
 
         return redirect()->route('admin.menus.index');
     }

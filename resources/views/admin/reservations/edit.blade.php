@@ -22,7 +22,7 @@
                     <label for="first_name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">First
                         Name</label>
                     <input type="text" id="first_name"
-                        class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 @error('first_name') border-red-600 @enderror"
+                        class="shadow-sm bg-gray-50 border text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 @error('first_name') border-red-600 @enderror"
                         placeholder="First Name" name="first_name" value="{{ $reservation->first_name }}" />
                     @error('first_name')
                         <div class="text-red-500">{{ $message }}</div>
@@ -32,7 +32,7 @@
                     <label for="last_name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Last
                         Name</label>
                     <input type="text" id="last_name"
-                        class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 @error('last_name') border-red-600 @enderror"
+                        class="shadow-sm bg-gray-50 border text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 @error('last_name') border-red-600 @enderror"
                         placeholder="Last Name" name="last_name" value="{{ $reservation->last_name }}" />
                     @error('last_name')
                         <div class="text-red-500">{{ $message }}</div>
@@ -42,7 +42,7 @@
                     <label for="email"
                         class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Email</label>
                     <input type="email" id="email"
-                        class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 @error('email') border-red-600 @enderror"
+                        class="shadow-sm bg-gray-50 border text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 @error('email') border-red-600 @enderror"
                         placeholder="example@gmail.com" name="email" value="{{ $reservation->email }}" />
                     @error('email')
                         <div class="text-red-500">{{ $message }}</div>
@@ -52,7 +52,7 @@
                     <label for="tel_number" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Phone
                         Number</label>
                     <input type="text" id="tel_number"
-                        class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 @error('tel_number') border-red-600 @enderror"
+                        class="shadow-sm bg-gray-50 border text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 @error('tel_number') border-red-600 @enderror"
                         placeholder="09-xxx xxxxxx" name="tel_number"
                         value="{{ $reservation->tel_number }}"onkeypress="return isNumberKey(event)" />
                     @error('tel_number')
@@ -63,9 +63,20 @@
                     <label for="res_date" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
                         Reservation Date</label>
                     <input type="datetime-local" id="res_date"
-                        class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 @error('res_date') border-red-600 @enderror"
+                        class="shadow-sm bg-gray-50 border text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 @error('res_date') border-red-600 @enderror"
                         placeholder="Last Name" name="res_date" value="{{ $reservation->res_date }}" />
                     @error('res_date')
+                        <div class="text-red-500">{{ $message }}</div>
+                    @enderror
+                </div>
+                <div class="mb-5">
+                    <label for="guest_number" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                        Guest Number</label>
+                    <input type="number" id="guest_number"
+                        class="shadow-sm bg-gray-50 border text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5  @error('guest_number') border-red-600 @enderror"
+                        placeholder="guest_number" name="guest_number" value="{{ $reservation->guest_number }}"
+                        min="1" max="20" step="1" />
+                    @error('guest_number')
                         <div class="text-red-500">{{ $message }}</div>
                     @enderror
                 </div>
@@ -75,22 +86,11 @@
                     <select name="table_id" id="table" class=" w-full">
                         @foreach ($tables as $table)
                             <option value="{{ $table->id }}">{{ $table->name }} ( Capacity -
-                                {{ $table->capacity }} )</option>
+                                {{ $table->capacity }} ) (Location - {{ $table->location }})</option>
                         @endforeach
                     </select>
                 </div>
-                <div class="mb-5">
-                    <label for="guest_number" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
-                        Guest Number</label>
-                    <input type="number" id="guest_number"
-                        class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5  @error('guest_number') border-red-600 @enderror"
-                        placeholder="guest_number" name="guest_number" value="{{ $reservation->guest_number }}"
-                        min="1" max="12" step="1" />
-                    @error('guest_number')
-                        <div class="text-red-500">{{ $message }}</div>
-                    @enderror
-                </div>
-
+            
                 <div class="mb-5 mx-auto">
                     <x-button>
                         Update

@@ -53,7 +53,7 @@ class CategoryController extends Controller
         $categoryController->image = $imgName;
         $categoryController->save();
 
-        $request->session()->flash('status', $request->category . ' Category is successfully added!');
+        session()->flash('status', $request->category . ' Category is successfully added!');
 
         return redirect()->route('admin.categories.index');
     }
@@ -119,7 +119,7 @@ class CategoryController extends Controller
         $categoryController->description = $request->description;
         // $categoryController->category_id = $request->category_id;
         $categoryController->save();
-        $request->session()->flash('status', $request->category . ' category is successfully updated!');
+        session()->flash('status', $request->category . ' category is successfully updated!');
 
         return redirect()->route('admin.categories.index');
     }
