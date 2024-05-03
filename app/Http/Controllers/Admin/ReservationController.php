@@ -34,13 +34,20 @@ class ReservationController extends Controller
      */
     public function store(Request $request)
     {
+        $table = TableModel::find($request->table_id);
+
+        if (!$table) {
+            throw ValidationException::withMessages([
+                'table_id' => ['The selected table does not exist.'],
+            ]);
+        }
         $request->validate([
             'first_name' => 'required',
             'last_name' => 'required',
             'email' => 'required',
             'tel_number' => 'required',
             'res_date' => 'required | date | after_or_equal:now',
-            'guest_number' => 'required',
+            'guest_number' => 'required | integer | max:' . $table->capacity,
         ]);
 
         $existingReservation = ReservationModel::where('table_id', $request->table_id)
@@ -112,6 +119,16 @@ class ReservationController extends Controller
             'res_date' => 'required',
             'guest_number' => 'required',
         ]);
+
+        $existingReservation = ReservationModel::where('table_id', $request->table_id)
+            ->where('res_date', $request->res_date)
+            ->first();
+
+        if ($existingReservation) {
+            throw ValidationException::withMessages([
+                'table_id' => ['This table is already booked at the selected date and time by another reservation.'],
+            ]);
+        }
 
         // Update other fields
         $reservationController->first_name = $request->first_name;
