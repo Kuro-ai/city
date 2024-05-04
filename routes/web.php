@@ -5,6 +5,10 @@ use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\MenuController;
 use App\Http\Controllers\Admin\TableController;
 use App\Http\Controllers\Admin\ReservationController;
+use App\Http\Controllers\Customer\CustomerCategoryController;
+use App\Http\Controllers\Customer\CustomerMenuController;
+use App\Http\Controllers\Customer\CustomerTableController;
+use App\Http\Controllers\Customer\CustomerReservationController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -14,7 +18,6 @@ Route::get('/', function () {
 Route::get('/admin', function () {
     return view('admin.index');
 })->name('admin.index');
-
 //Admin Routes => Categories
 Route::resource('admin/categories', CategoryController::class)->names([
     'index' => 'admin.categories.index',
@@ -25,7 +28,6 @@ Route::resource('admin/categories', CategoryController::class)->names([
     'destroy' => 'admin.categories.destroy',
     'restore' => 'admin.categories.restore',
 ]);
-
 //Admin Routes => Menus
 Route::resource('admin/menus', MenuController::class)->names([
     'index' => 'admin.menus.index',
@@ -35,7 +37,6 @@ Route::resource('admin/menus', MenuController::class)->names([
     'update' => 'admin.menus.update',
     'destroy' => 'admin.menus.destroy',
 ]);
-
 //Admin Routes => Tables
 Route::resource('admin/tables', TableController::class)->names([
     'index' => 'admin.tables.index',
@@ -45,7 +46,6 @@ Route::resource('admin/tables', TableController::class)->names([
     'update' => 'admin.tables.update',
     'destroy' => 'admin.tables.destroy',
 ]);
-
 //Admin Routes => Reservations
 Route::resource('admin/reservations', ReservationController::class)->names([
     'index' => 'admin.reservations.index',
@@ -56,10 +56,31 @@ Route::resource('admin/reservations', ReservationController::class)->names([
     'destroy' => 'admin.reservations.destroy',
 ]);
 
+
+
 // Customer Routes
 Route::get('/customer', function () {
     return view('customer.index');
 })->name('customer.index');
+//Customer Routes => Categories
+Route::resource('customer/categories', CustomerCategoryController::class)->names([
+    'index' => 'customer.categories.index',
+    'show' => 'customer.categories.show',
+
+]);
+//Customer Routes => Menus
+Route::resource('customer/menus', CustomerMenuController::class)->names([
+    'index' => 'customer.menus.index',
+
+]);
+//Customer Routes => Reservations
+Route::get('customer/reservation/step-one', [CustomerReservationController::class, 'stepOne'])->name('customer.reservations.step.one');
+Route::get('customer/reservation/step-two', [CustomerReservationController::class, 'stepTwo'])->name('customer.reservations.step.two');
+Route::resource('customer/reservations', CustomerReservationController::class)->names([
+    'index' => 'customer.reservations.index',
+
+]);
+
 
 // Auth Checks
 Route::middleware([
@@ -73,6 +94,6 @@ Route::middleware([
         }
         return view('customer.index');
     })->name('dashboard');
-
 });
+
 
