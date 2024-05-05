@@ -110,7 +110,7 @@
                 </div>
 
                 <div class="mb-5 mx-auto">
-                    <x-button>
+                    <x-button id="submit_button">
                         Save
                     </x-button>
                 </div>
@@ -160,6 +160,8 @@
         var guestNumberInput = document.getElementById('guest_number');
         var tableSelect = document.getElementById('table');
         var messageDiv = document.getElementById('messages');
+        var submitButton = document.getElementById(
+            'submit_button'); 
 
         function checkCapacity() {
             var guestNumber = Number(guestNumberInput.value);
@@ -169,9 +171,11 @@
                 messageDiv.textContent =
                     'The selected number of guests is greater than the capacity of the selected table.';
                 guestNumberInput.classList.add('message', 'border-red-600');
+                submitButton.disabled = true; // Disable the submit button
             } else {
                 messageDiv.textContent = '';
                 guestNumberInput.classList.remove('message', 'border-red-600');
+                submitButton.disabled = false; // Enable the submit button
             }
         }
 

@@ -25,9 +25,7 @@ class CustomerReservationController extends Controller
             'first_name' => ['required'],
             'last_name' => ['required'],
             'email' => ['required', 'email'],
-            'res_date' => ['required', 'date'],
             'tel_number' => ['required'],
-            'guest_number' => ['required'],
         ]);
 
         if (empty($request->session()->get('reservation'))) {
@@ -52,7 +50,7 @@ class CustomerReservationController extends Controller
             })
             ->pluck('table_id');
         $tables = TableModel::where('status', TableStatus::Available)
-            ->where('guest_number', '>=', $reservation->guest_number)
+
             ->whereNotIn('id', $res_table_ids)
             ->get();
         return view('customer.reservations.step-two', compact('reservation', 'tables'));
@@ -61,13 +59,22 @@ class CustomerReservationController extends Controller
     public function storeStepTwo(Request $request)
     {
         $validated = $request->validate([
+            'res_date' => ['required', 'date'],
+            'guest_number' => ['required'],
             'table_id' => ['required'],
         ]);
-        $reservation = $request->session()->get('reservation');
-        $reservation->fill($validated);
-        $reservation->save();
-        $request->session()->forget('reservation');
 
-        return to_route('thankyou');
+        if ($request->session()->has('reservation')) {
+            $reservation = $request->session()->get('reservation');
+            $reservation->fill($validated);
+            $reservation->save();
+            $request->session()->forget('reservation');
+            return to_route('thankyou');
+        } else {
+            return view('customer.reservations.step-one');
+        }
+
+
+        
     }
 }

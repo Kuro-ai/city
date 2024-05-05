@@ -12,6 +12,7 @@
                 $table->softDeletes(); Consider softDelete in migration file.
                 Also search funciton for all tables. Mobile mav-links. Email notification for new reservation and order. Also limit the image upload to landscape.
                 Adjust and make the images center for customers view. Change image in step one and two. Also change images and bg black to white in Home page.
+                Seed category, menu and table
             </div>
         </div>
     </div>

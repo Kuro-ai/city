@@ -20,4 +20,9 @@ class SpecialsController extends Controller
         return view('customer.index', ['specials' => $specials]);
 
     }
+
+    public function thankyou()
+    {
+        return view('thankyou');
+    }
 }

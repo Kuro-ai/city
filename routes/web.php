@@ -77,6 +77,7 @@ Route::resource('customer/menus', CustomerMenuController::class)->names([
 Route::resource('/customer', SpecialsController::class)->names([
     'index' => 'customer.index',
 ]);
+Route::get('/thankyou', [SpecialsController::class, 'thankyou'])->name('thankyou');
 
 //Customer Routes => Reservations
 Route::get('customer/reservation/step-one', [CustomerReservationController::class, 'stepOne'])->name('customer.reservations.step.one');
