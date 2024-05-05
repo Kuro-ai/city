@@ -111,6 +111,13 @@ class ReservationController extends Controller
     public function update(Request $request, string $id)
     {
         $reservationController = ReservationModel::find($id);
+        $table = TableModel::find($request->table_id);
+
+        if (!$table) {
+            throw ValidationException::withMessages([
+                'table_id' => ['The selected table does not exist.'],
+            ]);
+        }
         $request->validate([
             'first_name' => 'required',
             'last_name' => 'required',

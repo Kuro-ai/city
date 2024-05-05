@@ -10,7 +10,8 @@
             <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
                 This is the admin page.
                 $table->softDeletes(); Consider softDelete in migration file.
-                Also search funciton for all tables. Mobile mav-links
+                Also search funciton for all tables. Mobile mav-links. Email notification for new reservation and order. Also limit the image upload to landscape.
+                Adjust and make the images center for customers view
             </div>
         </div>
     </div>

@@ -9,6 +9,6 @@ class CustomerReservationController extends Controller
 {
     public function stepOne()
     {
-        return view('customer.reservations.index');
+        return view('customer.reservations.step-one');
     }
 }

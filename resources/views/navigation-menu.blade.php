@@ -29,15 +29,18 @@
                             {{ __('Reservation') }}
                         </x-nav-link>
                     @else
-                        <x-nav-link href="{{ route('customer.index') }}" :active="request()->routeIs('dashboard')">
-                            {{ __('Customer Dashboard') }}
-                        </x-nav-link>
                         <x-nav-link href="{{ route('customer.index') }}" :active="request()->routeIs('customer.index')">
+                            {{ __('Home') }}
+                        </x-nav-link>
+                        <x-nav-link href="{{ route('customer.categories.index') }}" :active="request()->routeIs('customer.categories.index')">
+                            {{ __('Categories') }}
+                        </x-nav-link>
+                        <x-nav-link href="{{ route('customer.menus.index') }}" :active="request()->routeIs('customer.menus.index')">
+                            {{ __('Our Menu') }}
+                        </x-nav-link>
+                        <x-nav-link href="{{ route('customer.reservations.step.one') }}" :active="request()->routeIs('customer.reservations.step.one')">
                             {{ __('Reservation') }}
-                        </x-nav-link>
-                        <x-nav-link href="{{ route('customer.index') }}" :active="request()->routeIs('customer.index')">
-                            {{ __('Check Menu') }}
-                        </x-nav-link>
+                        </x-nav-link>     
                     @endif
                 </div>
             </div>

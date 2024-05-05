@@ -7,8 +7,8 @@ use App\Http\Controllers\Admin\TableController;
 use App\Http\Controllers\Admin\ReservationController;
 use App\Http\Controllers\Customer\CustomerCategoryController;
 use App\Http\Controllers\Customer\CustomerMenuController;
-use App\Http\Controllers\Customer\CustomerTableController;
 use App\Http\Controllers\Customer\CustomerReservationController;
+use App\Http\Controllers\Customer\SpecialsController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -62,17 +62,23 @@ Route::resource('admin/reservations', ReservationController::class)->names([
 Route::get('/customer', function () {
     return view('customer.index');
 })->name('customer.index');
-//Customer Routes => Categories
+// Customer Routes => Categories
 Route::resource('customer/categories', CustomerCategoryController::class)->names([
     'index' => 'customer.categories.index',
     'show' => 'customer.categories.show',
-
+    
 ]);
+
+
+
 //Customer Routes => Menus
 Route::resource('customer/menus', CustomerMenuController::class)->names([
     'index' => 'customer.menus.index',
-
 ]);
+Route::resource('/customer', SpecialsController::class)->names([
+    'index' => 'customer.index',
+]);
+
 //Customer Routes => Reservations
 Route::get('customer/reservation/step-one', [CustomerReservationController::class, 'stepOne'])->name('customer.reservations.step.one');
 Route::get('customer/reservation/step-two', [CustomerReservationController::class, 'stepTwo'])->name('customer.reservations.step.two');
