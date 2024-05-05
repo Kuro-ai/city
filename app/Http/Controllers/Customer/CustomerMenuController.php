@@ -12,6 +12,6 @@ class CustomerMenuController extends Controller
     {
         $menus = MenuModel::all();
 
-        return view('customer.menus.index', compact('menus'));
+        return view('customer.menus.index',  ['menus' => $menus]);
     }
 }

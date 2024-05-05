@@ -13,11 +13,11 @@ class SpecialsController extends Controller
     {
         $category = CategoryModel::where('name', 'Specials')->first();
         if ($category) {
-            $menus = MenuModel::where('category_id', $category->id)->get();
+            $specials = MenuModel::where('category_id', $category->id)->get();
         } else {
-            $menus = collect(); // empty collection
+            $specials = collect(); // empty collection
         }
-        return view('customer.index', ['menus' => $menus]);
+        return view('customer.index', ['specials' => $specials]);
 
     }
 }

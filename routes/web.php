@@ -70,7 +70,6 @@ Route::resource('customer/categories', CustomerCategoryController::class)->names
 ]);
 
 
-
 //Customer Routes => Menus
 Route::resource('customer/menus', CustomerMenuController::class)->names([
     'index' => 'customer.menus.index',
@@ -81,10 +80,11 @@ Route::resource('/customer', SpecialsController::class)->names([
 
 //Customer Routes => Reservations
 Route::get('customer/reservation/step-one', [CustomerReservationController::class, 'stepOne'])->name('customer.reservations.step.one');
+Route::post('customer/reservation/step-one/store', [CustomerReservationController::class, 'storeStepOne'])->name('customer.reservations.store.step.one');
 Route::get('customer/reservation/step-two', [CustomerReservationController::class, 'stepTwo'])->name('customer.reservations.step.two');
+Route::post('customer/reservation/step-two/store', [CustomerReservationController::class, 'storeStepTwo'])->name('customer.reservations.store.step.two');
 Route::resource('customer/reservations', CustomerReservationController::class)->names([
     'index' => 'customer.reservations.index',
-
 ]);
 
 
