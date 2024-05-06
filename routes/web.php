@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\ReservationController;
 use App\Http\Controllers\Customer\CustomerCategoryController;
 use App\Http\Controllers\Customer\CustomerMenuController;
 use App\Http\Controllers\Customer\CustomerReservationController;
+use App\Http\Controllers\Customer\OrderController;
 use App\Http\Controllers\Customer\SpecialsController;
 
 Route::get('/', function () {
@@ -87,7 +88,9 @@ Route::post('customer/reservation/step-two/store', [CustomerReservationControlle
 Route::resource('customer/reservations', CustomerReservationController::class)->names([
     'index' => 'customer.reservations.index',
 ]);
-
+//Customer Routes => Orders
+Route::post('/customer/order/shoppingcart', [OrderController::class, 'orderShoppingCart'])->name('customer.order.shoppingcart');
+Route::post('/customer/order/shoppingcart', [OrderController::class, 'showCart'])->name('customer.order.shoppingcart');
 
 // Auth Checks
 Route::middleware([

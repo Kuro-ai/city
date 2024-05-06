@@ -80,6 +80,7 @@
                                         class="px-4 py-2 bg-indigo-500 hover:bg-indigo-700 rounded-lg text-white">Make
                                         Reservation</button>
                                 </div>
+                                
                             </form>
                         </div>
                     </div>

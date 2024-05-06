@@ -13,4 +13,9 @@ class SpecialsController extends Controller
     {
         return view('thankyou');
     }
+
+    public function index()
+    {
+        return view('customer.index');
+    }
 }
