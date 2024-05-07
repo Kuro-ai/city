@@ -1,7 +1,8 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Customer Dashboard') }}
+        <h2 class="font-semibold text-xl text-gray-800 leading-tight flex justify-between">
+            {{ __('Home') }}
+            <a href="{{ route('customer.order.shoppingcart') }}">ShoppingCart</a>
         </h2>
     </x-slot>
     <!-- Main Hero Content -->
