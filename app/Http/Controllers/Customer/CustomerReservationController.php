@@ -64,17 +64,20 @@ class CustomerReservationController extends Controller
             'table_id' => ['required'],
         ]);
 
+        $table = TableModel::find($request->table_id);
+        if ($table) {
+            $table->status = TableStatus::Unavailable;
+            $table->save();
+        }
         if ($request->session()->has('reservation')) {
             $reservation = $request->session()->get('reservation');
             $reservation->fill($validated);
             $reservation->save();
-            $request->session()->forget('reservation');
+            // Use the session() helper function to store the reservation object in the session
+            session(['reservation' => $reservation]);
             return to_route('thankyou');
         } else {
             return view('customer.reservations.step-one');
         }
-
-
-        
     }
 }

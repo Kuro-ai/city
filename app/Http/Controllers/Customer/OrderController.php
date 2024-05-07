@@ -20,8 +20,31 @@ class OrderController extends Controller
         return view('customer.menus.index');
     }
 
+    public function startOrder(Request $request)
+    {
+        $orderFood = $request->input('order_food');
+        $reservationId = $request->input('reservation_id');
+
+        $reservationId = $request->input('reservation_id');
+        session()->put('reservation_id', $reservationId);
+
+        if ($orderFood === 'yes') {
+            return redirect()->route('customer.menus.index');
+        } else {
+            return redirect()->route('customer.index');
+        }
+    }
+
+    public function showStartOrder()
+    {
+        $reservationId = session()->get('reservation_id');
+        return view('customer.menus.index', [ 'reservation_id' => $reservationId]);
+    }
+
     public function addToCart(Request $request)
     {
+        $reservationId = $request->input('reservation_id');
+        session()->put('reservation_id', $reservationId);
         $menuIds = $request->input('menus');
         $quantities = $request->input('quantities');
 
@@ -57,6 +80,7 @@ class OrderController extends Controller
 
     public function showCart()
     {
+        $reservationId = session()->get('reservation_id');
         $cartItems = session()->get('cartItems', []);
 
         $total = 0;
@@ -72,7 +96,7 @@ class OrderController extends Controller
             'total' => $total,
         ];
 
-        return view('customer.order.shoppingcart', ['cartItems' => $cartItems, 'orderSummary' => $orderSummary]);
+        return view('customer.order.shoppingcart', ['cartItems' => $cartItems, 'orderSummary' => $orderSummary, 'reservation_id' => $reservationId]);
     }
 
     public function clearCart()

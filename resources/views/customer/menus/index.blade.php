@@ -2,12 +2,13 @@
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight flex justify-between">
             {{ __('Menu') }}
-            <a href="{{ route('customer.order.shoppingcart') }}">ShoppingCart</a>
+            <a href="{{ route('customer.order.shoppingcart', ['reservation_id' => request('reservation_id')]) }}">Shopping Cart</a>
         </h2>
     </x-slot>
     <div class="container w-full px-5 py-6 mx-auto">
         <div class="grid lg:grid-cols-4 gap-y-6">
             <form action="{{ route('customer.order.addToCart') }}" method="post" onsubmit="return checkSelection()">
+                <input type="text" name="reservation_id" value="{{ session()->get('reservation_id') }}">
                 @csrf
                 @foreach ($menus as $menu)
                     <div class="max-w-xs mx-4 mb-2 rounded-lg shadow-lg">
@@ -40,6 +41,12 @@
         if (!isAnyChecked) {
             alert('Please select an item before adding to cart');
             return false;      
+        }
+
+        // Check if reservation_id is present
+        var reservationId = document.getElementById('reservation_id').value;
+        if (!reservationId) {
+            alert('No reservation ID found');
         }
     }
 </script>

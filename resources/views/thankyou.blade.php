@@ -8,13 +8,15 @@
                 Go back to Home
             </a> --}}
 
-            <form id="orderForm">
+            <form id="orderForm" method="POST" action="{{ route('customer.order.startOrder') }}">
+                @csrf
                 <div class="mb-5 sm:col-span-6">
                     <label class="block mb-2 text-sm font-medium text-gray-900 ">
                         Do you want to order food with your reservation?
                     </label>
                     <div class="mt-2">
                         <div>
+                            <input type="hidden" name="reservation_id" value="{{ optional(session('reservation'))->id }}">
                             <label class="inline-flex items-center">
                                 <input type="radio" class="form-radio" name="order_food" value="yes">
                                 <span class="ml-2">Yes</span>
@@ -34,18 +36,4 @@
 
     </div>
 </x-app-layout>
-<script>
-    document.getElementById('orderForm').addEventListener('submit', function(event) {
-        event.preventDefault();
 
-        var orderFood = document.querySelector('input[name="order_food"]:checked').value;
-
-        if (orderFood === 'yes') {
-            window.location.href =
-            "{{ route('customer.menus.index') }}"; 
-        } else {
-            window.location.href =
-            "{{ route('customer.index') }}";
-        }
-    });
-</script>
