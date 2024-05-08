@@ -12,7 +12,7 @@
                 $table->softDeletes(); Consider softDelete in migration file.
                 Also search funciton for all tables. Mobile mav-links. Email notification for new reservation and order. Also limit the image upload to landscape.
                 Adjust and make the images center for customers view. Change image in step one and two. Also change images and bg black to white in Home page.
-                Seed category, menu and table
+                Seed category, menu and table. Chart in admin dashboard. Expense table for name, purchase date and price. If im in the mood i can calculate profit and income.
             </div>
         </div>
     </div>

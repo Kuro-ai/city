@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Customer;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use App\Models\OrderModel;
+use App\Models\ReservationModel;
 use App\Models\MenuModel;
 
 class OrderController extends Controller
@@ -38,7 +38,7 @@ class OrderController extends Controller
     public function showStartOrder()
     {
         $reservationId = session()->get('reservation_id');
-        return view('customer.menus.index', [ 'reservation_id' => $reservationId]);
+        return view('customer.menus.index', ['reservation_id' => $reservationId]);
     }
 
     public function addToCart(Request $request)
@@ -50,7 +50,6 @@ class OrderController extends Controller
 
         // Retrieve items from the session if they exist, otherwise initialize an empty array
         $cartItems = session()->get('cartItems', []);
-
         foreach ($menuIds as $id) {
             if (isset($quantities[$id])) {
                 // If the item already exists in the cart, update the quantity
@@ -134,5 +133,40 @@ class OrderController extends Controller
 
         // Redirect back to the shopping cart page
         return redirect()->route('customer.order.shoppingcart');
+    }
+
+    public function cartToCheckout(Request $request)
+    {
+        // Get the data from the request
+        $reservation_id = $request->input('reservation_id');
+        session()->put('reservation_id', $reservation_id);
+        $cartItems = session()->get('cartItems', []);
+
+        // Redirect to a success page
+        session()->put('cartItems', $cartItems);
+        return redirect()->route('customer.order.checkout');
+    }
+
+    public function checkout()
+    {
+        $reservation_id = session()->get('reservation_id');
+        $reservation = ReservationModel::find($reservation_id);
+        $cartItems = session()->get('cartItems', []);
+        $total = session()->get('total');
+
+        $total = 0;
+
+        foreach ($cartItems as &$item) {
+            $itemTotal = $item['price'] * $item['quantity'];
+            $item['totalPrice'] = $itemTotal;
+            $total += $itemTotal;
+        }
+        unset($item); // Unset reference to avoid side effects
+
+        $orderSummary = (object) [
+            'total' => $total,
+        ];
+
+        return view('customer.order.checkout', ['cartItems' => $cartItems, 'reservation' => $reservation, 'total' => $total, 'orderSummary' => $orderSummary]);
     }
 }

@@ -95,9 +95,8 @@ Route::post('/customer/order/addToCart', [OrderController::class, 'addToCart'])-
 Route::post('/customer/order/updateCart', [OrderController::class, 'updateCart'])->name('customer.order.updateCart');
 Route::post('/customer/order/clearCart', [OrderController::class, 'clearCart'])->name('customer.order.clearCart');
 Route::post('/customer/order/startOrder', [OrderController::class, 'startOrder'])->name('customer.order.startOrder');
-// Route::post('/customer/order/shoppingcart', [OrderController::class, 'addToCart'])->name('customer.order.addToCart');
-// Route::post('/customer/order/shoppingcart', [OrderController::class, 'updateCart'])->name('customer.order.updateCart');
-// Route::post('/customer/order/shoppingcart', [OrderController::class, 'clearCart'])->name('customer.order.clearCart');
+Route::post('/customer/order/cartToCheckout', [OrderController::class, 'cartToCheckout'])->name('customer.order.cartToCheckout');
+Route::get('/customer/order/checkout', [OrderController::class, 'checkout'])->name('customer.order.checkout');
 
 // Auth Checks
 Route::middleware([

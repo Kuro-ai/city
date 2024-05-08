@@ -17,9 +17,6 @@
                                 <img src="{{ asset('menus/' . $item['menuItem']->image) }}"
                                     alt="{{ $item['menuItem']->name }}" class="w-full h-48 object-cover">
                                 <h4 class="text-lg font-bold text-gray-900 mt-2">{{ $item['menuItem']->name }}</h4>
-                                {{-- <input type="text" id="counter-input" data-input-counter
-                                        class="w-10 shrink-0 border-0 bg-transparent text-center text-sm font-medium text-gray-900 focus:outline-none focus:ring-0"
-                                        placeholder="" value="{{ $item['quantity'] }}" /> --}}
                                 <div class="flex items-center">
                                     <input type="number" id="quantity-{{ $item['menuItem']->id }}"
                                         name="quantities[{{ $item['menuItem']->id }}]" min="1"
@@ -51,6 +48,18 @@
                             class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">
                             Clear Cart
                         </button>
+                    </form>
+                    <form action="{{ route('customer.order.cartToCheckout') }}" method="post">
+                        @csrf
+                        <input type="hidden" name="reservation_id" value="{{ session()->get('reservation_id') }}">
+                        @foreach (session()->get('cartItems', []) as $item)
+                        <input type="hidden" name="cartItems[{{ $item['menuItem']->id }}][name]" value="{{ $item['menuItem']->name }}">
+                        <input type="hidden" name="cartItems[{{ $item['menuItem']->id }}][price]" value="{{ $item['menuItem']->price }}">
+                        <input type="hidden" name="cartItems[{{ $item['menuItem']->id }}][quantity]" value="{{ $item['quantity'] }}">
+                        <input type="hidden" name="cartItems[{{ $item['menuItem']->id }}][total]" value="{{ $item['quantity'] * $item['menuItem']->price }}">
+                        @endforeach
+                        <input type="hidden" name="total" value="{{ $orderSummary->total }}">
+                        <button type="submit">Checkout</button>
                     </form>
                 </div>
             </div>
