@@ -8,23 +8,19 @@ use Illuminate\Database\Eloquent\Model;
 class OrderModel extends Model
 {
     use HasFactory;
-
+    protected $table = 'orders';
     protected $fillable = [
-        'name',
+        'first_name',
+        'last_name',
+        'phone',
         'email',
-        'phone_number',
         'address',
-        'menu_id',
-        'reservation_id',
+        'total',
+        'reservation_id'
     ];
 
-    public function menu()
+    public function orderItems()
     {
-        return $this->belongsTo(MenuModel::class);
-    }
-
-    public function reservation()
-    {
-        return $this->belongsTo(ReservationModel::class);
+        return $this->hasMany(OrderItemModel::class);
     }
 }

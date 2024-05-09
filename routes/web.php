@@ -97,7 +97,7 @@ Route::post('/customer/order/clearCart', [OrderController::class, 'clearCart'])-
 Route::post('/customer/order/startOrder', [OrderController::class, 'startOrder'])->name('customer.order.startOrder');
 Route::post('/customer/order/cartToCheckout', [OrderController::class, 'cartToCheckout'])->name('customer.order.cartToCheckout');
 Route::get('/customer/order/checkout', [OrderController::class, 'checkout'])->name('customer.order.checkout');
-
+Route::post('/customer/order/checkout', [OrderController::class, 'store'])->name('customer.order.checkout.store');
 // Auth Checks
 Route::middleware([
     'auth:sanctum',

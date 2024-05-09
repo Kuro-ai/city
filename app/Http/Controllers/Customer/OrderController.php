@@ -7,16 +7,13 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\ReservationModel;
 use App\Models\MenuModel;
+use App\Models\OrderModel;
+use App\Models\OrderItemModel;
 
 class OrderController extends Controller
 {
     public function index()
     {
-        // // Fetch all orders for the authenticated customer
-        // $orders = OrderModel::where('customer_id', Auth::id())->get();
-
-        // // Return the 'customer.order.index' view, passing in the orders
-        // return view('customer.order.index', ['orders' => $orders]);
         return view('customer.menus.index');
     }
 
@@ -142,6 +139,12 @@ class OrderController extends Controller
         session()->put('reservation_id', $reservation_id);
         $cartItems = session()->get('cartItems', []);
 
+        // Update the quantity of each item
+        // foreach ($cartItems as &$item) {
+        //     $item['quantity'] = $request->input("cartItems.{$item['id']}.quantity", 1);
+        // }
+        unset($item); // Unset reference to avoid side effects
+
         // Redirect to a success page
         session()->put('cartItems', $cartItems);
         return redirect()->route('customer.order.checkout');
@@ -168,5 +171,50 @@ class OrderController extends Controller
         ];
 
         return view('customer.order.checkout', ['cartItems' => $cartItems, 'reservation' => $reservation, 'total' => $total, 'orderSummary' => $orderSummary]);
+    }
+
+    public function store(Request $request)
+    {
+        // Validate the request data
+        $validated = $request->validate([
+            'first_name' => 'required',
+            'last_name' => 'required',
+            'phone' => 'required',
+            'email' => 'required|email',
+            'address' => 'required',
+            'cartItems.*.id' => 'required',
+            'cartItems.*.name' => 'required',
+            'cartItems.*.price' => 'required|numeric',
+            'cartItems.*.quantity' => 'required|integer',
+            'cartItems.*.totalPrice' => 'required|numeric',
+            'total' => 'required|numeric',
+        ]);
+
+        // Create a new order
+        $order = new OrderModel();
+        $order->first_name = $validated['first_name'];
+        $order->last_name = $validated['last_name'];
+        $order->phone = $validated['phone'];
+        $order->email = $validated['email'];
+        $order->address = $validated['address'];
+        $order->total = $validated['total'];
+        $order->reservation_id = $request->input('reservation_id');
+        $order->save();
+
+        // Save the cart items
+        foreach ($validated['cartItems'] as $item) {
+            $orderItem = new OrderItemModel();
+            $orderItem->order_id = $order->id;
+            $orderItem->menu_item_id = $item['id'];
+            $orderItem->name = $item['name'];
+            $orderItem->price = $item['price'];
+            $orderItem->quantity = $item['quantity'];
+            $orderItem->total_price = $item['totalPrice'];
+            $orderItem->save();
+        }
+
+        // Redirect to a success page
+        session()->flash('status', 'Order is successfully added!');
+        return redirect()->route('customer.index');
     }
 }
