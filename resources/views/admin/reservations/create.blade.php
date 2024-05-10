@@ -108,6 +108,7 @@
                             extra chairs for children</p>
                     @endif
                 </div>
+                <input type="hidden" name="user_id" value="{{ \Illuminate\Support\Facades\Auth::id() }}">
 
                 <div class="mb-5 mx-auto">
                     <x-button id="submit_button">

@@ -16,47 +16,49 @@ Route::get('/', function () {
 });
 
 // Admin Routes 
-Route::get('/admin', function () {
-    return view('admin.index');
-})->name('admin.index');
-//Admin Routes => Categories
-Route::resource('admin/categories', CategoryController::class)->names([
-    'index' => 'admin.categories.index',
-    'create' => 'admin.categories.create',
-    'store' => 'admin.categories.store',
-    'edit' => 'admin.categories.edit',
-    'update' => 'admin.categories.update',
-    'destroy' => 'admin.categories.destroy',
-    'restore' => 'admin.categories.restore',
-]);
-//Admin Routes => Menus
-Route::resource('admin/menus', MenuController::class)->names([
-    'index' => 'admin.menus.index',
-    'create' => 'admin.menus.create',
-    'store' => 'admin.menus.store',
-    'edit' => 'admin.menus.edit',
-    'update' => 'admin.menus.update',
-    'destroy' => 'admin.menus.destroy',
-]);
-//Admin Routes => Tables
-Route::resource('admin/tables', TableController::class)->names([
-    'index' => 'admin.tables.index',
-    'create' => 'admin.tables.create',
-    'store' => 'admin.tables.store',
-    'edit' => 'admin.tables.edit',
-    'update' => 'admin.tables.update',
-    'destroy' => 'admin.tables.destroy',
-]);
-//Admin Routes => Reservations
-Route::resource('admin/reservations', ReservationController::class)->names([
-    'index' => 'admin.reservations.index',
-    'create' => 'admin.reservations.create',
-    'store' => 'admin.reservations.store',
-    'edit' => 'admin.reservations.edit',
-    'update' => 'admin.reservations.update',
-    'destroy' => 'admin.reservations.destroy',
-]);
-
+Route::group(['middleware' => 'useradmin'], function(){
+    Route::get('/admin', function () {
+        return view('admin.index');
+    })->name('admin.index');
+    //Admin Routes => Categories
+    Route::resource('admin/categories', CategoryController::class)->names([
+        'index' => 'admin.categories.index',
+        'create' => 'admin.categories.create',
+        'store' => 'admin.categories.store',
+        'edit' => 'admin.categories.edit',
+        'update' => 'admin.categories.update',
+        'destroy' => 'admin.categories.destroy',
+        'restore' => 'admin.categories.restore',
+    ]);
+    //Admin Routes => Menus
+    Route::resource('admin/menus', MenuController::class)->names([
+        'index' => 'admin.menus.index',
+        'create' => 'admin.menus.create',
+        'store' => 'admin.menus.store',
+        'edit' => 'admin.menus.edit',
+        'update' => 'admin.menus.update',
+        'destroy' => 'admin.menus.destroy',
+    ]);
+    //Admin Routes => Tables
+    Route::resource('admin/tables', TableController::class)->names([
+        'index' => 'admin.tables.index',
+        'create' => 'admin.tables.create',
+        'store' => 'admin.tables.store',
+        'edit' => 'admin.tables.edit',
+        'update' => 'admin.tables.update',
+        'destroy' => 'admin.tables.destroy',
+    ]);
+    //Admin Routes => Reservations
+    Route::resource('admin/reservations', ReservationController::class)->names([
+        'index' => 'admin.reservations.index',
+        'create' => 'admin.reservations.create',
+        'store' => 'admin.reservations.store',
+        'edit' => 'admin.reservations.edit',
+        'update' => 'admin.reservations.update',
+        'destroy' => 'admin.reservations.destroy',
+    ]);
+    
+});
 
 
 // Customer Routes
@@ -111,5 +113,6 @@ Route::middleware([
         return view('customer.index');
     })->name('dashboard');
 });
+
 
 

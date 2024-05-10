@@ -21,13 +21,15 @@ class CustomerReservationController extends Controller
 
     public function storeStepOne(Request $request)
     {
+        $request['user_id'] = \Illuminate\Support\Facades\Auth::id();
         $validated = $request->validate([
             'first_name' => ['required'],
             'last_name' => ['required'],
             'email' => ['required', 'email'],
             'tel_number' => ['required'],
+            'user_id' => ['required'],
         ]);
-
+        
         if (empty($request->session()->get('reservation'))) {
             $reservation = new ReservationModel();
             $reservation->fill($validated);
@@ -40,6 +42,7 @@ class CustomerReservationController extends Controller
 
         return to_route('customer.reservations.step.two');
     }
+    
     public function stepTwo(Request $request)
     {
         $reservation = $request->session()->get('reservation');

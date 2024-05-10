@@ -63,6 +63,9 @@
                                         <div class="text-red-500">{{ $message }}</div>
                                     @enderror
                                 </div>
+                                <div class="mb-5 sm:col-span-6">
+                                    <input type="text" name="user_id" value="{{ \Illuminate\Support\Facades\Auth::id() }}">
+                                </div>
                                
                                 <div class="mt-6 p-4 flex justify-end">
                                     <button type="submit"
