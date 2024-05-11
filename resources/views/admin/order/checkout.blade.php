@@ -5,7 +5,7 @@
         </h2>
     </x-slot>
 
-    <form method="POST" action="{{route('customer.order.checkout.store')}}">
+    <form method="POST" action="{{route('admin.order.checkout.store')}}">
         @csrf
 
         @if ($reservation)

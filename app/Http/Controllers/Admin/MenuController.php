@@ -18,6 +18,12 @@ class MenuController extends Controller
         return view('admin.menus.index', compact('menus'));
     }
 
+    public function menuslist()
+    {
+        $menus = MenuModel::all();
+        return view('admin.menus.menuslist', compact('menus'));
+    }
+
     /**
      * Show the form for creating a new resource.
      */

@@ -16,7 +16,8 @@ class OrderModel extends Model
         'email',
         'address',
         'total',
-        'reservation_id'
+        'reservation_id',
+        'user_id',
     ];
 
     public function orderItems()

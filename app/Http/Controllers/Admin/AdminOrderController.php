@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Customer;
+namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -10,12 +10,12 @@ use App\Models\MenuModel;
 use App\Models\OrderModel;
 use App\Models\OrderItemModel;
 
-class OrderController extends Controller
+class AdminOrderController extends Controller
 {
-    public function index()
-    {
-        return view('customer.menus.index');
-    }
+    // public function index()
+    // {
+    //     return view('admin.menus.index');
+    // }
 
     public function startOrder(Request $request)
     {
@@ -26,16 +26,16 @@ class OrderController extends Controller
         session()->put('reservation_id', $reservationId);
 
         if ($orderFood === 'yes') {
-            return redirect()->route('customer.menus.index');
+            return redirect()->route('admin.menus.index');
         } else {
-            return redirect()->route('customer.index');
+            return redirect()->route('admin.index');
         }
     }
 
     public function showStartOrder()
     {
         $reservationId = session()->get('reservation_id');
-        return view('customer.menus.index', ['reservation_id' => $reservationId]);
+        return view('admin.menus.index', ['reservation_id' => $reservationId]);
     }
 
     public function addToCart(Request $request)
@@ -68,9 +68,9 @@ class OrderController extends Controller
 
         // Redirect back to the appropriate page based on whether there are items in the cart
         if (empty($cartItems)) {
-            return redirect()->route('customer.menus.index');
+            return redirect()->route('admin.menus.index');
         } else {
-            return redirect()->route('customer.order.shoppingcart');
+            return redirect()->route('admin.order.shoppingcart');
         }
     }
 
@@ -92,7 +92,7 @@ class OrderController extends Controller
             'total' => $total,
         ];
 
-        return view('customer.order.shoppingcart', ['cartItems' => $cartItems, 'orderSummary' => $orderSummary, 'reservation_id' => $reservationId]);
+        return view('admin.order.shoppingcart', ['cartItems' => $cartItems, 'orderSummary' => $orderSummary, 'reservation_id' => $reservationId]);
     }
 
     public function clearCart()
@@ -101,7 +101,7 @@ class OrderController extends Controller
         session()->forget('cartItems');
 
         // Redirect back to the menu page
-        return redirect()->route('customer.menus.index');
+        return redirect()->route('admin.menus.index');
     }
 
     public function updateCart(Request $request)
@@ -129,7 +129,7 @@ class OrderController extends Controller
         session()->put('cartItems', $cartItems);
 
         // Redirect back to the shopping cart page
-        return redirect()->route('customer.order.shoppingcart');
+        return redirect()->route('admin.order.shoppingcart');
     }
 
     public function cartToCheckout(Request $request)
@@ -147,7 +147,7 @@ class OrderController extends Controller
 
         // Redirect to a success page
         session()->put('cartItems', $cartItems);
-        return redirect()->route('customer.order.checkout');
+        return redirect()->route('admin.order.checkout');
     }
 
     public function checkout()
@@ -170,7 +170,7 @@ class OrderController extends Controller
             'total' => $total,
         ];
 
-        return view('customer.order.checkout', ['cartItems' => $cartItems, 'reservation' => $reservation, 'total' => $total, 'orderSummary' => $orderSummary]);
+        return view('admin.order.checkout', ['cartItems' => $cartItems, 'reservation' => $reservation, 'total' => $total, 'orderSummary' => $orderSummary]);
     }
 
     public function store(Request $request)
@@ -218,7 +218,7 @@ class OrderController extends Controller
     
         // Redirect to a success page
         session()->flash('status', 'Order is successfully added!');
-        return redirect()->route('customer.index');
+        return redirect()->route('admin.index');
     }
     
 }

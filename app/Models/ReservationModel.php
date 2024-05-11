@@ -11,14 +11,14 @@ class ReservationModel extends Model
 
     protected $fillable = ['first_name', 'last_name', 'email', 'tel_number', 'res_date', 'guest_number', 'table_id', 'user_id'];
 
-    public function table()
+    public function tables()
     {
         return $this->hasmany('App\Models\TableModel', 'id', 'table_id');
     }
 
     protected $dates = ['res_date'];
 
-    public function tables()
+    public function table()
     {
         return $this->belongsTo(TableModel::class);
     }

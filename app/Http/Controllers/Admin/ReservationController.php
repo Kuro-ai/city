@@ -34,6 +34,7 @@ class ReservationController extends Controller
      */
     public function store(Request $request)
     {
+        $request['user_id'] = \Illuminate\Support\Facades\Auth::id();
         $table = TableModel::find($request->table_id);
 
         if (!$table) {
@@ -48,6 +49,7 @@ class ReservationController extends Controller
             'tel_number' => 'required',
             'res_date' => 'required | date | after_or_equal:now',
             'guest_number' => 'required | integer | max:' . $table->capacity,
+            'user_id' => ['required'],
         ]);
 
         $existingReservation = ReservationModel::where('table_id', $request->table_id)
@@ -68,7 +70,11 @@ class ReservationController extends Controller
         $reservationController->res_date = $request->res_date;
         $reservationController->table_id = $request->table_id;
         $reservationController->guest_number = $request->guest_number;
+        $reservationController->user_id = $request->user_id;
         $reservationController->save();
+
+        // Store the id of the new reservation in the session
+        session(['reservation_id' => $reservationController->id]);
 
         $table = TableModel::find($request->table_id);
         if ($table) {
@@ -76,11 +82,8 @@ class ReservationController extends Controller
             $table->save();
         }
 
-        session()->flash('status', 'Table is successfully reserved!');
-
-        return redirect()->route('admin.reservations.index');
+        return redirect()->route('admin.thankyou');
     }
-
     /**
      * Display the specified resource.
      */

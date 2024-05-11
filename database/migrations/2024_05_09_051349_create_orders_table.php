@@ -19,6 +19,7 @@ return new class extends Migration {
             $table->string('address');
             $table->decimal('total', 10, 2);
             $table->unsignedBigInteger('reservation_id')->nullable();
+            $table->unsignedBigInteger('user_id');
             $table->timestamps();
         });
     }

@@ -92,8 +92,13 @@
                                         {{ $reservation->guest_number }}
                                     </td>
                                     <td scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
-                                        {{$reservation->table[0]->name}}
-                                    </td>                                   
+                                        @if($reservation->table)
+                                            {{$reservation->table->name}}
+                                        @else
+                                            No table assigned
+                                        @endif
+                                    </td>
+                                                                     
                                     <td scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
                                         <div class="flex space-x-2 justify-center items-center">
                                             <a href="{{ route('admin.reservations.edit', $reservation->id) }}"
