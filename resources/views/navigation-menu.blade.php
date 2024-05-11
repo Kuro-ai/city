@@ -22,9 +22,6 @@
                         <x-nav-link href="{{ route('admin.menus.index') }}" :active="request()->routeIs('admin.menus.index')">
                             {{ __('Menu') }}
                         </x-nav-link>
-                        <x-nav-link href="{{ route('admin.menus.menuslist') }}" :active="request()->routeIs('admin.menus.menuslist')">
-                            {{ __('Order Food') }}
-                        </x-nav-link>
                         <x-nav-link href="{{ route('admin.tables.index') }}" :active="request()->routeIs('admin.tables.index')">
                             {{ __('Tables') }}
                         </x-nav-link>

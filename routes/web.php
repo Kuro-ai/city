@@ -12,6 +12,7 @@ use App\Http\Controllers\Admin\AdminOrderController;
 use App\Http\Controllers\Customer\ThankYouController;
 use App\Http\Controllers\Admin\AdminThankYouController;
 use App\Http\Controllers\Customer\HistoryListController;
+use App\Http\Controllers\Admin\AdminHistoryListController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -71,6 +72,7 @@ Route::group(['middleware' => 'useradmin'], function () {
     Route::post('/admin/order/checkout', [AdminOrderController::class, 'store'])->name('admin.order.checkout.store');
 
     Route::get('/admin/thankyou', [AdminThankYouController::class, 'adminthankyou'])->name('admin.thankyou');
+    Route::get('/admin', [AdminHistoryListController::class, 'index'])->name('admin.index');
 });
 
 // Customer Routes

@@ -64,11 +64,11 @@
                     </span>
                 </div>
             @endif
-            <div>
+            <div class="mx-auto justify-center items-center flex">
                 <form id="addToCartForm" action="{{ route('admin.order.addToCart') }}" method="post" onsubmit="return checkSelection()">
                     <input type="hidden" name="reservation_id" value="{{ session()->get('reservation_id') }}">
                     @csrf
-                    <div class="grid grid-cols-4 gap-4">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4" >
                         @foreach ($menus as $menu)
                             <div class="max-w-xs mb-2 rounded-lg shadow-lg">
                                 <img class="w-full h-48" src="{{ asset('menus/' . $menu->image) }}" alt="Image" />
