@@ -102,13 +102,15 @@
                                     <td scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
                                         <div class="flex space-x-2 justify-center items-center">
                                             <a href="{{ route('admin.reservations.edit', $reservation->id) }}"
-                                                class="px-3 py-3 bg-green-500 hover:bg-green-700 rounded-lg text-white">Edit</a>
-                                            <form class="px-2 py-3 bg-red-500 hover:bg-red-700 rounded-lg text-white"
+                                                class="px-3 py-3 hover:bg-green-200 rounded-lg text-white">
+                                                <img src="{{ asset('others/edit.png') }}" class="w-8 h-8">
+                                            </a>
+                                            <form class="px-2 py-3 hover:bg-red-400 rounded-lg text-white"
                                                 action="{{ route('admin.reservations.destroy', $reservation->id) }}"
                                                 method="POST" onsubmit="return confirm('Are you sure?')">
                                                 @csrf
                                                 @method('DELETE')
-                                                <button type="submit">Delete</button>
+                                                <button type="submit"><img src="{{ asset('others/delete.png') }}" class="w-8 h-8"></button>
                                             </form>
                                         </div>
                                     </td>
@@ -118,6 +120,7 @@
 
                     </tbody>
                 </table>
+                <div class="p-6">{{ $reservations->links() }}</div>
             </div>
 
 

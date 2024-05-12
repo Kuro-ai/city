@@ -10,7 +10,7 @@
                 <div class="flex flex-col md:flex-row">
                     <div class="h-32 md:h-auto md:w-1/2">
                         <img class="object-cover w-full h-full"
-                            src="https://cdn.pixabay.com/photo/2021/01/15/17/01/green-5919790__340.jpg" alt="img" />
+                            src="{{ asset('others/step-one.jpg') }}" alt="img" />
                     </div>
                     <div class="flex items-center justify-center p-6 sm:p-12 md:w-1/2">
                         <div class="w-full">
@@ -18,8 +18,9 @@
 
                             <div class="w-full bg-gray-200 rounded-full">
                                 <div
-                                    class="w-40 p-1 text-xs font-medium leading-none text-center text-blue-100 bg-blue-600 rounded-full">
-                                    Step1</div>
+                                    class="w-48 p-1 text-xs font-medium leading-none text-center text-blue-100 bg-blue-600 rounded-full">
+                                    Step1
+                                </div>
                             </div>
 
                             <form method="POST" action="{{ route('customer.reservations.store.step.one') }}">
@@ -64,7 +65,7 @@
                                     @enderror
                                 </div>
                                 <div class="mb-5 sm:col-span-6">
-                                    <input type="text" name="user_id" value="{{ \Illuminate\Support\Facades\Auth::id() }}">
+                                    <input type="hidden" name="user_id" value="{{ \Illuminate\Support\Facades\Auth::id() }}">
                                 </div>
                                
                                 <div class="mt-6 p-4 flex justify-end">

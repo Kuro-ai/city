@@ -28,7 +28,7 @@
         </h2>
     </x-slot>
     <div class="container w-full px-5 py-6 mx-auto">
-        <form action="{{ route('admin.order.addToCart') }}" method="post" onsubmit="return checkSelection()" class="grid grid-cols-4 gap-6">
+        <form action="{{ route('customer.order.addToCart') }}" method="post" onsubmit="return checkSelection()" class="grid grid-cols-4 gap-6">
             <input type="text" name="reservation_id" value="{{ session()->get('reservation_id') }}" class="hidden">
             @csrf
             @foreach ($menus as $menu)

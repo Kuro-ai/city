@@ -50,6 +50,16 @@ class MenuController extends Controller
             return back()->withErrors(['menu' => 'This menu already exists.']);
         }
 
+        // Get image dimensions
+        $image = getimagesize($request->file('image'));
+        $width = $image[0];
+        $height = $image[1];
+
+        // Check if image is landscape
+        if ($width <= $height) {
+            return back()->withErrors(['image' => 'The image must be in landscape orientation.']);
+        }
+
         $imgName = date('dmy_H_s_i') . uniqid() . '.' . $request->image->extension();
         $request->image->move(public_path('menus'), $imgName);
 
@@ -111,6 +121,15 @@ class MenuController extends Controller
             $request->validate([
                 'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:5000',
             ]);
+
+            $image = getimagesize($request->file('image'));
+            $width = $image[0];
+            $height = $image[1];
+
+            // Check if image is landscape
+            if ($width <= $height) {
+                return back()->withErrors(['image' => 'The image must be in landscape orientation.']);
+            }
 
             // Delete the old image
             $oldImagePath = public_path('menus/' . $menuController->image);

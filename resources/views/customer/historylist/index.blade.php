@@ -67,6 +67,9 @@
 
                 </tbody>
             </table>
+            <div class="p-6">
+                {{ $reservationList->links() }}
+            </div>
         </div>
 
         <div class="relative overflow-x-auto shadow-md sm:rounded-lg" id="orderContent" style="display: none;">
@@ -100,58 +103,61 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @if (empty($orderList))
-                        <tr>
-                            <td colspan="5" class="px-6 py-4 whitespace-nowrap text-center">No List Available
-                            </td>
-                        </tr>
-                    @else
-                    @foreach ($orderList as $orderId => $orderItems)
-                    @foreach ($orderItems as $index => $orderItem)
-                        <tr class="odd:bg-white even:bg-gray-50">
-                            @if ($index === 0)
-                                <td scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
-                                    {{ $orderId }}
-                                </td>
-                                <td scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
-                                    {{ $orderItems->first()->first_name }} {{ $orderItems->first()->last_name }}
-                                </td>
-                                <td scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
-                                    {{ $orderItems->first()->phone }}
-                                </td>
-                                <td scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
-                                    {{ $orderItems->first()->address }}
-                                </td> <!-- Here is the corrected part -->
-                            @else
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
+                    @if (!empty($orderList))
+                        @php
+                            $lastOrderId = null;
+                            $total = null;
+                            $created_at = null;
+                        @endphp
+                        @foreach ($orderList as $order)
+                            @if ($lastOrderId !== $order->id)
+                                @php
+                                    $total = $order->total;
+                                    $created_at = $order->created_at;
+                                @endphp
                             @endif
-                            <td scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
-                                {{ $orderItem->name }}
-                            </td>
-                            <td scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
-                                {{ $orderItem->quantity }}
-                            </td>
-                            @if ($index === 0)
+                            <tr class="odd:bg-white even:bg-gray-50">
                                 <td scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
-                                    {{ $orderItems->first()->total }}
+                                    @if ($lastOrderId !== $order->id)
+                                        {{ $order->id }}
+                                        @php
+                                            $lastOrderId = $order->id;
+                                        @endphp
+                                    @endif
                                 </td>
                                 <td scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
-                                    {{ $orderItems->first()->created_at }}
+                                    {{ $order->first_name }} {{ $order->last_name }}
                                 </td>
-                            @else
-                                <td></td>
-                                <td></td>
-                            @endif
-                        </tr>
-                    @endforeach
-                @endforeach
+                                <td scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
+                                    {{ $order->phone }}
+                                </td>
+                                <td scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
+                                    {{ $order->address }}
+                                </td>
+                                <td scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
+                                    {{ $order->name }}
+                                </td>
+                                <td scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
+                                    {{ $order->quantity }}
+                                </td>
+                                <td scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
+                                    {{ $total }}
+                                </td>
+                                <td scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
+                                    {{ $created_at }}
+                                </td>
+                            </tr>
+                            @php
+                                $total = null;
+                                $created_at = null;
+                            @endphp
+                        @endforeach
                     @endif
-
                 </tbody>
             </table>
+            <div class="p-6">
+                {{ $orderList->links() }}
+            </div>
         </div>
     </div>
 </x-app-layout>

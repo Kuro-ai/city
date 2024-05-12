@@ -10,7 +10,7 @@
                     xmlns:xlink="http://www.w3.org/1999/xlink" width="30px" height="30px" viewBox="0 0 902.86 902.86"
                     xml:space="preserve">
                     <g>
-                        <g>                      
+                        <g>
                             <path d="M671.504,577.829l110.485-432.609H902.86v-68H729.174L703.128,179.2L0,178.697l74.753,399.129h596.751V577.829z
     M685.766,247.188l-67.077,262.64H131.199L81.928,246.756L685.766,247.188z" />
                             <path d="M578.418,825.641c59.961,0,108.743-48.783,108.743-108.744s-48.782-108.742-108.743-108.742H168.717
@@ -23,10 +23,10 @@
                         </g>
                     </g>
                 </svg>
-                
+
             </a>
         </h2>
-        
+
     </x-slot>
 
     <div class="py-12">
@@ -41,8 +41,8 @@
                     role="alert">
                     {{ session('status') }}
                     <span class="absolute top-0 bottom-0 right-0 px-4 py-3 close-alert">
-                        <svg class="fill-current h-6 w-6 text-green-500" role="button" xmlns="http://www.w3.org/2000/svg"
-                            viewBox="0 0 20 20">
+                        <svg class="fill-current h-6 w-6 text-green-500" role="button"
+                            xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
                             <title>Close</title>
                             <path
                                 d="M14.348 14.849a1.2 1.2 0 0 1-1.697 0L10 11.819l-2.651 3.029a1.2 1.2 0 1 1-1.697-1.697l2.758-3.15-2.759-3.152a1.2 1.2 0 1 1 1.697-1.697L10 8.183l2.651-3.031a1.2 1.2 0 1 1 1.697 1.697l-2.758 3.152 2.758 3.15a1.2 1.2 0 0 1 0 1.698z" />
@@ -65,25 +65,33 @@
                 </div>
             @endif
             <div class="mx-auto justify-center items-center flex">
-                <form id="addToCartForm" action="{{ route('admin.order.addToCart') }}" method="post" onsubmit="return checkSelection()">
+                <form id="addToCartForm" action="{{ route('admin.order.addToCart') }}" method="post"
+                    onsubmit="return checkSelection()">
                     <input type="hidden" name="reservation_id" value="{{ session()->get('reservation_id') }}">
                     @csrf
-                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4" >
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
                         @foreach ($menus as $menu)
                             <div class="max-w-xs mb-2 rounded-lg shadow-lg">
                                 <img class="w-full h-48" src="{{ asset('menus/' . $menu->image) }}" alt="Image" />
                                 <div class="px-6 py-4">
-                                    <h4 class="mb-3 text-xl font-semibold tracking-tight text-green-600 uppercase">{{ $menu->name }}</h4>
+                                    <h4 class="mb-3 text-xl font-semibold tracking-tight text-green-600 uppercase">
+                                        {{ $menu->name }}</h4>
                                     <p class="leading-normal text-gray-700">{{ $menu->description }}.</p>
                                 </div>
                                 <div class="px-6 py-4">
                                     <span class="text-xl text-green-600">${{ $menu->price }}</span>
                                     <input type="checkbox" name="menus[]" value="{{ $menu->id }}">
-                                    <input type="number" name="quantities[{{ $menu->id }}]" min="1" value="1">
+                                    <input type="number" name="quantities[{{ $menu->id }}]" min="1"
+                                        value="1">
                                 </div>
                                 <div class="px-6 py-4 flex justify-center space-x-4">
-                                    <a href="{{ route('admin.menus.edit', $menu->id) }}" class="px-3 py-3 bg-green-500 hover:bg-green-700 rounded-lg text-white">Edit</a>
-                                    <button type="button" class="px-2 py-3 bg-red-500 hover:bg-red-700 rounded-lg text-white" onclick="deleteItem({{ $menu->id }})">Delete</button>
+                                    <a href="{{ route('admin.menus.edit', $menu->id) }}"
+                                        class="px-3 py-3 hover:bg-green-200 rounded-lg text-white">
+                                        <img src="{{ asset('others/edit.png') }}" class="w-8 h-8">
+                                    </a>
+                                    <button type="button"
+                                        class="px-2 py-3 hover:bg-red-400 rounded-lg text-white"
+                                        onclick="deleteItem({{ $menu->id }})"><img src="{{ asset('others/delete.png') }}" class="w-8 h-8"></button>
                                 </div>
                             </div>
                         @endforeach

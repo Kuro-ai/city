@@ -13,7 +13,7 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $categories = CategoryModel::all();
+        $categories = CategoryModel::paginate(10);
         return view('admin.categories.index', compact('categories'));
     }
 
@@ -37,11 +37,18 @@ class CategoryController extends Controller
             'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:5000',
         ]);
 
-    
-
         $existingCategory = CategoryModel::firstWhere('name', $request->category);
         if ($existingCategory) {
             return back()->withErrors(['category' => 'This Category already exists.']);
+        }
+
+        $image = getimagesize($request->file('image'));
+        $width = $image[0];
+        $height = $image[1];
+
+        // Check if image is landscape
+        if ($width <= $height) {
+            return back()->withErrors(['image' => 'The image must be in landscape orientation.']);
         }
 
         $imgName = date('dmy_H_s_i') . uniqid() . '.' . $request->image->extension();
@@ -63,7 +70,6 @@ class CategoryController extends Controller
      */
     public function show(string $id)
     {
-        
     }
 
     /**
@@ -76,10 +82,9 @@ class CategoryController extends Controller
         if (!$category) {
             // Handle the case where the category doesn't exist
             return redirect()
-            ->back()
-            ->withErrors(['error' => 'Category not found']);
+                ->back()
+                ->withErrors(['error' => 'Category not found']);
         }
-
 
         $categories = CategoryModel::find($id);
         return view('admin.categories.edit', compact('category'));
@@ -101,6 +106,15 @@ class CategoryController extends Controller
             $request->validate([
                 'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:5000',
             ]);
+
+            $image = getimagesize($request->file('image'));
+            $width = $image[0];
+            $height = $image[1];
+
+            // Check if image is landscape
+            if ($width <= $height) {
+                return back()->withErrors(['image' => 'The image must be in landscape orientation.']);
+            }
 
             // Delete the old image
             $oldImagePath = public_path('categories/' . $categoryController->image);

@@ -14,7 +14,7 @@ class TableController extends Controller
      */
     public function index()
     {
-        $tables = TableModel::all();
+        $tables = TableModel::paginate(10);
         return view('admin.tables.index', compact('tables'));
     }
 

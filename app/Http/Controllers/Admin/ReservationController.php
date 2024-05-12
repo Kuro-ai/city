@@ -16,7 +16,7 @@ class ReservationController extends Controller
      */
     public function index()
     {
-        $reservations = ReservationModel::all();
+        $reservations = ReservationModel::paginate(10);
         return view('admin.reservations.index', compact('reservations'));
     }
 

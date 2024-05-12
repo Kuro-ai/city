@@ -19,13 +19,14 @@ class AdminHistoryListController extends Controller
 
     public function reservationlist()
     {
-        $reservations = ReservationModel::all();
+        $reservations = ReservationModel::paginate(10);
         return $reservations;
     }
 
     public function orderlist()
     {
-        $orderItems = DB::table('order_items')->join('orders', 'order_items.order_id', '=', 'orders.id')->select('order_items.*', 'orders.*')->get()->groupBy('order_id');
+    
+        $orderItems = DB::table('order_items')->join('orders', 'order_items.order_id', '=', 'orders.id')->select('order_items.*', 'orders.*')->paginate(10); // Adjust the number based on your pagination needs
         return $orderItems;
     }
 }

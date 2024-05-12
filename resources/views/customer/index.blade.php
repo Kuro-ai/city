@@ -11,7 +11,7 @@
                     xml:space="preserve">
                     <g>
                         <g>
-                            
+
                             <path d="M671.504,577.829l110.485-432.609H902.86v-68H729.174L703.128,179.2L0,178.697l74.753,399.129h596.751V577.829z
    M685.766,247.188l-67.077,262.64H131.199L81.928,246.756L685.766,247.188z" />
                             <path d="M578.418,825.641c59.961,0,108.743-48.783,108.743-108.744s-48.782-108.742-108.743-108.742H168.717
@@ -24,35 +24,34 @@
                         </g>
                     </g>
                 </svg>
-                
+
             </a>
         </h2>
     </x-slot>
     @if (session('status'))
-                <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative mt-3 text-center"
-                    role="alert">
-                    {{ session('status') }}
-                    <span class="absolute top-0 bottom-0 right-0 px-4 py-3 close-alert">
-                        <svg class="fill-current h-6 w-6 text-green-500" role="button" xmlns="http://www.w3.org/2000/svg"
-                            viewBox="0 0 20 20">
-                            <title>Close</title>
-                            <path
-                                d="M14.348 14.849a1.2 1.2 0 0 1-1.697 0L10 11.819l-2.651 3.029a1.2 1.2 0 1 1-1.697-1.697l2.758-3.15-2.759-3.152a1.2 1.2 0 1 1 1.697-1.697L10 8.183l2.651-3.031a1.2 1.2 0 1 1 1.697 1.697l-2.758 3.152 2.758 3.15a1.2 1.2 0 0 1 0 1.698z" />
-                        </svg>
-                    </span>
-                </div>
-            @endif
+        <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative mt-3 text-center"
+            role="alert">
+            {{ session('status') }}
+            <span class="absolute top-0 bottom-0 right-0 px-4 py-3 close-alert">
+                <svg class="fill-current h-6 w-6 text-green-500" role="button" xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 20 20">
+                    <title>Close</title>
+                    <path
+                        d="M14.348 14.849a1.2 1.2 0 0 1-1.697 0L10 11.819l-2.651 3.029a1.2 1.2 0 1 1-1.697-1.697l2.758-3.15-2.759-3.152a1.2 1.2 0 1 1 1.697-1.697L10 8.183l2.651-3.031a1.2 1.2 0 1 1 1.697 1.697l-2.758 3.152 2.758 3.15a1.2 1.2 0 0 1 0 1.698z" />
+                </svg>
+            </span>
+        </div>
+    @endif
     <!-- Main Hero Content -->
     <div class="container max-w-lg px-4 py-32 mx-auto text-left bg-center bg-no-repeat bg-cover md:max-w-none md:text-center"
-        style="background-image: url('https://cdn.pixabay.com/photo/2016/11/18/14/39/beans-1834984_960_720.jpg')">
+        style="background-image: url('https://d7fcfvvxwoz9e.cloudfront.net/dom43635/wp-content/uploads/2020/08/7-Restaurant-Interior-Design-Trends-for-2024.jpg')">
         <h1
             class="font-mono text-3xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-blue-500 md:text-center sm:leading-none lg:text-5xl">
-            <span class="inline md:block">Welcome To Larainfo Restaurant</span>
+            <span class="inline md:block">Welcome To City Restaurant</span>
         </h1>
-        <div class="mx-auto mt-2 text-green-50 md:text-center lg:text-lg">
-            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Soluta voluptatem ab necessitatibus illo
-            praesentium
-            culpa excepturi quae commodi quaerat,
+        <div class="mx-auto mt-2  md:text-center lg:text-lg text-yellow-400 bg-black p-4">
+            where every dish tells a story of flavors crafted with passion and expertise. Whether you're craving a comforting
+            classic or seeking culinary adventure, our team is dedicated to serving you excellence in every bite. 
         </div>
         <div class="flex flex-col items-center mt-12 text-center">
             <span class="relative inline-flex w-full md:w-auto">
@@ -121,8 +120,8 @@
                             inventore a veritatis doloremque corrupti. Veritatis est expedita cupiditate!</p>
                         <ul>
                             <li class="flex items-center py-2 space-x-4 xl:py-3">
-                                <svg class="w-8 h-8 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"
-                                    xmlns="http://www.w3.org/2000/svg">
+                                <svg class="w-8 h-8 text-gray-500" fill="none" stroke="currentColor"
+                                    viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                         d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z">
                                     </path>
@@ -138,8 +137,8 @@
                                 <span class="font-medium text-gray-500">Easy Payments</span>
                             </li>
                             <li class="flex items-center py-2 space-x-4 xl:py-3">
-                                <svg class="w-8 h-8 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"
-                                    xmlns="http://www.w3.org/2000/svg">
+                                <svg class="w-8 h-8 text-gray-500" fill="none" stroke="currentColor"
+                                    viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                         d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z">
                                     </path>
@@ -156,64 +155,28 @@
             </div>
         </div>
     </section>
-    <section class="pt-4 pb-12 bg-gray-800">
-        <div class="my-16 text-center">
-            <h2 class="text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-blue-500">
-                Testimonial </h2>
-            <p class="text-xl text-white">Lorem ipsum dolor sit amet consectetur adipisicing elit. soluta sapient</p>
-        </div>
-        <div class="grid gap-2 lg:grid-cols-3">
-            <div class="max-w-md p-4 bg-white rounded-lg shadow-lg">
-                <div class="flex justify-center -mt-16 md:justify-end">
-                    <img class="object-cover w-20 h-20 border-2 border-green-500 rounded-full"
-                        src="https://images.unsplash.com/photo-1499714608240-22fc6ad53fb2?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=334&q=80">
-                </div>
-                <div>
-                    <h2 class="text-3xl font-semibold text-gray-800">Food</h2>
-                    <p class="mt-2 text-gray-600">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quae dolores
-                        deserunt
-                        ea doloremque natus error, rerum quas odio quaerat nam ex commodi hic, suscipit in a veritatis
-                        pariatur
-                        minus consequuntur!</p>
-                </div>
-                <div class="flex justify-end mt-4">
-                    <a href="#" class="text-xl font-medium text-green-500">John Doe</a>
-                </div>
-            </div>
-            <div class="max-w-md p-4 bg-white rounded-lg shadow-lg">
-                <div class="flex justify-center -mt-16 md:justify-end">
-                    <img class="object-cover w-20 h-20 border-2 border-green-500 rounded-full"
-                        src="https://cdn.pixabay.com/photo/2018/01/04/21/15/young-3061652__340.jpg">
-                </div>
-                <div>
-                    <h2 class="text-3xl font-semibold text-gray-800">Food</h2>
-                    <p class="mt-2 text-gray-600">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quae dolores
-                        deserunt
-                        ea doloremque natus error, rerum quas odio quaerat nam ex commodi hic, suscipit in a veritatis
-                        pariatur
-                        minus consequuntur!</p>
-                </div>
-                <div class="flex justify-end mt-4">
-                    <a href="#" class="text-xl font-medium text-green-500">John Doe</a>
-                </div>
-            </div>
-            <div class="max-w-md p-4 bg-white rounded-lg shadow-lg">
-                <div class="flex justify-center -mt-16 md:justify-end">
-                    <img class="object-cover w-20 h-20 border-2 border-green-500 rounded-full"
-                        src="https://cdn.pixabay.com/photo/2018/01/18/17/48/purchase-3090818__340.jpg">
-                </div>
-                <div>
-                    <h2 class="text-3xl font-semibold text-gray-800">Food</h2>
-                    <p class="mt-2 text-gray-600">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quae dolores
-                        deserunt
-                        ea doloremque natus error, rerum quas odio quaerat nam ex commodi hic, suscipit in a veritatis
-                        pariatur
-                        minus consequuntur!</p>
-                </div>
-                <div class="flex justify-end mt-4">
-                    <a href="#" class="text-xl font-medium text-green-500">John Doe</a>
-                </div>
-            </div>
-        </div>
-    </section>
+    <button onclick="topFunction()" id="myBtn" title="Go to top"
+        class="fixed right-4 bottom-20 z-50 bg-black bg-opacity-50 text-white p-3 rounded-lg cursor-pointer hover:bg-opacity-80">&#8679;</button>
 </x-app-layout>
+<script>
+    window.onscroll = function() {
+        scrollFunction()
+    };
+
+    function scrollFunction() {
+        var mybutton = document.getElementById("myBtn");
+        if (document.body.scrollTop > window.innerHeight / 2 || document.documentElement.scrollTop > window
+            .innerHeight / 2) {
+            mybutton.classList.remove('invisible');
+        } else {
+            mybutton.classList.add('invisible');
+        }
+    }
+
+    function topFunction() {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+    }
+</script>
