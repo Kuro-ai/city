@@ -7,17 +7,22 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\ReservationModel;
 use App\Models\TableModel;
+use App\Models\OrderModel;
 use Illuminate\Validation\ValidationException;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\ReservationConfirmation;
 
 class ReservationController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
+
     public function index()
     {
-        $reservations = ReservationModel::paginate(10);
-        return view('admin.reservations.index', compact('reservations'));
+        $reservations = ReservationModel::orderBy('id', 'desc')->paginate(10);
+        return view('admin.reservations.index', ['reservations' => $reservations]);
     }
 
     /**
@@ -166,15 +171,36 @@ class ReservationController extends Controller
      */
     public function destroy(string $id)
     {
-        $reservation = ReservationModel::find($id);
+        $reservation = ReservationModel::with('orderItems', 'order')->find($id);
+        foreach ($reservation->orderItems as $orderItem) {
+            $orderItem->delete();
+        }
+        if ($reservation->order) {
+            foreach ($reservation->order->orderItems as $orderItem) {
+                $orderItem->delete();
+            }
+            $reservation->order->delete();
+        }
         $table = TableModel::find($reservation->table_id);
         if ($table) {
             $table->status = TableStatus::Available;
             $table->save();
         }
         $reservation->delete();
-        session()->flash('deletestatus', 'Reservation is successfully deleted!');
-
+        session()->flash('deletestatus', 'Reservation and associated order items successfully deleted!');
         return redirect()->route('admin.reservations.index');
+    }
+
+    public function reservationemail($id)
+    {
+        $reservation = ReservationModel::findOrFail($id);
+        $email = new ReservationConfirmation($reservation);
+
+        Mail::to($reservation->email)->send($email);
+
+        $reservation->email_sent = true;
+        $reservation->save();
+
+        return redirect()->route('admin.reservations.index')->with('status', 'Email is successfully sent!');
     }
 }

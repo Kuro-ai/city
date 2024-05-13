@@ -9,7 +9,7 @@
         @csrf
 
         @if ($reservation)
-            <input type="text" id="" name="first_name" value="{{ $reservation->id }}">
+            <input type="text" id="" name="reservation_id" value="{{ $reservation->id }}">
             <input type="text" id="first_name" name="first_name" value="{{ $reservation->first_name }}">
             <input type="text" id="last_name" name="last_name" value="{{ $reservation->last_name }}">
             <input type="text" id="phone" name="phone" value="{{ $reservation->tel_number }}">

@@ -21,6 +21,7 @@ return new class extends Migration
             $table->unsignedBigInteger('table_id');
             $table->integer('guest_number');
             $table->unsignedBigInteger('user_id');
+            $table->boolean('email_sent')->default(false);
             $table->timestamps();
         });
     }

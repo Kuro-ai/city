@@ -61,6 +61,14 @@ Route::group(['middleware' => 'useradmin'], function () {
         'update' => 'admin.reservations.update',
         'destroy' => 'admin.reservations.destroy',
     ]);
+
+    Route::resource('admin/orders', AdminOrderController::class)->names([
+        'index' => 'admin.orders.index',
+        'destroy' => 'admin.orders.destroy',
+    ]);
+    Route::post('admin/orders/orderemail/{id}', [ReservationController::class, 'orderemail'])->name('admin.orders.orderemail');
+    Route::post('admin/reservations/reservationemail/{id}', [ReservationController::class, 'reservationemail'])->name('admin.reservations.reservationemail');
+   
     //Admin Routes => Orders
     Route::get('/admin/order/shoppingcart', [AdminOrderController::class, 'showCart'])->name('admin.order.shoppingcart');
     Route::post('/admin/order/addToCart', [AdminOrderController::class, 'addToCart'])->name('admin.order.addToCart');
@@ -72,7 +80,6 @@ Route::group(['middleware' => 'useradmin'], function () {
     Route::post('/admin/order/checkout', [AdminOrderController::class, 'store'])->name('admin.order.checkout.store');
 
     Route::get('/admin/thankyou', [AdminThankYouController::class, 'adminthankyou'])->name('admin.thankyou');
-    Route::get('/admin', [AdminHistoryListController::class, 'index'])->name('admin.index');
 });
 
 // Customer Routes

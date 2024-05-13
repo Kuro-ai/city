@@ -22,4 +22,14 @@ class ReservationModel extends Model
     {
         return $this->belongsTo(TableModel::class);
     }
+
+    public function order()
+    {
+        return $this->belongsTo(OrderModel::class);
+    }
+
+    public function orderItems()
+    {
+        return $this->hasManyThrough(OrderItemModel::class, OrderModel::class, 'reservation_id', 'order_id');
+    }
 }

@@ -9,13 +9,18 @@ use App\Models\ReservationModel;
 use App\Models\MenuModel;
 use App\Models\OrderModel;
 use App\Models\OrderItemModel;
-
+use Illuminate\Support\Facades\DB;
+use App\Mail\OrderConfirmation;
+use Illuminate\Support\Facades\Mail;
 class AdminOrderController extends Controller
 {
-    // public function index()
-    // {
-    //     return view('admin.menus.index');
-    // }
+    public function index()
+    {
+        $orderList = DB::table('order_items')->join('orders', 'order_items.order_id', '=', 'orders.id')->select('order_items.*', 'orders.*')->orderBy('order_items.id', 'desc')->paginate(10); // Adjust the number based on your pagination needs
+        return view('admin.orders.index', [
+            'orderList' => $orderList,
+          ]);
+    }
 
     public function startOrder(Request $request)
     {
@@ -219,6 +224,34 @@ class AdminOrderController extends Controller
         // Redirect to a success page
         session()->flash('status', 'Order is successfully added!');
         return redirect()->route('admin.index');
+    }
+
+    public function orderemail($id)
+    {
+        $order = DB::table('order_items')->join('orders', 'order_items.order_id', '=', 'orders.id')->select('order_items.*', 'orders.*')->where('order_items.id', $id)->first();
+
+        $email = new OrderConfirmation($order);
+
+        Mail::to($order->email)->send($email);
+
+        DB::table('orders')
+            ->where('id', $order->id)
+            ->update(['email_sent' => true]);
+
+        return redirect()->route('admin.orders.index')->with('status', 'Email is successfully sent!');
+    }
+
+    public function destroy(string $id)
+    {
+        $order = OrderModel::find($id);
+        $orderItems = OrderItemModel::where('order_id', $id)->get();
+        foreach ($orderItems as $orderItem) {
+            $orderItem->delete();
+        }
+        $order->delete();
+        session()->flash('deletestatus', 'Order is successfully deleted!');
+
+        return redirect()->route('admin.orders.index');
     }
     
 }
