@@ -22,15 +22,13 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
                 This is the admin page.
-                (1) Dont forget to change the footer
                 (1.1) Contact Page & Terms Page
                 (2) Also search funciton for all tables.
                 (2.1) Add edit or delete in admin.index
-                (3) UI changes -> Also in shopping cart images and checkout form. Change every button.
-                (4) Email notification for new reservation and order.
-                (last) Seed category, menu and table. Chart in admin dashboard. Expense table for name, purchase date
-                and
-                price. If im in the mood i can calculate profit and income.
+                (3) Email notification for new reservation and order.
+                (4) Seed category, menu and table. Chart in admin dashboard. Expense table for name, purchase date
+                and price. If im in the mood i can calculate profit and income.
+                (Absolute Last) UI changes
             </div>
         </div>
     </div>
@@ -53,6 +51,9 @@
             <table class="w-full text-sm rtl:text-right text-gray-500 text-center">
                 <thead class="text-xs text-gray-700 uppercase bg-slate-300">
                     <tr>
+                        <th scope="col" class="px-6 py-3">
+                            ID Number
+                        </th>
                         <th scope="col" class="px-6 py-3">
                             Name
                         </th>
@@ -79,6 +80,9 @@
                     @else
                         @foreach ($reservationList as $reservation)
                             <tr class="odd:bg-white even:bg-gray-50">
+                                <td scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
+                                    {{ $reservation->id }}
+                                </td>
                                 <td scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
                                     {{ $reservation->first_name }} {{ $reservation->last_name }}
                                 </td>

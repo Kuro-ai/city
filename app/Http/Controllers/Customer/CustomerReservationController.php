@@ -8,6 +8,9 @@ use App\Models\ReservationModel;
 use App\Models\TableModel;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\AdminNotification;
+use App\Models\User;
 
 class CustomerReservationController extends Controller
 {
@@ -29,7 +32,7 @@ class CustomerReservationController extends Controller
             'tel_number' => ['required'],
             'user_id' => ['required'],
         ]);
-        
+
         if (empty($request->session()->get('reservation'))) {
             $reservation = new ReservationModel();
             $reservation->fill($validated);
@@ -42,7 +45,7 @@ class CustomerReservationController extends Controller
 
         return to_route('customer.reservations.step.two');
     }
-    
+
     public function stepTwo(Request $request)
     {
         $reservation = $request->session()->get('reservation');
@@ -76,8 +79,18 @@ class CustomerReservationController extends Controller
             $reservation = $request->session()->get('reservation');
             $reservation->fill($validated);
             $reservation->save();
+
             // Use the session() helper function to store the reservation object in the session
             session(['reservation' => $reservation]);
+
+            // Get all admin users
+            $adminUsers = User::where('is_admin', true)->get();
+
+            // Send an email to each admin user
+            foreach ($adminUsers as $admin) {
+                Mail::to($admin->email)->send(new AdminNotification($reservation));
+            }
+
             return to_route('thankyou');
         } else {
             return view('customer.reservations.step-one');

@@ -9,6 +9,9 @@ use App\Models\ReservationModel;
 use App\Models\MenuModel;
 use App\Models\OrderModel;
 use App\Models\OrderItemModel;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\AdminOrderNotification;
+use App\Models\User;
 
 class OrderController extends Controller
 {
@@ -215,6 +218,13 @@ class OrderController extends Controller
             $orderItem->total_price = $item['totalPrice'];
             $orderItem->save();
         }
+
+        $adminUsers = User::where('is_admin', true)->get();
+
+            // Send an email to each admin user
+            foreach ($adminUsers as $admin) {
+                Mail::to($admin->email)->send(new AdminOrderNotification($orderItem));
+            }
     
         // Redirect to a success page
         session()->flash('status', 'Order is successfully added!');

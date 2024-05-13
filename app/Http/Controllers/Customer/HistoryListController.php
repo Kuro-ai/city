@@ -20,7 +20,9 @@ class HistoryListController extends Controller
     public function reservationlist()
     {
         $user = auth()->user();
-        $reservations = ReservationModel::where('user_id', $user->id)->paginate(10); // Adjust the number based on your pagination needs
+        $reservations = ReservationModel::where('user_id', $user->id)
+            ->orderBy('id', 'desc')
+            ->paginate(10); // Adjust the number based on your pagination needs
         return $reservations;
     }
 
@@ -28,7 +30,8 @@ class HistoryListController extends Controller
     {
         $userId = auth()->id();
 
-        $orderItems = DB::table('order_items')->join('orders', 'order_items.order_id', '=', 'orders.id')->where('orders.user_id', $userId)->select('order_items.*', 'orders.*')->paginate(10); // Adjust the number based on your pagination needs
+        $orderItems = DB::table('order_items')->join('orders', 'order_items.order_id', '=', 'orders.id')->where('orders.user_id', $userId)->select('order_items.*', 'orders.*')->orderBy('orders.id', 'desc')->paginate(10); // Adjust the number based on your pagination needs
+
         return $orderItems;
     }
 }

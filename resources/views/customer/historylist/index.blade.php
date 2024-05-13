@@ -21,6 +21,9 @@
                 <thead class="text-xs text-gray-700 uppercase bg-slate-300">
                     <tr>
                         <th scope="col" class="px-6 py-3">
+                            ID Number
+                        </th>
+                        <th scope="col" class="px-6 py-3">
                             Name
                         </th>
                         <th scope="col" class="px-6 py-3">
@@ -46,6 +49,9 @@
                     @else
                         @foreach ($reservationList as $reservation)
                             <tr class="odd:bg-white even:bg-gray-50">
+                                <td scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
+                                    {{ $reservation->id }}
+                                </td>
                                 <td scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
                                     {{ $reservation->first_name }} {{ $reservation->last_name }}
                                 </td>
