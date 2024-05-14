@@ -21,15 +21,18 @@
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
-                This is the admin page.
-                (1.1) Contact Page & Terms Page
-                (2) Also search funciton for all tables.
-                (2.1) Add edit or delete in admin.index
-                (2.2) Change the address to chooseable map
-                (3)Chart in admin dashboard. Expense table for name, purchase date
-                and price. If im in the mood i can calculate profit and income.
-                (4) Seed category, menu and table. 
-                (Absolute Last) UI changes
+                This is the admin page. <br>
+                (1.1) Contact Page & Terms Page <br>
+                (2) Also search funciton for all tables (finish using name and email) add category filter in the menu<br>
+                (2.1) Filter for menu
+                (2.2) Change the address to chooseable map<br>
+                (3)Chart in admin dashboard. <br>
+                Expense table for name, purchase date
+                and price. If im in the mood i can calculate profit and income.<br><br>
+                
+                (Absolute Last) UI changes<br><br>
+
+                (Not really necessary) Seed category, menu and table. <br>
             </div>
         </div>
     </div>

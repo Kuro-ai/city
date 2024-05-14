@@ -40,7 +40,7 @@
                     </span>
                 </div>
             @endif
-            <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+            {{-- <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
                 <table class="w-full text-sm rtl:text-right text-gray-500 text-center">
                     <thead class="text-xs text-gray-700 uppercase bg-slate-300">
                         <tr>
@@ -106,8 +106,8 @@
                 <div class="p-6">
                     {{ $tables->links() }}
                 </div>
-            </div>
-
+            </div> --}}
+            @livewire('table-search')
 
         </div>
     </div>

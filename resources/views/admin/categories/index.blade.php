@@ -11,7 +11,9 @@
                 <x-create-button href="{{ route('admin.categories.create') }}">
                     New Category
                 </x-create-button>
+                
             </div>
+            
             @if (session('status'))
                 <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative mt-3 text-center"
                     role="alert">
@@ -40,7 +42,7 @@
                     </span>
                 </div>
             @endif
-            <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+            {{-- <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
                 <table class="w-full text-sm rtl:text-right text-gray-500 text-center">
                     <thead class="text-xs text-gray-700 uppercase bg-slate-300">
                         <tr>
@@ -100,9 +102,8 @@
                     </tbody>
                 </table>
                 <div class="p-6">{{ $categories->links() }}</div>
-            </div>
-
-
+            </div> --}}
+            @livewire('category-search')
         </div>
     </div>
 

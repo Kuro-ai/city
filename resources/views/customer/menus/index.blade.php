@@ -27,7 +27,7 @@
             </a>
         </h2>
     </x-slot>
-    <div class="container w-full px-5 py-6 mx-auto">
+    {{-- <div class="container w-full px-5 py-6 mx-auto">
         <form action="{{ route('customer.order.addToCart') }}" method="post" onsubmit="return checkSelection()" class="grid grid-cols-4 gap-6">
             <input type="text" name="reservation_id" value="{{ session()->get('reservation_id') }}" class="hidden">
             @csrf
@@ -48,7 +48,8 @@
             @endforeach
             <button type="submit" onclick="checkSelection()" class="col-span-4">Add to Cart</button>
         </form>
-    </div>
+    </div> --}}
+    @livewire('customer-menu-search')
 </x-app-layout>
 <script>
     function checkSelection(event) {

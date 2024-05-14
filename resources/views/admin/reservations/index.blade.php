@@ -40,8 +40,7 @@
                     </span>
                 </div>
             @endif
-            <div class="relative overflow-x-auto shadow-md sm:rounded-lg" id="reservationContent">
-                <h1>Reservation</h1>
+            {{-- <div class="relative overflow-x-auto shadow-md sm:rounded-lg" id="reservationContent">
                 <table class="w-full text-sm rtl:text-right text-gray-500 text-center">
                     <thead class="text-xs text-gray-700 uppercase bg-slate-300">
                         <tr>
@@ -139,8 +138,8 @@
                     </tbody>
                 </table>
                 <div class="p-6">{{ $reservations->links() }}</div>
-            </div>
-
+            </div> --}}
+            @livewire('reservation-search')
 
 
         </div>

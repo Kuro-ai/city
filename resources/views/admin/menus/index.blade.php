@@ -64,7 +64,7 @@
                     </span>
                 </div>
             @endif
-            <div class="mx-auto justify-center items-center flex">
+            {{-- <div class="mx-auto justify-center items-center flex">
                 <form id="addToCartForm" action="{{ route('admin.order.addToCart') }}" method="post"
                     onsubmit="return checkSelection()">
                     <input type="hidden" name="reservation_id" value="{{ session()->get('reservation_id') }}">
@@ -100,7 +100,8 @@
                         <button type="submit" onclick="checkSelection()" class="col-span-4">Add to Cart</button>
                     </div>
                 </form>
-            </div>
+            </div> --}}
+            @livewire('menu-search')
         </div>
     </div>
 
