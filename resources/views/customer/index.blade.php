@@ -29,7 +29,7 @@
         </h2>
     </x-slot>
     @if (session('status'))
-        <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative mt-3 text-center"
+        <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative mt-3 mb-3 text-center"
             role="alert">
             {{ session('status') }}
             <span class="absolute top-0 bottom-0 right-0 px-4 py-3 close-alert">

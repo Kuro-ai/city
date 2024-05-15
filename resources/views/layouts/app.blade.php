@@ -44,8 +44,16 @@
             <div class="container flex flex-wrap items-center justify-center px-4 py-8 mx-auto lg:justify-between">
                 <div class="flex flex-wrap justify-center">
                     <ul class="flex items-center space-x-4">
-                        <li>Contact</li>
-                        <li>Terms</li>
+                        <li>
+                            <x-nav-link href="{{ route('customer.customercontact') }}" :active="request()->routeIs('customer.customercontact')">
+                                {{ __('Contact') }}
+                            </x-nav-link>
+                        </li>
+                        <li>
+                            <x-nav-link href="{{ route('customer.terms') }}" :active="request()->routeIs('customer.terms')">
+                                {{ __('Terms') }}
+                            </x-nav-link>
+                        </li>
                     </ul>
                 </div>
                 <div class="flex justify-center mt-4 lg:mt-0">

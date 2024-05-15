@@ -221,12 +221,12 @@ class OrderController extends Controller
             $orderItem->save();
         }
 
-        // $adminUsers = User::where('is_admin', true)->get();
+        $adminUsers = User::where('is_admin', true)->get();
 
-        //     // Send an email to each admin user
-        //     foreach ($adminUsers as $admin) {
-        //         Mail::to($admin->email)->send(new AdminOrderNotification($orderItem));
-        //     }
+            // Send an email to each admin user
+            foreach ($adminUsers as $admin) {
+                Mail::to($admin->email)->send(new AdminOrderNotification($orderItem));
+            }
     
         // Redirect to a success page
         session()->flash('status', 'Order is successfully added!');

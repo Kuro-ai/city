@@ -12,7 +12,7 @@ use App\Http\Controllers\Admin\AdminOrderController;
 use App\Http\Controllers\Customer\ThankYouController;
 use App\Http\Controllers\Admin\AdminThankYouController;
 use App\Http\Controllers\Customer\HistoryListController;
-use App\Http\Controllers\Admin\AdminHistoryListController;
+use App\Http\Controllers\Customer\ContactController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -68,7 +68,7 @@ Route::group(['middleware' => 'useradmin'], function () {
     ]);
     Route::post('admin/orders/orderemail/{id}', [ReservationController::class, 'orderemail'])->name('admin.orders.orderemail');
     Route::post('admin/reservations/reservationemail/{id}', [ReservationController::class, 'reservationemail'])->name('admin.reservations.reservationemail');
-   
+
     //Admin Routes => Orders
     Route::get('/admin/order/shoppingcart', [AdminOrderController::class, 'showCart'])->name('admin.order.shoppingcart');
     Route::post('/admin/order/addToCart', [AdminOrderController::class, 'addToCart'])->name('admin.order.addToCart');
@@ -100,7 +100,6 @@ Route::group(['middleware' => 'usercustomer'], function () {
     //     'index' => 'customer.index',
     // ]);
     Route::get('/thankyou', [ThankYouController::class, 'thankyou'])->name('thankyou');
-    
 
     //Customer Routes => Reservations
     Route::get('customer/reservation/step-one', [CustomerReservationController::class, 'stepOne'])->name('customer.reservations.step.one');
@@ -128,6 +127,9 @@ Route::group(['middleware' => 'usercustomer'], function () {
     // Route::get('/customer/historylist/index', [HistoryListController::class, 'reservationlist'])->name('customer.historylist.index');
     // Route::get('/customer/historylist/index', [HistoryListController::class, 'orderlist'])->name('customer.historylist.index');
     Route::get('/customer/historylist/index', [HistoryListController::class, 'index'])->name('customer.historylist.index');
+    Route::get('/customer/customercontact', [ContactController::class, 'showForm'])->name('customer.customercontact');
+    Route::get('/customer/terms', [ContactController::class, 'showTerms'])->name('customer.terms');
+    Route::post('/customer/customercontact', [ContactController::class, 'sendEmail'])->name('customer.customercontact');
 });
 // Auth Checks
 Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified'])->group(function () {
