@@ -23,7 +23,6 @@
             <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
                 This is the admin page. <br>
                 (1.1) Contact Page & Terms Page <br>
-                (2.1) Filter for menu
                 (3)Chart in admin dashboard. <br>
                 Expense table for name, purchase date
                 and price. If im in the mood i can calculate profit and income.<br><br>
