@@ -96,8 +96,8 @@
         var dateTime = new Date(input.value);
         var hours = dateTime.getHours();
 
-        if (hours < 14 || hours > 20) {
-            alert("Please select a time between 2 PM and 8:59 PM.");
+        if (hours < 15 || hours > 20) {
+            alert("Please select a time between 3 PM and 8:59 PM.");
             input.value = "";
         }
     }

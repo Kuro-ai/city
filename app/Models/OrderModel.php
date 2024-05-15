@@ -15,6 +15,7 @@ class OrderModel extends Model
         'phone',
         'email',
         'address',
+        'order_date',
         'total',
         'reservation_id',
         'user_id',

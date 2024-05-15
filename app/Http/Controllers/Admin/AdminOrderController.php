@@ -188,6 +188,7 @@ class AdminOrderController extends Controller
             'phone' => 'required',
             'email' => 'required|email',
             'address' => 'required',
+            'order_date' => 'required',
             'cartItems.*.id' => 'required',
             'cartItems.*.name' => 'required',
             'cartItems.*.price' => 'required|numeric',
@@ -205,6 +206,7 @@ class AdminOrderController extends Controller
         $order->email = $validated['email'];
         $order->address = $validated['address'];
         $order->total = $validated['total'];
+        $order->order_date = $validated['order_date'];
         $order->reservation_id = $request->input('reservation_id');
         $order->user_id = $validated['user_id'];
         $order->save();

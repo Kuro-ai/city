@@ -113,13 +113,13 @@
                         @php
                             $lastOrderId = null;
                             $total = null;
-                            $created_at = null;
+                            $order_date = null;
                         @endphp
                         @foreach ($orderList as $order)
                             @if ($lastOrderId !== $order->id)
                                 @php
                                     $total = $order->total;
-                                    $created_at = $order->created_at;
+                                    $order_date = $order->order_date;
                                 @endphp
                             @endif
                             <tr class="odd:bg-white even:bg-gray-50">
@@ -150,12 +150,12 @@
                                     {{ $total }}
                                 </td>
                                 <td scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
-                                    {{ $created_at }}
+                                    {{ $order_date }}
                                 </td>
                             </tr>
                             @php
                                 $total = null;
-                                $created_at = null;
+                                $order_date = null;
                             @endphp
                         @endforeach
                     @endif

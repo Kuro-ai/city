@@ -23,14 +23,12 @@
             <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
                 This is the admin page. <br>
                 (1.1) Contact Page & Terms Page <br>
-                (2) Also search funciton for all tables (finish using name and email) add category filter in the menu<br>
                 (2.1) Filter for menu
-                (2.2) Change the address to chooseable map<br>
                 (3)Chart in admin dashboard. <br>
                 Expense table for name, purchase date
                 and price. If im in the mood i can calculate profit and income.<br><br>
                 
-                (Absolute Last) UI changes<br><br>
+                (Absolute Last) UI changes needed<br><br>
 
                 (Not really necessary) Seed category, menu and table. <br>
             </div>

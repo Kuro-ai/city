@@ -17,6 +17,7 @@ return new class extends Migration {
             $table->string('phone');
             $table->string('email');
             $table->string('address');
+            $table->dateTime('order_date');
             $table->decimal('total', 10, 2);
             $table->unsignedBigInteger('reservation_id')->nullable();
             $table->unsignedBigInteger('user_id');

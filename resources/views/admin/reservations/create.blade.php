@@ -69,7 +69,7 @@
                         <div class="text-red-500">{{ $message }}</div>
                     @enderror
                     <p id="helper-text-explanation-table" class="mt-2 text-sm text-gray-500">Please Choose the time
-                        between 2pm to 9pm</p>
+                        between 3pm to 9pm</p>
                     <div id="message" class="text-red-500 border-red-600"></div>
                 </div>
                 <div class="mb-5">
@@ -135,8 +135,8 @@
         var dateTime = new Date(input.value);
         var hours = dateTime.getHours();
 
-        if (hours < 14 || hours > 20) {
-            alert("Please select a time between 2 PM and 8:59 PM.");
+        if (hours < 15 || hours > 20) {
+            alert("Please select a time between 3 PM and 8:59 PM.");
             input.value = "";
         }
     }

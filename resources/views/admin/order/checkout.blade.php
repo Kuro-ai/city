@@ -5,7 +5,7 @@
         </h2>
     </x-slot>
 
-    <form method="POST" action="{{route('admin.order.checkout.store')}}">
+    <form method="POST" action="{{ route('admin.order.checkout.store') }}">
         @csrf
 
         @if ($reservation)
@@ -26,10 +26,29 @@
 
             <label for="email">Email:</label><br>
             <input type="email" id="email" name="email"><br>
-        @endif
 
-        <label for="address">Address:</label><br>
-        <textarea id="address" name="address" rows="4" cols="50"></textarea><br>
+            <label for="address">Address:</label><br>
+            <textarea id="address" name="address" rows="4" cols="50"></textarea><br>
+
+            <div class="mb-5 sm:col-span-6">
+                <label for="res_date" class="block mb-2 text-sm font-medium text-gray-900 ">
+                    Order Date & Time</label>
+                <input type="datetime-local" id="res_date"
+                    class="message shadow-sm bg-gray-50 border text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 @error('res_date') border-red-600 @enderror @error('table_id') border-red-600 @enderror"
+                    placeholder="" name="order_date" aria-describedby="helper-text-explanation-table"
+                    onchange="validateTime(this)" />
+                @error('res_date')
+                    <div class="text-red-500">{{ $message }}</div>
+                @enderror
+                @error('table_id')
+                    <div class="text-red-500">{{ $message }}</div>
+                @enderror
+                <p id="helper-text-explanation-table" class="mt-2 text-sm text-gray-500">Please
+                    Choose the time
+                    between 3pm to 9pm</p>
+                <div id="message" class="text-red-500 border-red-600"></div>
+            </div>
+        @endif
 
         @foreach ($cartItems as $item)
             <input type="text" name="cartItems[{{ $loop->index }}][id]" value="{{ $item['menuItem']->id }}">
@@ -45,3 +64,32 @@
         <input type="submit" value="Submit">
     </form>
 </x-app-layout>
+<script>
+    // Function to validate the selected time
+    function validateTime(input) {
+        var dateTime = new Date(input.value);
+        var hours = dateTime.getHours();
+
+        if (hours < 15 || hours > 20) {
+            alert("Please select a time between 3 PM and 8:59 PM.");
+            input.value = "";
+        }
+    }
+
+    // Function to check if the selected date and time is valid
+    window.onload = function() {
+        var now = new Date(),
+            minDateTime,
+            month, date, hours, minutes,
+            resDate = document.getElementById('res_date');
+
+        month = (now.getMonth() + 1).toString().padStart(2, '0');
+        date = now.getDate().toString().padStart(2, '0');
+        hours = now.getHours().toString().padStart(2, '0');
+        minutes = now.getMinutes().toString().padStart(2, '0');
+
+        minDateTime = now.getFullYear() + '-' + month + '-' + date + 'T' + hours + ':' + minutes;
+
+        resDate.min = minDateTime;
+    }
+</script>
