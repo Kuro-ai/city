@@ -29,7 +29,7 @@
 
             <label for="address">Address:</label><br>
             <textarea id="address" name="address" rows="4" cols="50"></textarea><br>
-            <small>Delivery is limited to South Okkalapa Township</small>
+            <small>Delivery is limited to Yangon</small>
 
             <div class="mb-5 sm:col-span-6">
                 <label for="res_date" class="block mb-2 text-sm font-medium text-gray-900 ">

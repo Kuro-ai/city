@@ -13,6 +13,8 @@ use App\Http\Controllers\Customer\ThankYouController;
 use App\Http\Controllers\Admin\AdminThankYouController;
 use App\Http\Controllers\Customer\HistoryListController;
 use App\Http\Controllers\Customer\ContactController;
+use App\Http\Controllers\Admin\ExpenseController;
+use App\Http\Controllers\Admin\IncomeController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -60,6 +62,26 @@ Route::group(['middleware' => 'useradmin'], function () {
         'edit' => 'admin.reservations.edit',
         'update' => 'admin.reservations.update',
         'destroy' => 'admin.reservations.destroy',
+    ]);
+
+    Route::resource('admin/expenses', ExpenseController::class)->names([
+        'index' => 'admin.expenses.index',
+        'create' => 'admin.expenses.create',
+        'show' => 'admin.expenses.show',
+        'store' => 'admin.expenses.store',
+        'edit' => 'admin.expenses.edit',
+        'update' => 'admin.expenses.update',
+        'destroy' => 'admin.expenses.destroy',
+    ]);
+
+    Route::resource('admin/incomes', IncomeController::class)->names([
+        'index' => 'admin.incomes.index',
+        'create' => 'admin.incomes.create',
+        'show' => 'admin.incomes.show',
+        'store' => 'admin.incomes.store',
+        'edit' => 'admin.incomes.edit',
+        'update' => 'admin.incomes.update',
+        'destroy' => 'admin.incomes.destroy',
     ]);
 
     Route::resource('admin/orders', AdminOrderController::class)->names([

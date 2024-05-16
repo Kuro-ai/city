@@ -144,18 +144,10 @@ class CategoryController extends Controller
     public function destroy(string $id)
     {
         $category = CategoryModel::find($id);
-        $category->forceDelete();
-        session()->flash('deletestatus', $category->name . ' category is successfully deleted permanently!');
+        $category->delete();
+        session()->flash('deletestatus', $category->name . ' category is successfully deleted!');
 
         return redirect()->route('admin.categories.index');
     }
 
-    public function restore(string $id)
-    {
-        $category = CategoryModel::withTrashed()->find($id);
-        $category->restore();
-        session()->flash('status', $category->name . ' category is successfully restored!');
-
-        return redirect()->route('admin.categories.index');
-    }
 }
