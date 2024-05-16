@@ -7,3 +7,4 @@ document.querySelectorAll('.close-alert').forEach(function(closeButton) {
         this.parentElement.style.display = 'none';
     });
 });
+

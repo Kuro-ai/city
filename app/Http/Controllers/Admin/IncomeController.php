@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Income;
 use App\Models\MenuModel;
+use Illuminate\Support\Facades\DB;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class IncomeController extends Controller
 {
@@ -14,8 +16,25 @@ class IncomeController extends Controller
      */
     public function index()
     {
-        $incomes = Income::paginate(10);
-        return view('admin.incomes.index', compact('incomes'));
+        $allIncomes = Income::orderBy('created_at', 'desc')->get();
+    
+        $totalPrice = 0;
+        foreach ($allIncomes as $income) {
+            if (is_array($income->items)) {
+                foreach ($income->items as $item) {
+                    $totalPrice += (float)$item['total_price'];
+                }
+            } else {
+                $items = json_decode($income->items, true);
+                foreach ($items as $item) {
+                    $totalPrice += (float)$item['total_price'];
+                }
+            }
+        }
+    
+        $incomes = Income::orderBy('created_at', 'desc')->paginate(10);
+    
+        return view('admin.incomes.index', compact('incomes', 'totalPrice'));
     }
 
     /**
@@ -23,13 +42,10 @@ class IncomeController extends Controller
      */
     public function create()
     {
-        $menus = MenuModel::all();
+        $menus = MenuModel::orderBy('created_at', 'desc')->paginate(10);
         return view('admin.incomes.create', ['menus' => $menus]);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
         $request->validate([
@@ -44,8 +60,25 @@ class IncomeController extends Controller
         $income->remark = $request->remark;
         $income->save();
 
+        // Flash a success message to the session
         session()->flash('status', 'Income is successfully added!');
-        return redirect()->route('admin.incomes.index');
+
+        // Redirect to a new page
+        return redirect()->route('admin.incomes.show', ['income' => $income->id]);
+    }
+
+    public function download(string $id)
+    {
+        $income = Income::findOrFail($id);
+        $pdf = PDF::loadView('admin.invoice', ['income' => $income]);
+
+        // Flash a success message to the session
+        session()->flash('status', 'Income is successfully added!');
+
+        // Download the PDF
+        return $pdf->download('invoice.pdf')->withHeaders([
+            'Refresh' => '3; url=' . route('admin.incomes.show', ['income' => $income->id]),
+        ]);
     }
 
     /**
@@ -54,7 +87,7 @@ class IncomeController extends Controller
     public function show(string $id)
     {
         $income = Income::findOrFail($id);
-        return view('admin.incomes.show', compact('income'));
+        return view('admin.incomes.index', compact('income'));
     }
 
     /**
@@ -63,7 +96,7 @@ class IncomeController extends Controller
     public function edit(string $id)
     {
         $income = Income::findOrFail($id);
-        $menus = MenuModel::all(); 
+        $menus = MenuModel::all();
         return view('admin.incomes.edit', compact('income', 'menus'));
     }
 
@@ -89,6 +122,10 @@ class IncomeController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $income = Income::find($id);
+        $income->delete();
+        session()->flash('deletestatus', 'income is successfully deleted!');
+
+        return redirect()->route('admin.incomes.index');
     }
 }

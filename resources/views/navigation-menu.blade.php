@@ -16,6 +16,12 @@
                         <x-nav-link href="{{ route('admin.index') }}" :active="request()->routeIs('admin.index')">
                             {{ __('Admin Dashboard') }}
                         </x-nav-link>
+                        <x-nav-link href="{{ route('admin.expenses.index') }}" :active="request()->routeIs('admin.expenses.index')">
+                            {{ __('Expense') }}
+                        </x-nav-link>
+                        <x-nav-link href="{{ route('admin.incomes.index') }}" :active="request()->routeIs('admin.incomes.index')">
+                            {{ __('Income') }}
+                        </x-nav-link>
                         <x-nav-link href="{{ route('admin.categories.index') }}" :active="request()->routeIs('admin.categories.index')">
                             {{ __('Categories') }}
                         </x-nav-link>
@@ -31,12 +37,7 @@
                         <x-nav-link href="{{ route('admin.orders.index') }}" :active="request()->routeIs('admin.orders.index')">
                             {{ __('Order List') }}
                         </x-nav-link>
-                        <x-nav-link href="{{ route('admin.expenses.index') }}" :active="request()->routeIs('admin.expenses.index')">
-                            {{ __('Expense') }}
-                        </x-nav-link>
-                        <x-nav-link href="{{ route('admin.incomes.index') }}" :active="request()->routeIs('admin.incomes.index')">
-                            {{ __('Income') }}
-                        </x-nav-link>
+                      
                     @else
                         <x-nav-link href="{{ route('customer.index') }}" :active="request()->routeIs('customer.index')">
                             {{ __('Home') }}
@@ -141,6 +142,12 @@
                 <x-responsive-nav-link href="{{ route('admin.index') }}" :active="request()->routeIs('admin.index')">
                     {{ __('Admin Dashboard') }}
                 </x-responsive-nav-link>
+                <x-responsive-nav-link href="{{ route('admin.expenses.index') }}" :active="request()->routeIs('admin.expenses.index')">
+                    {{ __('Expense') }}
+                </x-responsive-nav-link>
+                <x-responsive-nav-link href="{{ route('admin.incomes.index') }}" :active="request()->routeIs('admin.incomes.index')">
+                    {{ __('Income') }}
+                </x-responsive-nav-link>
                 <x-responsive-nav-link href="{{ route('admin.categories.index') }}" :active="request()->routeIs('admin.categories.index')">
                     {{ __('Categories') }}
                 </x-responsive-nav-link>
@@ -155,12 +162,6 @@
                 </x-responsive-nav-link>
                 <x-responsive-nav-link href="{{ route('admin.orders.index') }}" :active="request()->routeIs('admin.orders.index')">
                     {{ __('Order List') }}
-                </x-responsive-nav-link>
-                <x-responsive-nav-link href="{{ route('admin.expenses.index') }}" :active="request()->routeIs('admin.expenses.index')">
-                    {{ __('Expense') }}
-                </x-responsive-nav-link>
-                <x-responsive-nav-link href="{{ route('admin.incomes.index') }}" :active="request()->routeIs('admin.incomes.index')">
-                    {{ __('Income') }}
                 </x-responsive-nav-link>
             @else
                 <x-responsive-nav-link href="{{ route('customer.index') }}" :active="request()->routeIs('customer.index')">

@@ -102,6 +102,8 @@ Route::group(['middleware' => 'useradmin'], function () {
     Route::post('/admin/order/checkout', [AdminOrderController::class, 'store'])->name('admin.order.checkout.store');
 
     Route::get('/admin/thankyou', [AdminThankYouController::class, 'adminthankyou'])->name('admin.thankyou');
+    Route::get('/admin/invoice', [IncomeController::class, 'store'])->name('admin.invoice');
+    Route::get('/admin/incomes/{id}/download', [IncomeController::class, 'download'])->name('admin.incomes.download');
 });
 
 // Customer Routes
