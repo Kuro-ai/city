@@ -14,6 +14,9 @@ use App\Http\Controllers\Admin\AdminThankYouController;
 use App\Http\Controllers\Customer\HistoryListController;
 use App\Http\Controllers\Customer\ContactController;
 use App\Http\Controllers\Admin\ExpenseController;
+use App\Http\Controllers\Admin\ExpenseChart;
+use App\Http\Controllers\Admin\IncomeChart;
+use App\Http\Controllers\Admin\ProfitChart;
 use App\Http\Controllers\Admin\IncomeController;
 
 Route::get('/', function () {
@@ -72,6 +75,17 @@ Route::group(['middleware' => 'useradmin'], function () {
         'edit' => 'admin.expenses.edit',
         'update' => 'admin.expenses.update',
         'destroy' => 'admin.expenses.destroy',
+    ]);
+
+    Route::resource('admin/chart', ExpenseChart::class)->names([
+        'index' => 'admin.index',
+    ]);
+
+    Route::resource('admin/chart', IncomeChart::class)->names([
+        'index' => 'admin.index',
+    ]);
+    Route::resource('admin/chart', ProfitChart::class)->names([
+        'index' => 'admin.index',
     ]);
 
     Route::resource('admin/incomes', IncomeController::class)->names([

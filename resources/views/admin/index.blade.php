@@ -22,16 +22,80 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
                 This is the admin page. <br>
-                (3) Chart in admin dashboard. <br>
-                (3.2) Also calculate profit based on this two table. <br>
                 (Absolute Last) UI changes needed<br><br>
-
                 (Not really necessary) Seed category, menu and table. <br>
             </div>
         </div>
     </div>
+    <canvas id="myChart"></canvas>
+    <canvas id="myChart1"></canvas>
+    <canvas id="myChart2"></canvas>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        var ctx = document.getElementById('myChart').getContext('2d');
+        var myChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: @json($monthlyExpenses->pluck('month')),
+                datasets: [{
+                    label: 'Expenses',
+                    data: @json($monthlyExpenses->pluck('total')),
+                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
 
+        var ctx = document.getElementById('myChart1').getContext('2d');
+        var myChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: @json($monthlyIncomes->pluck('month')),
+                datasets: [{
+                    label: 'Incomes',
+                    data: @json($monthlyIncomes->pluck('total')),
+                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+        var ctx = document.getElementById('myChart2').getContext('2d');
+        var data = @json($data);
+        var myChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: data.map(item => item.month),
+                datasets: [{
+                    label: 'Monthly Profit',
+                    data: data.map(item => item.profit),
+                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    </script>
 </x-app-layout>
-<script>
-
-</script>

@@ -5,9 +5,10 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Income;
+use App\Models\Expense;
 use App\Models\MenuModel;
-use Illuminate\Support\Facades\DB;
 use Barryvdh\DomPDF\Facade\Pdf;
+
 
 class IncomeController extends Controller
 {
@@ -128,4 +129,6 @@ class IncomeController extends Controller
 
         return redirect()->route('admin.incomes.index');
     }
+
+ 
 }
