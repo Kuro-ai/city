@@ -85,8 +85,8 @@
                                     <a href="{{ route('customer.reservations.step.one') }}"
                                         class="px-4 py-2 bg-indigo-500 hover:bg-indigo-700 rounded-lg text-white">Previous</a>
                                     <button type="submit" id="submit_button"
-                                        class="px-4 py-2 bg-indigo-500 hover:bg-indigo-700 rounded-lg text-white">Make
-                                        Reservation</button>
+                                        class="px-4 py-2 bg-indigo-500 hover:bg-indigo-700 rounded-lg text-white">
+                                        Reserve</button>
                                 </div>
                                 
                             </form>

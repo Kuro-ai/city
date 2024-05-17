@@ -62,7 +62,7 @@
         <div class="mb-5 sm:col-span-6">
             <input type="text" name="user_id" value="{{ \Illuminate\Support\Facades\Auth::id() }}">
         </div>
-        <input type="submit" value="Submit">
+        <input type="submit" value="Order">
     </form>
 </x-app-layout>
 <script>
