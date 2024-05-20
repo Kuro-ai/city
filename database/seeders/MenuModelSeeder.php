@@ -15,7 +15,7 @@ class MenuModelSeeder extends Seeder
     {
         DB::table('menu_models')->insert([
             'name' => 'Creamy Parmesan Garlic Mushroom Chicken',
-            'description' => 'A dish with tender chicken breast, sauteed mushrooms, and a flavorful sauce made with garlic, parmesan cheese, and cream.',
+            'description' => 'A dish with tender chicken breast, sauteed mushrooms, and a flavorful sauce made with garlic, parmesan cheese, and cream',
             'image' => 'chicken1.jpg',
             'price' => 20,
             'category_id' => 1,
@@ -35,7 +35,7 @@ class MenuModelSeeder extends Seeder
 
         DB::table('menu_models')->insert([
             'name' => 'Roast chicken breast, potato purée and pine nuts',
-            'description' => 'Tender, roasted chicken breast sits atop a bed of smooth mashed potatoes, all finished with the nutty crunch of toasted pine nuts.',
+            'description' => 'Tender, roasted chicken breast sits atop a bed of smooth mashed potatoes, all finished with the toasted pine nuts',
             'image' => 'chicken3.jpg',
             'price' => 18,
             'category_id' => 1,
@@ -45,7 +45,7 @@ class MenuModelSeeder extends Seeder
 
         DB::table('menu_models')->insert([
             'name' => 'Pork fillet with mushroom sauce and lemon potatoes',
-            'description' => 'Tender pork fillet smothered in a creamy mushroom sauce, served alongside crispy lemon-flavored potatoes.',
+            'description' => 'Tender pork fillet smothered in a creamy mushroom sauce, served alongside crispy lemon-flavored potatoes',
             'image' => 'pork1.jpg',
             'price' => 10,
             'category_id' => 2,
@@ -55,7 +55,7 @@ class MenuModelSeeder extends Seeder
 
         DB::table('menu_models')->insert([
             'name' => 'Creamy pork and wild mushroom casserole',
-            'description' => 'Tender pork pieces are browned and simmered in a rich sauce with a variety of mushrooms, fresh herbs, and cream.',
+            'description' => 'Tender pork pieces are browned and simmered in a rich sauce with a variety of mushrooms, fresh herbs, and cream',
             'image' => 'pork2.jpg',
             'price' => 15,
             'category_id' => 2,
@@ -65,7 +65,7 @@ class MenuModelSeeder extends Seeder
 
         DB::table('menu_models')->insert([
             'name' => 'Crumbed pork chops with braised red cabbage',
-            'description' => 'Juicy and flavorful pork chops, with tender and slightly sweet red cabbage that has a hint of acidity.',
+            'description' => 'Juicy and flavorful pork chops, with tender and slightly sweet red cabbage that has a hint of acidity',
             'image' => 'pork3.jpg',
             'price' => 20,
             'category_id' => 2,
@@ -75,7 +75,7 @@ class MenuModelSeeder extends Seeder
 
         DB::table('menu_models')->insert([
             'name' => 'Seafood stew',
-            'description' => 'Tender fish, shrimp, and mussels simmered in a rich white wine broth, with vegetables',
+            'description' => 'Tender fish, shrimp, and mussels simmered in a rich white wine broth, with potatos and other vegetables',
             'image' => 'seafood1.jpg',
             'price' => 20,
             'category_id' => 3,
@@ -85,7 +85,7 @@ class MenuModelSeeder extends Seeder
 
         DB::table('menu_models')->insert([
             'name' => 'Herby fish skewers',
-            'description' => 'Skewers of marinated fish grilled to perfection and seasoned with a vibrant herb blend.',
+            'description' => 'Skewers of marinated fish grilled to perfection and seasoned with a vibrant herb blend',
             'image' => 'seafood2.jpg',
             'price' => 15,
             'category_id' => 3,
@@ -95,7 +95,7 @@ class MenuModelSeeder extends Seeder
 
         DB::table('menu_models')->insert([
             'name' => 'Mojito prawn tacos',
-            'description' => 'Fresh, citrusy prawns marinated in a lime-mint mojo, served on warm tortillas with a vibrant salsa and creamy slaw.',
+            'description' => 'Fresh, citrusy prawns marinated in a lime-mint mojo, served on warm tortillas with a vibrant salsa and creamy slaw',
             'image' => 'seafood3.jpg',
             'price' => 12,
             'category_id' => 3,
@@ -105,7 +105,7 @@ class MenuModelSeeder extends Seeder
 
         DB::table('menu_models')->insert([
             'name' => 'Japanese-style vegetable stir-fry',
-            'description' => 'Tender crisp vegetables like cabbage, carrots, and snow peas are stir-fried with ginger and garlic.',
+            'description' => 'Tender crisp vegetables like cabbage, carrots, and snow peas are stir-fried with ginger and garlic',
             'image' => 'vegi1.jpg',
             'price' => 8,
             'category_id' => 4,
@@ -115,7 +115,7 @@ class MenuModelSeeder extends Seeder
 
         DB::table('menu_models')->insert([
             'name' => 'Winter root vegetable tagine',
-            'description' => 'A fragrant Moroccan-inspired stew packed with tender carrots, parsnips, sweet potatoes, and other seasonal root vegetables simmered in a rich broth of warming spices. ',
+            'description' => 'A fragrant Moroccan-inspired stew packed with tender carrots, parsnips, sweet potatoes, and other seasonal root vegetables simmered in a rich broth',
             'image' => 'vegi2.jpg',
             'price' => 12,
             'category_id' => 4,
@@ -125,7 +125,7 @@ class MenuModelSeeder extends Seeder
 
         DB::table('menu_models')->insert([
             'name' => 'Rich vegetable moussaka',
-            'description' => 'Layered delight of roasted eggplant, zucchini, peppers, and a savory lentil tomato sauce, topped with creamy béchamel sauce.',
+            'description' => 'Layered delight of roasted eggplant, zucchini, peppers, and a savory lentil tomato sauce, topped with creamy béchamel sauce',
             'image' => 'vegi3.jpg',
             'price' => 15,
             'category_id' => 4,
@@ -135,7 +135,7 @@ class MenuModelSeeder extends Seeder
 
         DB::table('menu_models')->insert([
             'name' => 'Rosemary and sausage soup',
-            'description' => 'Hearty sausage and white bean soup flavored with fragrant rosemary.',
+            'description' => 'The soul-warming stew Savory sausage crumbles mingle with creamy white beans in a fragrant rosemary broth',
             'image' => 'soup1.jpg',
             'price' => 10,
             'category_id' => 5,
@@ -145,7 +145,7 @@ class MenuModelSeeder extends Seeder
 
         DB::table('menu_models')->insert([
             'name' => 'Leek and cheese soup',
-            'description' => 'A classic comfort food made with tender leeks, potatoes, and melty cheese in a smooth and flavorful broth.',
+            'description' => 'Tender leeks and diced potatoes simmer in a smooth, flavorful broth enriched with cream for a touch of richness',
             'image' => 'soup2.jpg',
             'price' => 12,
             'category_id' => 5,
@@ -155,7 +155,7 @@ class MenuModelSeeder extends Seeder
 
         DB::table('menu_models')->insert([
             'name' => 'Rendang noodle soup',
-            'description' => 'a flavorful dish featuring tender noodles in a rich and spicy coconut curry broth simmered with rendang (braised beef).',
+            'description' => 'a flavorful dish featuring tender noodles in a rich and spicy coconut curry broth simmered with rendang (braised beef)',
             'image' => 'soup3.jpg',
             'price' => 15,
             'category_id' => 5,
@@ -165,7 +165,7 @@ class MenuModelSeeder extends Seeder
 
         DB::table('menu_models')->insert([
             'name' => 'Old Fashioned',
-            'description' => 'A classic whiskey cocktail made with sugar, bitters, and a citrus twist and has a balanced sweetness, bitterness, and booziness.',
+            'description' => 'A classic whiskey cocktail made with sugar, bitters, and a citrus twist and has a balanced sweetness, bitterness, and booziness',
             'image' => 'drink1.jpg',
             'price' => 10,
             'category_id' => 6,
@@ -175,7 +175,7 @@ class MenuModelSeeder extends Seeder
 
         DB::table('menu_models')->insert([
             'name' => 'Negroni',
-            'description' => 'A classic Italian cocktail made with equal parts gin, Campari, and sweet vermouth and has bitter-sweet flavor profile with bright red color.',
+            'description' => 'A classic Italian cocktail made with equal parts gin, Campari, and sweet vermouth and has bitter-sweet flavor profile',
             'image' => 'drink2.jpg',
             'price' => 12,
             'category_id' => 6,
@@ -185,7 +185,7 @@ class MenuModelSeeder extends Seeder
 
         DB::table('menu_models')->insert([
             'name' => 'Mojito',
-            'description' => 'A refreshing Cuban highball cocktail that combines white rum, mint, lime, sugar, and soda water.',
+            'description' => 'A refreshing Cuban highball cocktail that combines white rum, mint, lime, sugar, and soda water',
             'image' => 'drink3.jpg',
             'price' => 15,
             'category_id' => 6,

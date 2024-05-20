@@ -43,7 +43,11 @@ class DatabaseSeeder extends Seeder
             'current_team_id' => null,
         ]);
 
-        
+        $this->call([
+            CategoryModelSeeder::class,
+            MenuModelSeeder::class,
+            TableModelSeeder::class,
+        ]);
 
         
     }

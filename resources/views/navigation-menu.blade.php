@@ -29,6 +29,7 @@
                                 <x-dropdown-link href="{{ route('admin.expenses.index') }}" :active="request()->routeIs('admin.expenses.index')">
                                     {{ __('Expense') }}
                                 </x-dropdown-link>
+                                <div class="border-t border-pale w-40 m-auto"></div>
                                 <x-dropdown-link href="{{ route('admin.incomes.index') }}" :active="request()->routeIs('admin.incomes.index')">
                                     {{ __('Income') }}
                                 </x-dropdown-link>
@@ -45,9 +46,11 @@
                                 <x-dropdown-link href="{{ route('admin.categories.index') }}" :active="request()->routeIs('admin.categories.index')">
                                     {{ __('Categories') }}
                                 </x-dropdown-link>
+                                <div class="border-t border-pale w-40 m-auto"></div>
                                 <x-dropdown-link href="{{ route('admin.menus.index') }}" :active="request()->routeIs('admin.menus.index')">
                                     {{ __('Menu') }}
                                 </x-dropdown-link>
+                                <div class="border-t border-pale w-40 m-auto"></div>
                                 <x-dropdown-link href="{{ route('admin.tables.index') }}" :active="request()->routeIs('admin.tables.index')">
                                     {{ __('Tables') }}
                                 </x-dropdown-link>
@@ -64,6 +67,7 @@
                                 <x-dropdown-link href="{{ route('admin.reservations.index') }}" :active="request()->routeIs('admin.reservations.index')">
                                     {{ __('Reservation') }}
                                 </x-dropdown-link>
+                                <div class="border-t border-pale w-40 m-auto"></div>
                                 <x-dropdown-link href="{{ route('admin.orders.index') }}" :active="request()->routeIs('admin.orders.index')">
                                     {{ __('Order List') }}
                                 </x-dropdown-link>

@@ -44,10 +44,10 @@
                     <div class="col-span-4 mb-4 category-header text-center text-pale mt-4" data-category="{{ $category->id }}">
                         <h2 class="text-2xl font-bold">{{ $category->name }}</h2>
                     </div>
-                    <div class="flex flex-wrap justify-start">
+                    <div class="grid grid-cols-3 gap-4">
                         @foreach ($menus as $menu)
                         @if ($menu->category_id == $category->id)
-                            <div class="w-[18rem] mx-4 mb-2 rounded-lg shadow-lg menu-item border-2 border-pale"
+                            <div class="w-[23rem] mx-4 mb-2 rounded-lg shadow-lg menu-item border-2 border-pale"
                                 data-category="{{ $menu->category_id }}">
                                 <img class="w-full h-48" src="{{ asset('menus/' . $menu->image) }}"
                                         alt="Image" />
@@ -83,19 +83,20 @@
                         @endif
                     @endforeach
                     </div>
-                    <div class="col-span-4 mb-4 category-header text-center text-pale mt-4">
-                        @if (empty($cartItems))
-                        <a href="{{ route('admin.order.shoppingcart', ['reservation_id' => session()->get('reservation_id')]) }}"
-                            class="bg-gradient-to-r from-bbyellow via-yellow-300 to-yellow-500 hover:bg-gradient-to-br text-bgcyan font-bold py-2 px-4 mt-4 rounded mx-2">Shopping Cart</a>
-                        @else
-                            <a href="{{ route('admin.order.shoppingcart', ['reservation_id' => $reservation_id]) }}"
-                                class="bg-gradient-to-r from-bbyellow via-yellow-300 to-yellow-500 hover:bg-gradient-to-br text-bgcyan font-bold py-2 px-4 mt-4 rounded mx-2">Shopping Cart</a>
-                        @endif
-                    </div>
+                    
                    
                 @endif
             @endforeach
         @endif
+        <div class="col-span-4 mb-4 category-header text-center text-pale mt-4">
+            @if (empty($cartItems))
+            <a href="{{ route('admin.order.shoppingcart', ['reservation_id' => session()->get('reservation_id')]) }}"
+                class="bg-gradient-to-r from-bbyellow via-yellow-300 to-yellow-500 hover:bg-gradient-to-br text-bgcyan font-bold py-2 px-4 mt-4 rounded mx-2">Shopping Cart</a>
+            @else
+                <a href="{{ route('admin.order.shoppingcart', ['reservation_id' => $reservation_id]) }}"
+                    class="bg-gradient-to-r from-bbyellow via-yellow-300 to-yellow-500 hover:bg-gradient-to-br text-bgcyan font-bold py-2 px-4 mt-4 rounded mx-2">Shopping Cart</a>
+            @endif
+        </div>
         <div id="no-menus" class="col-span-4 mb-4" style="display: none;">
             <h2 class="text-2xl text-center">No menu found for this category.</h2>
         </div>

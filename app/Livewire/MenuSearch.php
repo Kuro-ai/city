@@ -25,7 +25,7 @@ class MenuSearch extends Component
         }
 
         return view('livewire.menu-search', [
-            'menus' => $result->paginate(10),
+            'menus' => $result->get(),
             'categories' => $categories,
         ]);
     }
