@@ -1,26 +1,25 @@
 <div>
-    <div id="search-bar">
-        <form class="d-flex" role="search">
-            <input wire:model.live="search" class="form-control me-2" type="search" placeholder="Search"
-                aria-label="Search">
-        </form>
+    <div class="flex justify-between mt-4 p-4">
+        <div class="w-44 ml-6">            
+            <select id="category" name="category" onchange="filterMenus(this.value)"
+                class="mt-1 block w-full py-2 px-3 border border-pale bg-bgcyan text-pale rounded-md shadow-sm focus:outline-none focus:ring-pale focus:border-pale">
+                <option value="">All Categories</option>
+                @foreach ($categories as $category)
+                    <option value="{{ $category->id }}">{{ $category->name }}</option>
+                @endforeach
+            </select>
+        </div>
+        <div id="search-bar" class="mr-6">
+            <form class="d-flex" role="search">
+                <input wire:model.live="search" class="form-control me-2" type="search" placeholder="Search"
+                    aria-label="Search">
+            </form>
+        </div>
     </div>
     <div class="container w-full px-5 py-6 mx-auto">
-        <form action="{{ route('customer.order.addToCart') }}" method="post" onsubmit="return checkSelection()" class="grid grid-cols-4 gap-6">
-            <input type="text" name="reservation_id" value="{{ session()->get('reservation_id') }}" class="hidden">
-            @csrf
+        @if ($categories->isEmpty() && $menus->isEmpty())
             <div class="col-span-4 mb-4">
-                <label for="category" class="block text-sm font-medium text-gray-700">Filter by Category:</label>
-                <select id="category" name="category" onchange="filterMenus(this.value)" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-green-500 focus:border-green-500">
-                    <option value="">All Categories</option>
-                    @foreach ($categories as $category)
-                        <option value="{{ $category->id }}">{{ $category->name }}</option>
-                    @endforeach
-                </select>
-            </div>
-            @if ($categories->isEmpty() && $menus->isEmpty())
-            <div class="col-span-4 mb-4">
-                <h2 class="text-2xl font-bold">No categories or menus found.</h2>
+                <h2 class="text-2xl font-bold text-pale border-bbyellow text-center">No categories or menus found.</h2>
             </div>
         @else
             @foreach ($categories as $category)
@@ -35,33 +34,52 @@
                 @endphp
                 @if ($hasMenus)
                     <div class="col-span-4 mb-4 category-header" data-category="{{ $category->id }}">
-                        <h2 class="text-2xl font-bold">{{ $category->name }}</h2>
-                    </div>    
-                    @foreach ($menus as $menu)
-                        @if ($menu->category_id == $category->id)
-                            <div class="max-w-xs mx-4 mb-2 rounded-lg shadow-lg menu-item" data-category="{{ $menu->category_id }}">
-                                <img class="w-full h-48" src="{{ asset('menus/' . $menu->image) }}" alt="Image" />
-        
-                                <div class="px-6 py-4">
-                                    <h4 class="mb-3 text-xl font-semibold tracking-tight text-green-600 uppercase">{{ $menu->name }}</h4>
-                                    <p class="leading-normal text-gray-700">{{ $menu->description }}.</p>
+                        <h2 class="text-2xl font-bold text-pale border-bbyellow text-center">{{ $category->name }}</h2>
+                    </div>
+                    <div class="flex flex-wrap justify-start">
+                        @foreach ($menus as $menu)
+                            @if ($menu->category_id == $category->id)
+                                <div class="w-[18rem] mx-4 mb-2 rounded-lg shadow-lg menu-item border-2 border-pale"
+                                    data-category="{{ $menu->category_id }}">
+                                    <img class="w-full h-48" src="{{ asset('menus/' . $menu->image) }}"
+                                        alt="Image" />
+    
+                                    <div class="px-6 py-4">
+                                        <h4 class="mb-3 text-xl font-semibold tracking-tight text-pale text-center uppercase">
+                                            {{ $menu->name }}</h4>
+                                        <p class="leading-normal text-pale text-center">{{ $menu->description }}.</p>
+                                    </div>
+                                    <div class="px-6 pt-2">
+                                        <p class="text-xl text-pale text-center">${{ $menu->price }}</p>
+                                    </div>
+                                    <div class="px-6 py-4 flex flex-col items-center justify-center">  
+                                        <form action="{{ route('customer.order.addToCart') }}" method="post" class="text-center">
+                                            @csrf
+                                            <input type="hidden" name="menus[]" value="{{ $menu->id }}">
+                                            <input type="number" name="quantities[{{ $menu->id }}]" min="1"
+                                                value="1" class="bg-bgcyan text-pale border-2 border-bbyellow mb-3">
+                                            <button type="submit" class="bg-gradient-to-r from-bbyellow via-yellow-300 to-yellow-500 hover:bg-gradient-to-br  text-bgcyan px-4 py-2 rounded transition-colors duration-200">Add to Cart</button>
+                                        </form>
+                                    </div>
                                 </div>
-                                <div class="px-6 py-4">
-                                    <span class="text-xl text-green-600">${{ $menu->price }}</span>
-                                    <input type="checkbox" name="menus[]" value="{{ $menu->id }}">
-                                    <input type="number" name="quantities[{{ $menu->id }}]" min="1" value="1">
-                                </div>
-                            </div>
+                            @endif
+                        @endforeach
+                    </div>
+                    <div class="col-span-4 mb-4 category-header text-center text-pale mt-4">
+                        @if (empty($cartItems))
+                        <a href="{{ route('customer.order.shoppingcart', ['reservation_id' => session()->get('reservation_id')]) }}"
+                            class="bg-gradient-to-r from-bbyellow via-yellow-300 to-yellow-500 hover:bg-gradient-to-br text-bgcyan font-bold py-2 px-4 mt-4 rounded mx-2">Shopping Cart</a>
+                        @else
+                            <a href="{{ route('customer.order.shoppingcart', ['reservation_id' => $reservation_id]) }}"
+                                class="bg-gradient-to-r from-bbyellow via-yellow-300 to-yellow-500 hover:bg-gradient-to-br text-bgcyan font-bold py-2 px-4 mt-4 rounded mx-2">Shopping Cart</a>
                         @endif
-                    @endforeach
+                    </div>
                 @endif
             @endforeach
         @endif
         <div id="no-menus" class="col-span-4 mb-4" style="display: none;">
-            <h2 class="text-2xl text-center">No menu found for this category.</h2>
+            <h2 class="text-2xl text-center text-pale border-bbyellow">No menu found for this category.</h2>
         </div>
-            <button type="submit" onclick="checkSelection()" class="col-span-4">Add to Cart</button>
-        </form>
     </div>
 
 </div>

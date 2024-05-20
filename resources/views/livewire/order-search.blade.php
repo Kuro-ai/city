@@ -1,11 +1,13 @@
 <div>
-    <form class="d-flex" role="search">
-        <input wire:model.live="search" class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-    </form>
+    <div class="mb-6">
+        <form class="d-flex" role="search">
+            <input wire:model.live="search" class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+        </form>
+    </div>
 
     <div class="h-[55rem] overflow-x-scroll relative shadow-md sm:rounded-lg" id="orderContent">
-        <table class="w-max text-sm rtl:text-right text-gray-500 text-center ">
-            <thead class="text-xs text-gray-700 uppercase bg-slate-300">
+        <table class="w-max text-sm rtl:text-right text-pale text-center ">
+            <thead class="text-xs text-bbyellow uppercase bg-bgcyan border-2 border-pale">
                 <tr>
                     <th scope="col" class="px-6 py-3">
                         Order ID
@@ -54,8 +56,8 @@
                                 $order_date = $order->order_date;
                             @endphp
                         @endif
-                        <tr class="odd:bg-white even:bg-gray-50">
-                            <td scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
+                        <tr class="bg-bgcyan text-pale border-2 border-pale">
+                            <td scope="row" class="px-6 py-4 font-medium whitespace-nowrap">
                                 @if ($lastOrderId !== $order->id)
                                     {{ $order->id }}
                                     @php
@@ -63,32 +65,32 @@
                                     @endphp
                                 @endif
                             </td>
-                            <td scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
+                            <td scope="row" class="px-6 py-4 font-medium whitespace-nowrap">
                                 {{ $order->first_name }} {{ $order->last_name }}
                             </td>
-                            <td scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
+                            <td scope="row" class="px-6 py-4 font-medium whitespace-nowrap">
                                 {{ $order->phone }} 
                             </td>
-                            <td scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
+                            <td scope="row" class="px-6 py-4 font-medium whitespace-nowrap">
                                 {{ $order->email }}
                             </td>
-                            <td scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
+                            <td scope="row" class="px-6 py-4 font-medium whitespace-nowrap">
                                 {{ $order->address }}
                             </td>
-                            <td scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
+                            <td scope="row" class="px-6 py-4 font-medium whitespace-nowrap">
                                 {{ $order->name }}
                             </td>
-                            <td scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
+                            <td scope="row" class="px-6 py-4 font-medium whitespace-nowrap">
                                 {{ $order->quantity }}
                             </td>
-                            <td scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
+                            <td scope="row" class="px-6 py-4 font-medium whitespace-nowrap">
                                 {{ $total }}
                             </td>
-                            <td scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
+                            <td scope="row" class="px-6 py-4 font-medium whitespace-nowrap">
                                 {{ $order_date }}
                             </td>
                             <td data-id="{{ $order->id }}" scope="row"
-                                class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
+                                class="px-6 py-4 font-medium whitespace-nowrap">
                                 <div class="email-form-delete flex space-x-2 justify-center items-center">
                                     <form class="px-2 py-3 hover:bg-red-400 rounded-lg text-white"
                                         action="{{ route('admin.orders.destroy', $order->id) }}" method="POST"

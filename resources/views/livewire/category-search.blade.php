@@ -1,12 +1,19 @@
 <div>
-    <div id="search-bar">
-        <form class="d-flex" role="search">
-            <input wire:model.live="search" class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-        </form>
+    <div class="flex justify-between">
+        <div id="search-bar">
+            <form class="d-flex" role="search">
+                <input wire:model.live="search" class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+            </form>
+        </div>
+        <x-create-button href="{{ route('admin.categories.create') }}">
+            New Category
+        </x-create-button>
+        
     </div>
-    <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
-        <table class="w-full text-sm rtl:text-right text-gray-500 text-center">
-            <thead class="text-xs text-gray-700 uppercase bg-slate-300">
+    
+    <div class="h-[55rem] overflow-x-scroll relative shadow-md sm:rounded-lg">
+        <table class="w-max text-sm rtl:text-right text-pale text-center m-auto mt-6">
+            <thead class="text-xs text-bbyellow uppercase bg-bgcyan border-2 border-pale">
                 <tr>
                     <th scope="col" class="px-6 py-3">
                         Name
@@ -30,19 +37,19 @@
                     </tr>
                 @else
                     @foreach ($categories as $category)
-                        <tr class="odd:bg-white even:bg-gray-50">
-                            <td scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
+                        <tr class="bg-bgcyan text-pale border-2 border-pales">
+                            <td scope="row" class="px-6 py-4 font-medium whitespace-nowrap">
                                 {{ $category->name }}
                             </td>
-                            <td scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
+                            <td scope="row" class="px-6 py-4 font-medium whitespace-nowrap">
                                 {{ $category->description }}
                             </td>
                             <td scope="row"
-                                class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap flex justify-center items-center">
+                                class="px-6 py-4 font-medium whitespace-nowrap flex justify-center items-center">
                                 <img src="{{ asset('categories') }}/{{ $category->image }}" height="100" width="100"
                                     class="rounded" alt="{{ $category->name }}">
                             </td>
-                            <td scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
+                            <td scope="row" class="px-6 py-4 font-medium whitespace-nowrap">
                                 <div class="flex space-x-2 justify-center items-center">
                                     <a href="{{ route('admin.categories.edit', $category->id) }}"
                                         class="px-3 py-3 hover:bg-green-200 rounded-lg text-white">

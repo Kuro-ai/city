@@ -1,6 +1,6 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+        <h2 class="font-semibold text-xl text-bbyellow leading-tight">
             {{ __('Order List') }}
         </h2>
     </x-slot>
@@ -35,123 +35,6 @@
                     </span>
                 </div>
             @endif
-            {{-- <div class="relative overflow-x-auto shadow-md sm:rounded-lg" id="orderContent">
-                <table class="w-full text-sm rtl:text-right text-gray-500 text-center">
-                    <thead class="text-xs text-gray-700 uppercase bg-slate-300">
-                        <tr>
-                            <th scope="col" class="px-6 py-3">
-                                Order ID
-                            </th>
-                            <th scope="col" class="px-6 py-3">
-                                Name
-                            </th>
-                            <th scope="col" class="px-6 py-3">
-                                Phone Number
-                            </th>
-                            <th scope="col" class="px-6 py-3">
-                                Address
-                            </th>
-                            <th scope="col" class="px-6 py-3">
-                                Menu Name
-                            </th>
-                            <th scope="col" class="px-6 py-3">
-                                Quantity
-                            </th>
-                            <th scope="col" class="px-6 py-3">
-                                Grand Total
-                            </th>
-                            <th scope="col" class="px-6 py-3">
-                                Order Date
-                            </th>
-                            <th scope="col" class="px-6 py-3">
-                                Action
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody>
-
-                        @if (!empty($orderList))
-                            @php
-                                $lastOrderId = null;
-                                $total = null;
-                                $created_at = null;
-                            @endphp
-                            @foreach ($orderList as $order)
-                                @if ($lastOrderId !== $order->id)
-                                    @php
-                                        $total = $order->total;
-                                        $created_at = $order->created_at;
-                                    @endphp
-                                @endif
-                                <tr class="odd:bg-white even:bg-gray-50">
-                                    <td scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
-                                        @if ($lastOrderId !== $order->id)
-                                            {{ $order->id }}
-                                            @php
-                                                $lastOrderId = $order->id;
-                                            @endphp
-                                        @endif
-                                    </td>
-                                    <td scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
-                                        {{ $order->first_name }} {{ $order->last_name }}
-                                    </td>
-                                    <td scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
-                                        {{ $order->phone }}
-                                    </td>
-                                    <td scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
-                                        {{ $order->address }}
-                                    </td>
-                                    <td scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
-                                        {{ $order->name }}
-                                    </td>
-                                    <td scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
-                                        {{ $order->quantity }}
-                                    </td>
-                                    <td scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
-                                        {{ $total }}
-                                    </td>
-                                    <td scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
-                                        {{ $created_at }}
-                                    </td>
-                                    <td data-id="{{ $order->id }}" scope="row"
-                                        class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
-                                        <div class="email-form-delete flex space-x-2 justify-center items-center">
-                                            <form class="px-2 py-3 hover:bg-red-400 rounded-lg text-white"
-                                                action="{{ route('admin.orders.destroy', $order->id) }}" method="POST"
-                                                onsubmit="return confirm('Are you sure?')">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button type="submit"><img src="{{ asset('others/delete.png') }}"
-                                                        class="w-8 h-8"></button>
-                                            </form>
-                                            @if (!$order->email_sent)
-                                                <div class="email-form flex space-x-2 justify-center items-center">
-                                                    <form class="px-2 py-3 hover:bg-blue-400 rounded-lg text-white"
-                                                        action="{{ route('admin.orders.orderemail', $order->id) }}"
-                                                        method="POST"
-                                                        onsubmit="return confirm('Are you sure you want to send an email to this customer?')">
-                                                        @csrf
-                                                        <button type="submit"><img
-                                                                src="{{ asset('others/gmail.png') }}"
-                                                                class="w-8 h-8"></button>
-                                                    </form>
-                                                </div>
-                                            @endif
-                                        </div>
-                                    </td>
-                                </tr>
-                                @php
-                                    $total = null;
-                                    $created_at = null;
-                                @endphp
-                            @endforeach
-                        @endif
-                    </tbody>
-                </table>
-                <div class="p-6">
-                    {{ $orderList->links() }}
-                </div>
-            </div> --}}
 
             @livewire('order-search')
         </div>

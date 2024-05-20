@@ -1,24 +1,24 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+        <h2 class="font-semibold text-xl text-bbyellow leading-tight">
             {{ __('History') }}
         </h2>
     </x-slot>
     <div>
         <div class="mb-5">
-            <ul class="text-sm font-medium text-center bg-slate-100 rounded-lg shadow flex">
+            <ul class="text-sm font-medium text-center bg-pale rounded-lg shadow flex text-bgcyan">
                 <li id="reservationTab" class="w-full focus-within:z-10">
-                    <a href="#" class="inline-block w-full p-4 sborder-r border-gray-200 rounded-s-lg"
+                    <a href="#" class="inline-block w-full p-4 sborder-r border-pale   rounded-s-lg"
                         aria-current="page">Reservation</a>
                 </li>
                 <li id="orderTab" class="w-full focus-within:z-10">
-                    <a href="#" class="inline-block w-full p-4 border-r border-gray-200">Order</a>
+                    <a href="#" class="inline-block w-full p-4 border-r border-pale  ">Order</a>
                 </li>
             </ul>
         </div>
         <div class="relative overflow-x-auto shadow-md sm:rounded-lg" id="reservationContent">
             <table class="w-full text-sm rtl:text-right text-gray-500 text-center">
-                <thead class="text-xs text-gray-700 uppercase bg-slate-300">
+                <thead class="text-xs text-bbyellow uppercase bg-bgcyan border-2 border-pale">
                     <tr>
                         <th scope="col" class="px-6 py-3">
                             ID Number
@@ -48,23 +48,23 @@
                         </tr>
                     @else
                         @foreach ($reservationList as $reservation)
-                            <tr class="odd:bg-white even:bg-gray-50">
-                                <td scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
+                            <tr class="bg-bgcyan text-pale border-2 border-pale">
+                                <td scope="row" class="px-6 py-4 font-medium  whitespace-nowrap">
                                     {{ $reservation->id }}
                                 </td>
-                                <td scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
+                                <td scope="row" class="px-6 py-4 font-medium  whitespace-nowrap">
                                     {{ $reservation->first_name }} {{ $reservation->last_name }}
                                 </td>
-                                <td scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
+                                <td scope="row" class="px-6 py-4 font-medium  whitespace-nowrap">
                                     {{ $reservation->email }}
                                 </td>
-                                <td scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
+                                <td scope="row" class="px-6 py-4 font-medium  whitespace-nowrap">
                                     {{ $reservation->tel_number }}
                                 </td>
-                                <td scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
+                                <td scope="row" class="px-6 py-4 font-medium  whitespace-nowrap">
                                     {{ $reservation->table ? $reservation->table->name : 'No table' }}
                                 </td>
-                                <td scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
+                                <td scope="row" class="px-6 py-4 font-medium  whitespace-nowrap">
                                     {{ $reservation->res_date }}
                                 </td>
                             </tr>
@@ -80,7 +80,7 @@
 
         <div class="relative overflow-x-auto shadow-md sm:rounded-lg" id="orderContent" style="display: none;">
             <table class="w-full text-sm rtl:text-right text-gray-500 text-center">
-                <thead class="text-xs text-gray-700 uppercase bg-slate-300">
+                <thead class="text-xs text-bbyellow uppercase bg-bgcyan border-2 border-pale">
                     <tr>
                         <th scope="col" class="px-6 py-3">
                             Order ID
@@ -122,8 +122,8 @@
                                     $order_date = $order->order_date;
                                 @endphp
                             @endif
-                            <tr class="odd:bg-white even:bg-gray-50">
-                                <td scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
+                            <tr class="bg-bgcyan text-pale border-2 border-pale">
+                                <td scope="row" class="px-6 py-4 font-medium whitespace-nowrap">
                                     @if ($lastOrderId !== $order->id)
                                         {{ $order->id }}
                                         @php
@@ -131,25 +131,25 @@
                                         @endphp
                                     @endif
                                 </td>
-                                <td scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
+                                <td scope="row" class="px-6 py-4 font-medium whitespace-nowrap">
                                     {{ $order->first_name }} {{ $order->last_name }}
                                 </td>
-                                <td scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
+                                <td scope="row" class="px-6 py-4 font-medium whitespace-nowrap">
                                     {{ $order->phone }}
                                 </td>
-                                <td scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
+                                <td scope="row" class="px-6 py-4 font-medium whitespace-nowrap">
                                     {{ $order->address }}
                                 </td>
-                                <td scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
+                                <td scope="row" class="px-6 py-4 font-medium whitespace-nowrap">
                                     {{ $order->name }}
                                 </td>
-                                <td scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
+                                <td scope="row" class="px-6 py-4 font-medium whitespace-nowrap">
                                     {{ $order->quantity }}
                                 </td>
-                                <td scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
+                                <td scope="row" class="px-6 py-4 font-medium whitespace-nowrap">
                                     {{ $total }}
                                 </td>
-                                <td scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
+                                <td scope="row" class="px-6 py-4 font-medium whitespace-nowrap">
                                     {{ $order_date }}
                                 </td>
                             </tr>
@@ -175,15 +175,15 @@
         reservationTab.addEventListener('click', function() {
             document.getElementById('orderContent').style.display = 'none';
             document.getElementById('reservationContent').style.display = 'block';
-            reservationTab.classList.add('bg-slate-300', 'text-black');
-            orderTab.classList.remove('bg-slate-300', 'text-black');
+            reservationTab.classList.add('bg-bgcyan', 'text-bbyellow', 'border-2', 'border-pale');
+            orderTab.classList.remove('bg-bgcyan', 'text-bbyellow', 'border-2', 'border-pale');
         });
 
         orderTab.addEventListener('click', function() {
             document.getElementById('reservationContent').style.display = 'none';
             document.getElementById('orderContent').style.display = 'block';
-            reservationTab.classList.remove('bg-slate-300', 'text-black');
-            orderTab.classList.add('bg-slate-300', 'text-black');
+            reservationTab.classList.remove('bg-bgcyan', 'text-bbyellow', 'border-2', 'border-pale');
+            orderTab.classList.add('bg-bgcyan', 'text-bbyellow', 'border-2', 'border-pale');
         });
     });
 </script>

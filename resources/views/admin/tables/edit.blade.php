@@ -1,6 +1,6 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+        <h2 class="font-semibold text-xl text-bbyellow leading-tight">
             {{ __('Tables') }}
         </h2>
     </x-slot>
@@ -8,7 +8,7 @@
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 ">
 
-            <form class="max-w-sm mx-auto bg-slate-300 p-6 rounded-md"
+            <form class="max-w-sm mx-auto bg-bgcyan border-2 border-pale p-6 rounded-md"
                 action="{{ route('admin.tables.update', $table->id) }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 @method('PUT')
@@ -18,27 +18,27 @@
                     </x-create-button>
                 </div>
                 <div class="mb-5">
-                    <label for="table" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">New
+                    <label for="table" class="block mb-2 text-sm font-medium text-pale">New
                         Table</label>
                     <input type="text" id="table"
-                        class="shadow-sm bg-gray-50 border text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 @error('table') border-red-600 @enderror"
+                        class="shadow-sm bg-bgcyan border-2 border-pale text-pale text-sm rounded-lg block w-full p-2.5 @error('table') border-red-600 @enderror"
                         placeholder="Table" name="table" value="{{ $table->name }}"  />
                         @error('table')
                         <div class="text-red-500">{{ $message }}</div>
                     @enderror
                 </div>
                 <div class="mb-5">
-                    <label for="capacity" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                    <label for="capacity" class="block mb-2 text-sm font-medium text-pale">
                         Capacity</label>
                     <input type="text" id="capacity"
-                        class="shadow-sm bg-gray-50 border text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 @error('capacity') border-red-600 @enderror"
+                        class="shadow-sm bg-bgcyan border-2 border-pale text-pale text-sm rounded-lg block w-full p-2.5 @error('capacity') border-red-600 @enderror"
                         placeholder="capacity" name="capacity" value="{{ $table->capacity }}"  />
                         @error('capacity') border-red-600 @enderror
                 </div>
                 <div class="mb-5">
-                    <label for="status" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                    <label for="status" class="block mb-2 text-sm font-medium text-pale">
                         Status</label>
-                    <select name="status" id="status" class=" w-full">
+                    <select name="status" id="status" class="bg-bgcyan text-pale border-2 border-pale w-full">
                         @foreach (App\Enums\TableStatus::cases() as $status)
                             <option value="{{ $status->value }}" @selected($table->status->value == $status->value)>
                                 {{ $status->name }}</option>
@@ -46,9 +46,9 @@
                     </select>
                 </div>
                 <div class="mb-5">
-                    <label for="location" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                    <label for="location" class="block mb-2 text-sm font-medium text-pale">
                         Location</label>
-                    <select name="location" id="location" class=" w-full">
+                    <select name="location" id="location" class="bg-bgcyan text-pale border-2 border-pale w-full">
                         @foreach (App\Enums\TableLocation::cases() as $location)
                             <option value="{{ $location->value }}" @selected($table->location->value == $location->value)>
                                 {{ $location->name }}</option>

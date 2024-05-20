@@ -69,12 +69,9 @@ class OrderController extends Controller
         // Store the updated cart items in the session
         session()->put('cartItems', $cartItems);
 
-        // Redirect back to the appropriate page based on whether there are items in the cart
-        if (empty($cartItems)) {
-            return redirect()->route('customer.menus.index');
-        } else {
-            return redirect()->route('customer.order.shoppingcart');
-        }
+        return redirect()->route('customer.menus.index');
+
+  
     }
 
     public function showCart()

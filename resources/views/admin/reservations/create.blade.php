@@ -1,6 +1,6 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+        <h2 class="font-semibold text-xl text-bbyellow leading-tight">
             {{ __('Reservation') }}
         </h2>
     </x-slot>
@@ -8,7 +8,7 @@
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 ">
 
-            <form class="max-w-sm mx-auto bg-slate-300 p-6 rounded-md" action="{{ route('admin.reservations.store') }}"
+            <form class="max-w-sm mx-auto bg-bgcyan border-2 border-pale p-6 rounded-md" action="{{ route('admin.reservations.store') }}"
                 method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="flex justify-end">
@@ -17,49 +17,49 @@
                     </x-create-button>
                 </div>
                 <div class="mb-5">
-                    <label for="first_name" class="block mb-2 text-sm font-medium text-gray-900 ">First
+                    <label for="first_name" class="block mb-2 text-sm font-medium text-pale ">First
                         Name</label>
                     <input type="text" id="first_name"
-                        class="shadow-sm bg-gray-50 border text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 @error('first_name') border-red-600 @enderror"
+                        class="shadow-sm bg-bgcyan border-2 border-pale  text-pale text-sm rounded-lg block w-full p-2.5 @error('first_name') border-red-600 @enderror"
                         placeholder="First Name" name="first_name" />
                     @error('first_name')
                         <div class="text-red-500">{{ $message }}</div>
                     @enderror
                 </div>
                 <div class="mb-5">
-                    <label for="last_name" class="block mb-2 text-sm font-medium text-gray-900 ">Last
+                    <label for="last_name" class="block mb-2 text-sm font-medium text-pale ">Last
                         Name</label>
                     <input type="text" id="last_name"
-                        class="shadow-sm bg-gray-50 border text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 @error('last_name') border-red-600 @enderror"
+                        class="shadow-sm bg-bgcyan border-2 border-pale  text-pale text-sm rounded-lg block w-full p-2.5 @error('last_name') border-red-600 @enderror"
                         placeholder="Last Name" name="last_name" />
                     @error('last_name')
                         <div class="text-red-500">{{ $message }}</div>
                     @enderror
                 </div>
                 <div class="mb-5">
-                    <label for="email" class="block mb-2 text-sm font-medium text-gray-900 ">Email</label>
+                    <label for="email" class="block mb-2 text-sm font-medium text-pale ">Email</label>
                     <input type="email" id="email"
-                        class="shadow-sm bg-gray-50 border text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 @error('email') border-red-600 @enderror"
+                        class="shadow-sm bg-bgcyan border-2 border-pale text-pale text-sm rounded-lg block w-full p-2.5 @error('email') border-red-600 @enderror"
                         placeholder="example@gmail.com" name="email" />
                     @error('email')
                         <div class="text-red-500">{{ $message }}</div>
                     @enderror
                 </div>
                 <div class="mb-5">
-                    <label for="tel_number" class="block mb-2 text-sm font-medium text-gray-900 ">Phone
+                    <label for="tel_number" class="block mb-2 text-sm font-medium text-pale ">Phone
                         Number</label>
                     <input type="text" id="tel_number"
-                        class="shadow-sm bg-gray-50 border text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 @error('tel_number') border-red-600 @enderror"
+                        class="shadow-sm bg-bgcyan border-2 border-pale  text-pale text-sm rounded-lg block w-full p-2.5 @error('tel_number') border-red-600 @enderror"
                         placeholder="09-xxx xxxxxx" name="tel_number"onkeypress="return isNumberKey(event)" />
                     @error('tel_number')
                         <div class="text-red-500">{{ $message }}</div>
                     @enderror
                 </div>
                 <div class="mb-5">
-                    <label for="res_date" class="block mb-2 text-sm font-medium text-gray-900 ">
+                    <label for="res_date" class="block mb-2 text-sm font-medium text-pale ">
                         Reservation Date</label>
                     <input type="datetime-local" id="res_date"
-                        class="message shadow-sm bg-gray-50 border text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 @error('res_date') border-red-600 @enderror @error('table_id') border-red-600 @enderror"
+                        class="message shadow-sm bg-bgcyan border-2 border-pale  text-pale text-sm rounded-lg block w-full p-2.5 @error('res_date') border-red-600 @enderror @error('table_id') border-red-600 @enderror"
                         placeholder="" name="res_date" aria-describedby="helper-text-explanation-table"
                         onchange="validateTime(this)" />
                     @error('res_date')
@@ -68,15 +68,15 @@
                     @error('table_id')
                         <div class="text-red-500">{{ $message }}</div>
                     @enderror
-                    <p id="helper-text-explanation-table" class="mt-2 text-sm text-gray-500">Please Choose the time
+                    <p id="helper-text-explanation-table" class="mt-2 text-sm text-pale">Please Choose the time
                         between 3pm to 9pm</p>
                     <div id="message" class="text-red-500 border-red-600"></div>
                 </div>
                 <div class="mb-5">
-                    <label for="guest_number" class="block mb-2 text-sm font-medium text-gray-900 ">
+                    <label for="guest_number" class="block mb-2 text-sm font-medium text-pale ">
                         Guest Number</label>
                     <input type="number" id="guest_number"
-                        class="messages shadow-sm bg-gray-50 border text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 @error('guest_number') border-red-600 @enderror"
+                        class="messages shadow-sm bg-bgcyan border-2 border-pale  text-pale text-sm rounded-lg block w-full p-2.5 @error('guest_number') border-red-600 @enderror"
                         placeholder="guest_number" name="guest_number" min="1" max="20" step="1" />
                     @error('guest_number')
                         <div class="text-red-500">{{ $message }}</div>
@@ -84,17 +84,17 @@
                     <div id="messages" class="text-red-500 border-red-600"></div>
                 </div>
                 <div class="mb-5">
-                    <label for="table" class="block mb-2 text-sm font-medium text-gray-900 ">
+                    <label for="table" class="block mb-2 text-sm font-medium text-pale ">
                         Table</label>
                     @if ($tables->isEmpty())
                         <select name="table_id" id="table" class=" w-full"
                             aria-describedby="helper-text-explanation-table">
                             <option value="">No tables available</option>
                         </select>
-                        <p id="helper-text-explanation-table" class="mt-2 text-sm text-gray-500">Each table can be added
+                        <p id="helper-text-explanation-table" class="mt-2 text-sm text-pale">Each table can be added
                             extra chairs for children</p>
                     @else
-                        <select name="table_id" id="table" class=" w-full"
+                        <select name="table_id" id="table" class="bg-bgcyan text-pale border-2 border-pale w-full"
                             aria-describedby="helper-text-explanation-table">
                             <option>Select The Table </option>
                             @foreach ($tables as $table)
@@ -104,12 +104,12 @@
                                 </option>
                             @endforeach
                         </select>
-                        <p id="helper-text-explanation-table" class="mt-2 text-sm text-gray-500">Each table can be added
+                        <p id="helper-text-explanation-table" class="mt-2 text-sm text-pale">Each table can be added
                             extra chairs for children</p>
                     @endif
                 </div>
                 <div class="mb-5 sm:col-span-6">
-                    <input type="text" name="user_id" value="{{ \Illuminate\Support\Facades\Auth::id() }}">
+                    <input type="hidden" name="user_id" value="{{ \Illuminate\Support\Facades\Auth::id() }}">
                 </div> 
 
                 <div class="mb-5 mx-auto">

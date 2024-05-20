@@ -1,6 +1,6 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight flex justify-between">
+        <h2 class="font-semibold text-xl text-bbyellow leading-tight flex justify-between">
             {{ __('Menu') }}
             <a href="{{ route('admin.order.shoppingcart', ['reservation_id' => request('reservation_id')]) }}">
                 <span class="text-red-700 bg-red-300 rounded-full h-4 w-4 flex items-center justify-center text-sm">
@@ -31,11 +31,7 @@
 
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="flex justify-end">
-                <x-create-button href="{{ route('admin.menus.create') }}">
-                    New Menu
-                </x-create-button>
-            </div>
+           
             @if (session('status'))
                 <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative mt-3 text-center"
                     role="alert">

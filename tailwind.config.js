@@ -16,6 +16,11 @@ export default {
             fontFamily: {
                 sans: ['Figtree', ...defaultTheme.fontFamily.sans],
             },
+            colors: {
+                'bbyellow':'#FFB703',
+                'bgcyan':'#023047',
+                'pale':'#8ECAE6',
+            },
         },
     },
 

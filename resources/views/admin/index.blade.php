@@ -1,6 +1,6 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+        <h2 class="font-semibold text-xl text-bbyellow leading-tight">
             {{ __('Admin Dashboard') }}
         </h2>
     </x-slot>
@@ -18,18 +18,19 @@
             </span>
         </div>
     @endif
+        (Not really necessary) Seed category, menu and table. <br>
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
-                This is the admin page. <br>
-                (Absolute Last) UI changes needed<br><br>
-                (Not really necessary) Seed category, menu and table. <br>
+            <div class="flex  flex-col md:flex-row w-[40rem]">
+                <canvas id="myChart"></canvas>
+                <canvas id="myChart1"></canvas>
+            </div>
+            <div class="w-[40rem] m-auto">
+                <canvas id="myChart2"></canvas>
             </div>
         </div>
     </div>
-    <canvas id="myChart"></canvas>
-    <canvas id="myChart1"></canvas>
-    <canvas id="myChart2"></canvas>
+  
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
         var ctx = document.getElementById('myChart').getContext('2d');
@@ -46,9 +47,10 @@
                 }]
             },
             options: {
+                
                 scales: {
                     y: {
-                        beginAtZero: true
+                        beginAtZero: true,
                     }
                 }
             }
@@ -68,9 +70,10 @@
                 }]
             },
             options: {
+                
                 scales: {
                     y: {
-                        beginAtZero: true
+                        beginAtZero: true,
                     }
                 }
             }
@@ -90,9 +93,10 @@
                 }]
             },
             options: {
+                
                 scales: {
                     y: {
-                        beginAtZero: true
+                        beginAtZero: true,
                     }
                 }
             }

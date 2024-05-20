@@ -1,6 +1,6 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+        <h2 class="font-semibold text-xl text-bbyellow leading-tight">
             {{ __('Menus') }}
         </h2>
     </x-slot>
@@ -8,7 +8,7 @@
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 ">
 
-            <form class="max-w-sm mx-auto bg-slate-300 p-6 rounded-md"
+            <form class="max-w-sm mx-auto bg-bgcyan border-2 border-pale p-6 rounded-md"
                 action="{{ route('admin.menus.update', $menu->id) }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 @method('PUT')
@@ -18,10 +18,10 @@
                     </x-create-button>
                 </div>
                 <div class="mb-5">
-                    <label for="menu" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">New
+                    <label for="menu" class="block mb-2 text-sm font-medium text-pale">New
                         Menu</label>
                     <input type="text" id="menu"
-                        class="shadow-sm bg-gray-50 border text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 @error('menu') border-red-600 @enderror"
+                        class="shadow-sm bg-bgcyan border-2 border-pale text-pale text-sm rounded-lg block w-full p-2.5 @error('menu') border-red-600 @enderror"
                         placeholder="Menu" name="menu" value="{{ $menu->name }}" />
                     @error('menu')
                         <div class="text-red-500">{{ $message }}</div>
@@ -29,41 +29,41 @@
                 </div>
                 <div class="mb-5">
                     <label for="description"
-                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Description</label>
+                        class="block mb-2 text-sm font-medium text-pale">Description</label>
                     <textarea id="description" name="description" rows="4"
-                        class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border focus:ring-blue-500 focus:border-blue-500 @error('description') border-red-600 @enderror"
+                        class="block p-2.5 w-full text-sm text-pale bg-bgcyan border-2 border-pale rounded-lg  @error('description') border-red-600 @enderror"
                         placeholder="Description...">{{ $menu->description }}</textarea>
                     @error('description')
                         <div class="text-red-500">{{ $message }}</div>
                     @enderror
                 </div>
                 <div class="mb-5">
-                    <label for="image" class="block mb-2 text-sm font-medium text-gray-900">Upload
+                    <label for="image" class="block mb-2 text-sm font-medium text-pale">Upload
                         file</label>
                     <img id="oldImage" class="my-2 rounded-sm" src="{{ asset('menus/' . $menu->image) }}"
                         alt="{{ $menu->name }}">
                     <div id="imagePreview" class="hidden my-2 rounded-sm"></div>
                     <input name="image" id="image"
-                        class="block w-full text-sm text-gray-900 border rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none @error('image') border-red-600 @enderror"
+                        class="block w-full text-sm text-pale  rounded-lg cursor-pointer bg-bgcyan border-2 border-pale dark:text-gray-400 focus:outline-none @error('image') border-red-600 @enderror"
                         type="file">
                     @error('image')
                         <div class="text-red-500">{{ $message }}</div>
                     @enderror
                 </div>
                 <div class="mb-5">
-                    <label for="price" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                    <label for="price" class="block mb-2 text-sm font-medium text-pale">
                         Price</label>
                     <input type="number" id="price"
-                        class="shadow-sm bg-gray-50 border text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 @error('price') border-red-600 @enderror"
+                        class="shadow-sm bg-bgcyan border-2 border-pale border text-pale text-sm rounded-lg block w-full p-2.5 @error('price') border-red-600 @enderror"
                         placeholder="Price" name="price" min="0" step="0.01" value="{{ $menu->price }}" />
                     @error('price')
                         <div class="text-red-500">{{ $message }}</div>
                     @enderror
                 </div>
                 <div class="mb-5">
-                    <label for="category" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                    <label for="category" class="block mb-2 text-sm font-medium text-pale">
                         Category</label>
-                    <select name="category_id" id="category" class=" w-full">
+                    <select class="bg-bgcyan text-pale border-2 border-pale  w-full" name="category_id" id="category">
                         @foreach ($categories as $category)
                             <option value="{{ $category->id }}"
                                 {{ $category->id == $menu->category_id ? 'selected' : '' }}>{{ $category->name }}

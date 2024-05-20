@@ -1,6 +1,6 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+        <h2 class="font-semibold text-xl text-bbyellow leading-tight">
             {{ __('Categories') }}
         </h2>
     </x-slot>
@@ -8,7 +8,7 @@
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 ">
 
-            <form class="max-w-sm mx-auto bg-slate-300 p-6 rounded-md"
+            <form class="max-w-sm mx-auto bg-bgcyan border-2 border-pale p-6 rounded-md"
                 action="{{ route('admin.categories.update', $category->id) }}" method="POST"
                 enctype="multipart/form-data">
                 @csrf
@@ -19,10 +19,10 @@
                     </x-create-button>
                 </div>
                 <div class="mb-5">
-                    <label for="category" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">New
+                    <label for="category" class="block mb-2 text-sm font-medium text-pale">New
                         category</label>
                     <input type="text" id="category"
-                        class="shadow-sm bg-gray-50 border text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 @error('category') border-red-500 @enderror"
+                        class="shadow-sm bg-bgcyan border-2 border-pale text-pale text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 @error('category') border-red-500 @enderror"
                         placeholder="Category" name="category" value="{{ $category->name }}" />
                     @error('category')
                         <div class="text-red-500">{{ $message }}</div>
@@ -30,22 +30,22 @@
                 </div>
                 <div class="mb-5">
                     <label for="description"
-                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Description</label>
+                        class="block mb-2 text-sm font-medium text-pale">Description</label>
                     <textarea id="description" name="description" rows="4"
-                        class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border focus:ring-blue-500 focus:border-blue-500 @error('description') border-red-600 @enderror"
+                        class="block p-2.5 w-full text-sm text-pale bg-bgcyan rounded-lg border-2 border-pale focus:ring-blue-500 focus:border-blue-500 @error('description') border-red-600 @enderror"
                         placeholder="Description...">{{ $category->description }}</textarea>
                     @error('description')
                         <div class="text-red-500">{{ $message }}</div>
                     @enderror
                 </div>
                 <div class="mb-5">
-                    <label for="image" class="block mb-2 text-sm font-medium text-gray-900">Upload
+                    <label for="image" class="block mb-2 text-sm font-medium text-pale">Upload
                         file</label>
                     <img id="oldImage" class="my-2 rounded-sm" src="{{ asset('categories/' . $category->image) }}"
                         alt="{{ $category->name }}">
                     <div id="imagePreview" class="hidden my-2 rounded-sm"></div>
                     <input name="image" id="image"
-                        class="block w-full text-sm text-gray-900 border rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none @error('image') border-red-600 @enderror"
+                        class="block w-full text-sm text-pale border-2 border-pale rounded-lg cursor-pointer bg-bgcyan dark:text-gray-400 focus:outline-none @error('image') border-red-600 @enderror"
                         type="file">
                     @error('image')
                         <div class="text-red-500">{{ $message }}</div>

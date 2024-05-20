@@ -1,68 +1,87 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+        <h2 class="font-semibold text-xl text-bbyellow leading-tight">
             {{ __('Checkout') }}
         </h2>
     </x-slot>
-
-    <form method="POST" action="{{ route('admin.order.checkout.store') }}">
-        @csrf
-
-        @if ($reservation)
-            <input type="text" id="" name="first_name" value="{{ $reservation->id }}">
-            <input type="text" id="first_name" name="first_name" value="{{ $reservation->first_name }}">
-            <input type="text" id="last_name" name="last_name" value="{{ $reservation->last_name }}">
-            <input type="text" id="phone" name="phone" value="{{ $reservation->tel_number }}">
-            <input type="text" id="email" name="email" value="{{ $reservation->email }}">
-        @else
-            <label for="name">First Name:</label><br>
-            <input type="text" id="first_name" name="first_name"><br>
-
-            <label for="name">Last Name:</label><br>
-            <input type="text" id="last_name" name="last_name"><br>
-
-            <label for="phone">Phone:</label><br>
-            <input type="text" id="phone" name="phone"><br>
-
-            <label for="email">Email:</label><br>
-            <input type="email" id="email" name="email"><br>
-
-            <label for="address">Address:</label><br>
-            <textarea id="address" name="address" rows="4" cols="50"></textarea><br>
-
-            <div class="mb-5 sm:col-span-6">
-                <label for="res_date" class="block mb-2 text-sm font-medium text-gray-900 ">
-                    Order Date & Time</label>
-                <input type="datetime-local" id="res_date"
-                    class="message shadow-sm bg-gray-50 border text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 @error('res_date') border-red-600 @enderror @error('table_id') border-red-600 @enderror"
-                    placeholder="" name="order_date" aria-describedby="helper-text-explanation-table"
-                    onchange="validateTime(this)" />
-                @error('res_date')
-                    <div class="text-red-500">{{ $message }}</div>
-                @enderror
-                @error('table_id')
-                    <div class="text-red-500">{{ $message }}</div>
-                @enderror
-                <p id="helper-text-explanation-table" class="mt-2 text-sm text-gray-500">Please
-                    Choose the time
-                    between 3pm to 9pm</p>
-                <div id="message" class="text-red-500 border-red-600"></div>
-            </div>
-        @endif
-
-        @foreach ($cartItems as $item)
-            <input type="text" name="cartItems[{{ $loop->index }}][id]" value="{{ $item['menuItem']->id }}">
-            <input type="text" name="cartItems[{{ $loop->index }}][name]" value="{{ $item['menuItem']->name }}">
-            <input type="text" name="cartItems[{{ $loop->index }}][price]" value="{{ $item['price'] }}">
-            <input type="text" name="cartItems[{{ $loop->index }}][quantity]" value="{{ $item['quantity'] }}">
-            <input type="text" name="cartItems[{{ $loop->index }}][totalPrice]" value="{{ $item['totalPrice'] }}">
-        @endforeach
-        <input type="text" name="total" value="{{ $total }}">
-        <div class="mb-5 sm:col-span-6">
-            <input type="text" name="user_id" value="{{ \Illuminate\Support\Facades\Auth::id() }}">
+    
+   <div class="container w-full px-5 py-6 mx-auto ">
+    <div class="flex items-center justify-center bg-bgcyan ">
+        <div class="border-pale border-2 p-16">
+            <form method="POST" action="{{ route('admin.order.checkout.store') }}">
+                @csrf
+        
+                @if ($reservation)
+                    <input type="text" id="" name="reservation_id" value="{{ $reservation->id }}">
+                    <input type="text" id="first_name" name="first_name" value="{{ $reservation->first_name }}">
+                    <input type="text" id="last_name" name="last_name" value="{{ $reservation->last_name }}">
+                    <input type="text" id="phone" name="phone" value="{{ $reservation->tel_number }}">
+                    <input type="text" id="email" name="email" value="{{ $reservation->email }}">
+                @else
+                    <div class="my-3">
+                        <label class="text-pale" for="name">First Name</label>
+                    <input type="text" class="bg-bgcyan text-pale w-full border-pale" id="first_name" name="first_name">
+                    </div>
+        
+                    <div class="my-3">
+                        <label class="text-pale" for="name">Last Name</label>
+                    <input type="text" class="bg-bgcyan text-pale w-full border-pale" id="last_name" name="last_name">
+                    </div>
+        
+                    <div class="my-3">
+                        <label class="text-pale" for="phone">Phone</label>
+                    <input type="text" class="bg-bgcyan text-pale w-full border-pale" id="phone" name="phone">
+                    </div>
+        
+                    <div class="my-3">
+                        <label class="text-pale" for="email">Email</label>
+                    <input type="email" class="bg-bgcyan text-pale w-full border-pale" id="email" name="email">
+                    </div>
+        
+                   <div class="my-3">
+                    <label class="text-pale" for="address">Address</label>
+                    <textarea class="bg-bgcyan text-pale w-full border-pale" id="address" name="address" rows="4" cols="50"></textarea>
+                    <small class="text-pale">Delivery is limited to Yangon</small>
+                   </div>
+        
+                    <div class="mt-3 mb-5 sm:col-span-6">
+                        <label class="text-pale" for="res_date" class="block mb-2 text-sm font-medium text-gray-900 ">
+                            Order Date & Time</label>
+                        <input type="datetime-local" class="bg-bgcyan text-pale w-full border-pale" id="res_date"
+                            class="message shadow-sm bg-gray-50 border text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 @error('res_date') border-red-600 @enderror @error('table_id') border-red-600 @enderror"
+                            placeholder="" name="order_date" aria-describedby="helper-text-explanation-table"
+                            onchange="validateTime(this)" />
+                        @error('res_date')
+                            <div class="text-red-500">{{ $message }}</div>
+                        @enderror
+                        @error('table_id')
+                            <div class="text-red-500">{{ $message }}</div>
+                        @enderror
+                        <p id="helper-text-explanation-table" class="mt-2 text-sm text-pale">Please
+                            Choose the time
+                            between 3pm to 9pm</p>
+                        <div id="message" class="text-red-500 border-red-600"></div>
+                    </div>
+                @endif
+        
+                @foreach ($cartItems as $item)
+                    <input type="hidden" name="cartItems[{{ $loop->index }}][id]" value="{{ $item['menuItem']->id }}">
+                    <input type="hidden" name="cartItems[{{ $loop->index }}][name]" value="{{ $item['menuItem']->name }}">
+                    <input type="hidden" name="cartItems[{{ $loop->index }}][price]" value="{{ $item['price'] }}">
+                    <input type="hidden" name="cartItems[{{ $loop->index }}][quantity]" value="{{ $item['quantity'] }}">
+                    <input type="hidden" name="cartItems[{{ $loop->index }}][totalPrice]" value="{{ $item['totalPrice'] }}">
+                @endforeach
+                <input type="hidden" name="total" value="{{ $total }}">
+                <div class="mb-5 sm:col-span-6">
+                    <input type="hidden" name="user_id" value="{{ \Illuminate\Support\Facades\Auth::id() }}">
+                </div>
+                <div class="flex justify-center">
+                    <input type="submit" value="Order" class="bg-gradient-to-r from-bbyellow via-yellow-300 to-yellow-500 hover:bg-gradient-to-br text-bgcyan font-bold py-3 px-6 mt-2 rounded mx-auto text-lg">
+                </div>
+            </form>
         </div>
-        <input type="submit" value="Submit">
-    </form>
+    </div>
+   </div>
 </x-app-layout>
 <script>
     // Function to validate the selected time
@@ -93,3 +112,4 @@
         resDate.min = minDateTime;
     }
 </script>
+

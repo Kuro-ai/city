@@ -71,12 +71,8 @@ class AdminOrderController extends Controller
         // Store the updated cart items in the session
         session()->put('cartItems', $cartItems);
 
-        // Redirect back to the appropriate page based on whether there are items in the cart
-        if (empty($cartItems)) {
-            return redirect()->route('admin.menus.index');
-        } else {
-            return redirect()->route('admin.order.shoppingcart');
-        }
+        return redirect()->route('admin.menus.index');
+        
     }
 
     public function showCart()

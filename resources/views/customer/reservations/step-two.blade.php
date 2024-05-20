@@ -1,12 +1,12 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+        <h2 class="font-semibold text-xl text-bbyellow leading-tight">
             {{ __('Reservation') }}
         </h2>
     </x-slot>
     <div class="container w-full px-5 py-6 mx-auto">
-        <div class="flex items-center min-h-screen bg-gray-50">
-            <div class="flex-1 h-full max-w-4xl mx-auto bg-white rounded-lg shadow-xl">
+        <div class="flex items-center min-h-screen bg-bgcyan">
+            <div class="flex-1 h-full max-w-4xl mx-auto bg-bgcyan rounded-lg shadow-xl">
                 <div class="flex flex-col md:flex-row">
                     <div class="h-32 md:h-auto md:w-1/2">
                         <img class="object-cover w-full h-full"
@@ -14,7 +14,7 @@
                     </div>
                     <div class="flex items-center justify-center p-6 sm:p-12 md:w-1/2">
                         <div class="w-full">
-                            <h3 class="mb-4 text-xl font-bold text-blue-600">Make Reservation</h3>
+                            <h3 class="mb-4 text-xl font-bold text-bbyellow">Make Reservation</h3>
 
                             <div class="w-full bg-gray-200 rounded-full">
                                 <div
@@ -23,20 +23,13 @@
                                 </div>
                             </div>
 
-                            {{-- <div class="w-full bg-gray-200 rounded-full">
-                                <div
-                                    class="w-48 p-1 text-xs font-medium leading-none text-center text-blue-100 bg-blue-600 rounded-full ml-auto">
-                                    Step 2
-                                </div>
-                            </div> --}}
-
                             <form method="POST" action="{{ route('customer.reservations.store.step.two') }}">
                                 @csrf
                                 <div class="mb-5 sm:col-span-6">
-                                    <label for="res_date" class="block mb-2 text-sm font-medium text-gray-900 ">
+                                    <label for="res_date" class="block mb-2 text-sm font-medium text-pale bg-bgcyan">
                                         Reservation Date</label>
                                     <input type="datetime-local" id="res_date"
-                                        class="message shadow-sm bg-gray-50 border text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 @error('res_date') border-red-600 @enderror @error('table_id') border-red-600 @enderror"
+                                        class="message shadow-sm border text-pale bg-bgcyan text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 @error('res_date') border-red-600 @enderror @error('table_id') border-red-600 @enderror"
                                         placeholder="" name="res_date" aria-describedby="helper-text-explanation-table"
                                         onchange="validateTime(this)" />
                                     @error('res_date')
@@ -45,17 +38,17 @@
                                     @error('table_id')
                                         <div class="text-red-500">{{ $message }}</div>
                                     @enderror
-                                    <p id="helper-text-explanation-table" class="mt-2 text-sm text-gray-500">Please
+                                    <small id="helper-text-explanation-table" class="mt-2 text-sm text-pale">Please
                                         Choose the time
-                                        between 3pm to 9pm</p>
+                                        between 3pm to 9pm</small>
                                     <div id="message" class="text-red-500 border-red-600"></div>
                                 </div>
                                 <div class="mb-5 sm:col-span-6">
-                                    <label for="guest_number" class="block mb-2 text-sm font-medium text-gray-900 ">
+                                    <label for="guest_number" class="block mb-2 text-sm font-medium text-pale bg-bgcyan ">
                                         Guest Number</label>
                                     <input type="number" id="guest_number"
-                                        class="messages shadow-sm bg-gray-50 border text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 @error('guest_number') border-red-600 @enderror"
-                                        placeholder="guest_number" name="guest_number" min="1" max="20"
+                                        class="messages shadow-sm border text-pale bg-bgcyan text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 @error('guest_number') border-red-600 @enderror"
+                                        placeholder="Guest Number" name="guest_number" min="1" max="20"
                                         step="1" />
                                     @error('guest_number')
                                         <div class="text-red-500">{{ $message }}</div>
@@ -63,10 +56,10 @@
                                     <div id="messages" class="text-red-500 border-red-600"></div>
                                 </div>
                                 <div class="sm:col-span-6 pt-5">
-                                    <label for="status" class="block text-sm font-medium text-gray-700">Table</label>
+                                    <label for="status" class="block text-sm font-medium text-pale">Table</label>
                                     <div class="mt-1">
                                         <select id="table_id" name="table_id"
-                                            class="form-multiselect block w-full mt-1">
+                                            class="form-multiselect block w-full mt-1 bg-bgcyan text-pale">
                                             @foreach ($tables as $table)
                                                 <option value="{{ $table->id }}"
                                                     data-capacity="{{ $table->capacity }}" @selected($table->id == $reservation->table_id)>
@@ -83,9 +76,9 @@
 
                                 <div class="mt-6 p-4 flex justify-between">
                                     <a href="{{ route('customer.reservations.step.one') }}"
-                                        class="px-4 py-2 bg-indigo-500 hover:bg-indigo-700 rounded-lg text-white">Previous</a>
+                                        class="px-4 py-2 bg-bbyellow hover:bg-yellow-300 rounded-lg text-bgcyan">Previous</a>
                                     <button type="submit" id="submit_button"
-                                        class="px-4 py-2 bg-indigo-500 hover:bg-indigo-700 rounded-lg text-white">
+                                        class="px-4 py-2 bg-bbyellow hover:bg-yellow-300 rounded-lg text-bgcyan">
                                         Reserve</button>
                                 </div>
                                 

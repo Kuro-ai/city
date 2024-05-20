@@ -1,12 +1,12 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+        <h2 class="font-semibold text-xl text-bbyellow leading-tight">
             {{ __('Edit Income') }}
         </h2>
     </x-slot>
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <form id="incomeForm" method="POST" action="{{ route('admin.incomes.update', $income->id) }}">
+            <form class="max-w-sm mx-auto bg-bgcyan border-2 border-pale p-6 rounded-md" id="incomeForm" method="POST" action="{{ route('admin.incomes.update', $income->id) }}">
                 @csrf
                 @method('PUT')
                 <div class="flex justify-end">
@@ -17,39 +17,43 @@
                 <div id="incomeItems">
                     @foreach ($income->items as $item)
                         <div class="incomeItem">
-                            <div>
-                                <label for="menu_name[]">Menu Name</label>
-                                <select id="menu_name[]" name="menu_name[]" class="menu_name" onchange="calculateTotalPriceOG(event)">
+                            <div class="mb-5 mx-auto">
+                                <label class="block text-pale text-sm font-bold mb-2" for="menu_name[]">Menu Name</label>
+                                <select class="shadow appearance-none rounded w-full py-2 px-3 text-pale bg-bgcyan border-2 border-pale leading-tight focus:outline-none focus:shadow-outline" id="menu_name[]" name="menu_name[]" class="menu_name" onchange="calculateTotalPriceOG(event)">
                                     @foreach ($menus as $menu)
                                         <option value="{{ $menu->name }}" data-price="{{ $menu->price }}" {{ $item['menu_name'] == $menu->name ? 'selected' : '' }}>{{ $menu->name }}</option>
                                     @endforeach
                                 </select>
                             </div>
-                            <div>
-                                <label for="quantity[]">Quantity</label>
-                                <input id="quantity[]" type="number" name="quantity[]" class="quantity" onchange="calculateTotalPriceOG(event)" value="{{ $item['quantity'] }}">
+                            <div class="mb-5 mx-auto">
+                                <label class="block text-pale text-sm font-bold mb-2" for="quantity[]">Quantity</label>
+                                <input class="shadow appearance-none rounded w-full py-2 px-3 text-pale bg-bgcyan border-2 border-pale leading-tight focus:outline-none focus:shadow-outline" id="quantity[]" type="number" name="quantity[]" class="quantity" onchange="calculateTotalPriceOG(event)" value="{{ $item['quantity'] }}">
                             </div>
-                            <div>
-                                <label for="total_price[]">Total Price</label>
-                                <input id="total_price[]" type="number" step="0.01" name="total_price[]" class="total_price" readonly value="{{ $item['total_price'] }}">
+                            <div class="mb-5 mx-auto">
+                                <label class="block text-pale text-sm font-bold mb-2" for="total_price[]">Total Price</label>
+                                <input class="shadow appearance-none rounded w-full py-2 px-3 text-pale bg-bgcyan border-2 border-pale leading-tight focus:outline-none focus:shadow-outline" id="total_price[]" type="number" step="0.01" name="total_price[]" class="total_price" readonly value="{{ $item['total_price'] }}">
                             </div>
                         </div>
                     @endforeach
                 </div>
-                <button type="button" id="addIncomeItem">Add Another Item</button>
+               <div class="flex justify-">
+                    <button type="button" id="addIncomeItem" class="bg-gradient-to-r from-bbyellow via-yellow-300 to-yellow-500 hover:bg-gradient-to-br text-bgcyan font-bold py-2 px-4 my-4 rounded m-auto">Add Another Item</button>
+               </div>
                 <div class="mb-3">
-                    <label class="block text-gray-700 text-sm font-bold mb-2" for="date">Date</label>
-                    <input
+                    <label class="block text-pale text-sm font-bold mb-2" class="block text-gray-700 text-sm font-bold mb-2" for="date">Date</label>
+                    <input class="shadow appearance-none rounded w-full py-2 px-3 text-pale bg-bgcyan border-2 border-pale leading-tight focus:outline-none focus:shadow-outline"
                         class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                         id="date" type="date" name="date" value="{{ $income->date }}">
                 </div>
-                <div>
-                    <label for="remark">Remark</label>
-                    <textarea id="remark" name="remark">{{ $income->remark }}</textarea>
+                <div class="mb-5 mx-auto">
+                    <label class="block text-pale text-sm font-bold mb-2" for="remark">Remark</label>
+                    <textarea class="shadow appearance-none rounded w-full py-2 px-3 text-pale bg-bgcyan border-2 border-pale leading-tight focus:outline-none focus:shadow-outline"  rows="4" cols="50" id="remark" name="remark">{{ $income->remark }}</textarea>
                 </div>
-                <input type="hidden" id="items" name="items">
-                <div>
-                    <button type="submit">Update</button>
+                <input class="shadow appearance-none rounded w-full py-2 px-3 text-pale bg-bgcyan border-2 border-pale leading-tight focus:outline-none focus:shadow-outline" type="hidden" id="items" name="items">
+                <div class="mb-5 mx-auto">
+                    <x-button>
+                        Update
+                    </x-button>
                 </div>
             </form>
         </div>
@@ -69,21 +73,21 @@
         var incomeItems = document.getElementById('incomeItems');
         var newIncomeItem = document.createElement('div');
         newIncomeItem.innerHTML = `
-        <div>
-            <label for="menu_name[]">Menu Name</label>
-            <select id="menu_name[]" name="menu_name[]" class="menu_name" onchange="calculateTotalPrice(event)">
+        <div class="mb-5 mx-auto">
+            <label class="block text-pale text-sm font-bold mb-2" for="menu_name[]">Menu Name</label>
+            <select class="shadow appearance-none rounded w-full py-2 px-3 text-pale bg-bgcyan border-2 border-pale leading-tight focus:outline-none focus:shadow-outline" id="menu_name[]" name="menu_name[]" class="menu_name" onchange="calculateTotalPrice(event)">
                 @foreach ($menus as $menu)
                     <option value="{{ $menu->name }}" data-price="{{ $menu->price }}">{{ $menu->name }}</option>
                 @endforeach
             </select>
         </div>
-        <div>
-            <label for="quantity[]">Quantity</label>
-            <input id="quantity[]" type="number" name="quantity[]" min="1" step="1" class="quantity" onchange="calculateTotalPrice(event)">
+        <div class="mb-5 mx-auto">
+            <label class="block text-pale text-sm font-bold mb-2" for="quantity[]">Quantity</label>
+            <input class="shadow appearance-none rounded w-full py-2 px-3 text-pale bg-bgcyan border-2 border-pale leading-tight focus:outline-none focus:shadow-outline" id="quantity[]" type="number" name="quantity[]" min="1" step="1" class="quantity" onchange="calculateTotalPrice(event)">
         </div>
-        <div>
-            <label for="total_price[]">Total Price</label>
-            <input id="total_price[]" type="number" step="0.01" name="total_price[]" class="total_price" readonly>
+        <div class="mb-5 mx-auto">
+            <label class="block text-pale text-sm font-bold mb-2" for="total_price[]">Total Price</label>
+            <input class="shadow appearance-none rounded w-full py-2 px-3 text-pale bg-bgcyan border-2 border-pale leading-tight focus:outline-none focus:shadow-outline" id="total_price[]" type="number" step="0.01" name="total_price[]" class="total_price" readonly>
         </div>
         `;
         incomeItems.appendChild(newIncomeItem);

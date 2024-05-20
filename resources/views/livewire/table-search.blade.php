@@ -1,12 +1,18 @@
 <div>
-    <div id="search-bar">
-        <form class="d-flex" role="search">
-            <input wire:model.live="search" class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-        </form>
+    <div class="flex justify-between">
+        <div id="search-bar">
+            <form class="d-flex" role="search">
+                <input wire:model.live="search" class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+            </form>
+        </div>
+        <x-create-button href="{{ route('admin.tables.create') }}">
+            New Table
+        </x-create-button>
     </div>
-    <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
-        <table class="w-full text-sm rtl:text-right text-gray-500 text-center">
-            <thead class="text-xs text-gray-700 uppercase bg-slate-300">
+    
+    <div class="h-[55rem] overflow-x-scroll relative shadow-md sm:rounded-lg">
+        <table class="w-max text-sm rtl:text-right text-pale text-center m-auto">
+            <thead class="text-xs text-bbyellow uppercase bg-bgcyan border-2 border-pale">
                 <tr>
                     <th scope="col" class="px-6 py-3">
                         Name
@@ -33,20 +39,20 @@
                     </tr>
                 @else
                     @foreach ($tables as $table)
-                        <tr class="odd:bg-white even:bg-gray-50">
-                            <td scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
+                        <tr class="bg-bgcyan text-pale border-2 border-pale">
+                            <td scope="row" class="px-6 py-4 font-medium whitespace-nowrap">
                                 {{ $table->name }}
                             </td>
-                            <td scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
+                            <td scope="row" class="px-6 py-4 font-medium whitespace-nowrap">
                                 {{ $table->capacity }}
                             </td>
-                            <td scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
+                            <td scope="row" class="px-6 py-4 font-medium whitespace-nowrap">
                                 {{ $table->status }}
                             </td>
-                            <td scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
+                            <td scope="row" class="px-6 py-4 font-medium whitespace-nowrap">
                                 {{ $table->location }}
                             </td>
-                            <td scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
+                            <td scope="row" class="px-6 py-4 font-medium whitespace-nowrap">
                                 <div class="flex space-x-2 justify-center items-center">
                                     <a href="{{ route('admin.tables.edit', $table->id) }}"
                                         class="px-3 py-3 hover:bg-green-200 rounded-lg text-white">

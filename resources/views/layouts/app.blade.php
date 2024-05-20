@@ -19,15 +19,15 @@
         <!-- Styles -->
         @livewireStyles
     </head>
-    <body class="font-sans antialiased">
+    <body class="font-sans antialiased bg-bgcyan">
         <x-banner />
 
-        <div class="min-h-screen bg-gray-100">
+        <div class="min-h-screen">
             @livewire('navigation-menu')
 
             <!-- Page Heading -->
             @if (isset($header))
-                <header class="bg-white shadow">
+                <header class="bg-bgcyan shadow">
                     <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
                         {{ $header }}
                     </div>
@@ -41,8 +41,8 @@
         </div>
 
         @stack('modals')
-        <footer class=" border-t border-gray-200">
-            <div class="container flex flex-wrap items-center justify-center px-4 py-8 mx-auto lg:justify-between">
+        <footer class=" border-t border-pale bg-bgcyan">
+            <div class="container flex flex-wrap items-center px-4 py-8 mx-auto justify-between">
                 <div class="flex flex-wrap justify-center">
                     <ul class="flex items-center space-x-4">
                         <li>
