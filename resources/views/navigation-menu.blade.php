@@ -13,31 +13,63 @@
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                     @if (auth()->check() && auth()->user()->is_admin)
+                    <div class="flex items-center space-x-8">
                         <x-nav-link href="{{ route('admin.index') }}" :active="request()->routeIs('admin.index')">
                             {{ __('Admin Dashboard') }}
                         </x-nav-link>
-                        <x-nav-link href="{{ route('admin.expenses.index') }}" :active="request()->routeIs('admin.expenses.index')">
-                            {{ __('Expense') }}
-                        </x-nav-link>
-                        <x-nav-link href="{{ route('admin.incomes.index') }}" :active="request()->routeIs('admin.incomes.index')">
-                            {{ __('Income') }}
-                        </x-nav-link>
-                        <x-nav-link href="{{ route('admin.categories.index') }}" :active="request()->routeIs('admin.categories.index')">
-                            {{ __('Categories') }}
-                        </x-nav-link>
-                        <x-nav-link href="{{ route('admin.menus.index') }}" :active="request()->routeIs('admin.menus.index')">
-                            {{ __('Menu') }}
-                        </x-nav-link>
-                        <x-nav-link href="{{ route('admin.tables.index') }}" :active="request()->routeIs('admin.tables.index')">
-                            {{ __('Tables') }}
-                        </x-nav-link>
-                        <x-nav-link href="{{ route('admin.reservations.index') }}" :active="request()->routeIs('admin.reservations.index')">
-                            {{ __('Reservation') }}
-                        </x-nav-link>
-                        <x-nav-link href="{{ route('admin.orders.index') }}" :active="request()->routeIs('admin.orders.index')">
-                            {{ __('Order List') }}
-                        </x-nav-link>
-                      
+                    
+                        <x-dropdown align="right" width="48">
+                            <x-slot name="trigger">
+                                <button
+                                    class="flex text-bbyellow text-sm border-2 border-transparent rounded-full focus:outline-none focus:border-pale transition">
+                                    <div>Finance</div>
+                                </button>
+                            </x-slot>
+                            <x-slot name="content">
+                                <x-dropdown-link href="{{ route('admin.expenses.index') }}" :active="request()->routeIs('admin.expenses.index')">
+                                    {{ __('Expense') }}
+                                </x-dropdown-link>
+                                <x-dropdown-link href="{{ route('admin.incomes.index') }}" :active="request()->routeIs('admin.incomes.index')">
+                                    {{ __('Income') }}
+                                </x-dropdown-link>
+                            </x-slot>
+                        </x-dropdown>
+                        <x-dropdown align="right" width="48">
+                            <x-slot name="trigger">
+                                <button
+                                    class="flex text-bbyellow text-sm border-2 border-transparent rounded-full focus:outline-none focus:border-pale transition">
+                                    <div>Management</div>
+                                </button>
+                            </x-slot>
+                            <x-slot name="content">
+                                <x-dropdown-link href="{{ route('admin.categories.index') }}" :active="request()->routeIs('admin.categories.index')">
+                                    {{ __('Categories') }}
+                                </x-dropdown-link>
+                                <x-dropdown-link href="{{ route('admin.menus.index') }}" :active="request()->routeIs('admin.menus.index')">
+                                    {{ __('Menu') }}
+                                </x-dropdown-link>
+                                <x-dropdown-link href="{{ route('admin.tables.index') }}" :active="request()->routeIs('admin.tables.index')">
+                                    {{ __('Tables') }}
+                                </x-dropdown-link>
+                            </x-slot>
+                        </x-dropdown>
+                        <x-dropdown align="right" width="48">
+                            <x-slot name="trigger">
+                                <button
+                                    class="flex text-bbyellow text-sm border-2 border-transparent rounded-full focus:outline-none focus:border-pale transition">
+                                    <div>Order</div>
+                                </button>
+                            </x-slot>
+                            <x-slot name="content">
+                                <x-dropdown-link href="{{ route('admin.reservations.index') }}" :active="request()->routeIs('admin.reservations.index')">
+                                    {{ __('Reservation') }}
+                                </x-dropdown-link>
+                                <x-dropdown-link href="{{ route('admin.orders.index') }}" :active="request()->routeIs('admin.orders.index')">
+                                    {{ __('Order List') }}
+                                </x-dropdown-link>
+                            </x-slot>
+                        </x-dropdown>
+                    </div>
                     @else
                         <x-nav-link href="{{ route('customer.index') }}" :active="request()->routeIs('customer.index')">
                             {{ __('Home') }}
