@@ -9,30 +9,26 @@ use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 
-class AdminOrderNotification extends Mailable
+class ReservationCancellation extends Mailable
 {
     use Queueable, SerializesModels;
-    public $name;
-    public $email;
-    public $orderId;
-
+    public $reservation;
+    public $user;
     /**
      * Create a new message instance.
      */
-    public function __construct($name, $email, $orderId)
+    public function __construct($reservation, $user)
     {
-        $this->name = $name;
-        $this->email = $email;
-        $this->orderId = $orderId;
+        $this->reservation = $reservation;
+        $this->user = $user;
     }
-    
+
     public function build()
     {
-        return $this->view('emails.admin-order-notification')
+        return $this->markdown('emails.reservation-cancellation')
                     ->with([
-                        'orderId' => $this->orderId,
-                        'name' => $this->name,
-                        'email' => $this->email
+                        'reservation' => $this->reservation,
+                        'user' => $this->user,
                     ]);
     }
 
@@ -42,7 +38,7 @@ class AdminOrderNotification extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Admin Order Notification',
+            subject: 'Reservation Cancellation~',
         );
     }
 
@@ -52,7 +48,7 @@ class AdminOrderNotification extends Mailable
     public function content(): Content
     {
         return new Content(
-            markdown: 'emails.admin-order-notification',
+            view: 'emails.admin-order-notification',
         );
     }
 

@@ -1,12 +1,12 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+        <h2 class="font-semibold text-xl text-bbyellow leading-tight">
             {{ __('Terms and Service') }}
         </h2>
     </x-slot>
-    <div class="bg-gray-100 p-6">
-        <div class="max-w-lg mx-auto bg-white rounded shadow p-6">
-            <h1 class="text-3xl mb-4 text-center">City Restaurant Terms of Service</h1>
+    <div class="bg-bgcyan p-6">
+        <div class="max-w-lg mx-auto bg-bgcyan border-2 text-pale border-pale rounded shadow p-6">
+            <h1 class="text-3xl mb-4 text-center text-bbyellow">City Restaurant Terms of Service</h1>
             <ol class="list-decimal pl-6">
                 <li class="mb-4">
                     <strong>Take-Away Orders:</strong>

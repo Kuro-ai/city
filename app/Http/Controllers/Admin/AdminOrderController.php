@@ -12,6 +12,7 @@ use App\Models\OrderItemModel;
 use Illuminate\Support\Facades\DB;
 use App\Mail\OrderConfirmation;
 use Illuminate\Support\Facades\Mail;
+use App\Models\User;
 class AdminOrderController extends Controller
 {
     public function index()
@@ -226,9 +227,17 @@ class AdminOrderController extends Controller
 
     public function orderemail($id)
     {
-        $order = DB::table('order_items')->join('orders', 'order_items.order_id', '=', 'orders.id')->select('order_items.*', 'orders.*')->where('order_items.id', $id)->first();
+        $order = DB::table('order_items')
+        ->join('orders', 'order_items.order_id', '=', 'orders.id')
+        ->join('users', 'orders.user_id', '=', 'users.id')
+        ->select('order_items.*', 'orders.*', 'users.name as username', 'users.email as useremail')
+        ->where('order_items.id', $id)
+        ->first();
 
-        $email = new OrderConfirmation($order);
+        $username = $order->username ? $order->username : 'User not found';
+        $useremail = $order->useremail ? $order->useremail : 'Email not found';
+
+        $email = new OrderConfirmation($order, $username, $useremail);
 
         Mail::to($order->email)->send($email);
 
@@ -238,7 +247,6 @@ class AdminOrderController extends Controller
 
         return redirect()->route('admin.orders.index')->with('status', 'Email is successfully sent!');
     }
-
     public function destroy(string $id)
     {
         $order = OrderModel::find($id);

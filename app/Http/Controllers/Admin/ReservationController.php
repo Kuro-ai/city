@@ -12,6 +12,7 @@ use Illuminate\Validation\ValidationException;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\ReservationConfirmation;
+use App\Mail\ReservationCancellation;
 
 class ReservationController extends Controller
 {
@@ -171,7 +172,8 @@ class ReservationController extends Controller
      */
     public function destroy(string $id)
     {
-        $reservation = ReservationModel::with('orderItems', 'order')->find($id);
+        $reservation = ReservationModel::with('orderItems', 'order', 'user')->find($id);
+        $user = $reservation->user;
         foreach ($reservation->orderItems as $orderItem) {
             $orderItem->delete();
         }
@@ -187,20 +189,30 @@ class ReservationController extends Controller
             $table->save();
         }
         $reservation->delete();
+        Mail::to($reservation->email)->send(new ReservationCancellation($reservation, $user));
         session()->flash('deletestatus', 'Reservation and associated order items successfully deleted!');
         return redirect()->route('admin.reservations.index');
     }
 
     public function reservationemail($id)
     {
-        $reservation = ReservationModel::findOrFail($id);
-        $email = new ReservationConfirmation($reservation);
-
-        Mail::to($reservation->email)->send($email);
-
-        $reservation->email_sent = true;
-        $reservation->save();
-
+        $reservation = DB::table('reservation_models')
+        ->join('users', 'reservation_models.user_id', '=', 'users.id')
+        ->select('reservation_models.*', 'users.name as username', 'users.email as useremail')
+        ->where('reservation_models.id', $id)
+        ->first();
+    
+        $username = $reservation->username ? $reservation->username : 'User not found';
+        $useremail = $reservation->useremail ? $reservation->useremail : 'Email not found';
+    
+        $email = new ReservationConfirmation($reservation, $username, $useremail);
+    
+        Mail::to($useremail)->send($email);
+    
+        DB::table('reservation_models')
+            ->where('id', $reservation->id)
+            ->update(['email_sent' => true]);
+    
         return redirect()->route('admin.reservations.index')->with('status', 'Email is successfully sent!');
     }
 }

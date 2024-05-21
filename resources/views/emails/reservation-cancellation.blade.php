@@ -1,3 +1,4 @@
+
 <style>
     .bg-slate-900 {
         background-color: #1a202c;
@@ -78,15 +79,15 @@
     }
 </style>
 
-<div class="bg-slate-900 mt-32 m-6 p-10 text-gray-100"> 
+<div class="bg-slate-900 mt-32 m-6 p-10 text-gray-100">
     <div class="text-center">
-        <h2 class="font-bold text-teal-400 bg-slate-800 p-2">{{ $details['name'] }} 's suggestion</h2>
-        <h4>New Customer Suggestion</h4>
-        <p>Customer's mail: {{ $details['email'] }}</p>
+        <h2 class="font-bold text-teal-400 bg-slate-800 p-2">Reservation Cancellation</h2>
+        <h4>Your Reservation #{{ $reservation->id }} has been Cancelled.</h4>
     </div>
     <div>
-        <p>Dear Coordinator,</p>
-        <p class="indent-8">{{ $details['message'] }}</p>
+        <p>Hello {{ $user->name }},</p>
+        <p>Your email is: {{ $user->email }}</p>
+        <p class="indent-8">Your Reservation, Reservation ID #{{ $reservation->id }} has been Cancelled by the City Restaurant as you are 30 mins. You can reserve again and thank you for choosing to dine in City Restaurant.</p>
         <p class="text-right">Thank you.</p>
     </div>
 </div>

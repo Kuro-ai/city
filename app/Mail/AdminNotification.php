@@ -12,13 +12,27 @@ use Illuminate\Queue\SerializesModels;
 class AdminNotification extends Mailable
 {
     use Queueable, SerializesModels;
-
+    public $name;
+    public $email;
+    public $reservationId;
     /**
      * Create a new message instance.
      */
-    public function __construct()
+    public function __construct($name, $email, $reservationId)
     {
-        //
+        $this->name = $name;
+        $this->email = $email;
+        $this->reservationId = $reservationId;
+    }
+
+      public function build()
+    {
+        return $this->view('emails.admin-notification')
+                    ->with([
+                        'reservationId' => $this->reservationId,
+                        'name' => $this->name,
+                        'email' => $this->email
+                    ]);
     }
 
     /**

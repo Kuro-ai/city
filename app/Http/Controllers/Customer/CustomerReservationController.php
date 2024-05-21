@@ -88,9 +88,8 @@ class CustomerReservationController extends Controller
 
             // Send an email to each admin user
             foreach ($adminUsers as $admin) {
-                Mail::to($admin->email)->send(new AdminNotification($reservation));
+                Mail::to($admin->email)->send(new AdminNotification($reservation->first_name . ' ' . $reservation->last_name, $reservation->email, $reservation->id));
             }
-
             return to_route('thankyou');
         } else {
             return view('customer.reservations.step-one');

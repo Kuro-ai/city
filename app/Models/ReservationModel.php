@@ -32,4 +32,9 @@ class ReservationModel extends Model
     {
         return $this->hasManyThrough(OrderItemModel::class, OrderModel::class, 'reservation_id', 'order_id');
     }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

@@ -12,13 +12,17 @@ use Illuminate\Queue\SerializesModels;
 class OrderConfirmation extends Mailable
 {
     use Queueable, SerializesModels;
-
+    public $order;
+    public $username;
+    public $useremail;
     /**
      * Create a new message instance.
      */
-    public function __construct()
+    public function __construct($order, $username, $useremail)
     {
-        //
+        $this->order = $order;
+        $this->username = $username;
+        $this->useremail = $useremail;
     }
 
     /**
@@ -39,6 +43,16 @@ class OrderConfirmation extends Mailable
         return new Content(
             markdown: 'emails.order-confirmation',
         );
+    }
+
+    public function build()
+    {
+        return $this->view('emails.order-confirmation')
+                    ->with([
+                        'order' => $this->order,
+                        'username' => $this->username,
+                        'useremail' => $this->useremail
+                    ]);
     }
 
     /**

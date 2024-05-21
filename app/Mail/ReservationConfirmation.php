@@ -12,15 +12,28 @@ use Illuminate\Queue\SerializesModels;
 class ReservationConfirmation extends Mailable
 {
     use Queueable, SerializesModels;
-
+    public $reservation;
+    public $username;
+    public $useremail;
     /**
      * Create a new message instance.
      */
-    public function __construct()
+    public function __construct($reservation, $username, $useremail)
     {
-        //
+        $this->reservation = $reservation;
+        $this->username = $username;
+        $this->useremail = $useremail;
     }
 
+    public function build()
+    {
+        return $this->view('emails.reservation-confirmation')
+                    ->with([
+                        'order' => $this->reservation,
+                        'username' => $this->username,
+                        'useremail' => $this->useremail
+                    ]);
+    }
     /**
      * Get the message envelope.
      */

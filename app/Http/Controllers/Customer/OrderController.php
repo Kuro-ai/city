@@ -222,7 +222,7 @@ class OrderController extends Controller
 
             // Send an email to each admin user
             foreach ($adminUsers as $admin) {
-                Mail::to($admin->email)->send(new AdminOrderNotification($orderItem));
+                Mail::to($admin->email)->send(new AdminOrderNotification($order->first_name . ' ' . $order->last_name, $order->email, $order->id));
             }
     
         // Redirect to a success page

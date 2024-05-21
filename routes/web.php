@@ -103,7 +103,7 @@ Route::group(['middleware' => 'useradmin'], function () {
         'index' => 'admin.orders.index',
         'destroy' => 'admin.orders.destroy',
     ]);
-    Route::post('admin/orders/orderemail/{id}', [ReservationController::class, 'orderemail'])->name('admin.orders.orderemail');
+    Route::post('admin/orders/orderemail/{id}', [AdminOrderController::class, 'orderemail'])->name('admin.orders.orderemail');
     Route::post('admin/reservations/reservationemail/{id}', [ReservationController::class, 'reservationemail'])->name('admin.reservations.reservationemail');
 
     Route::resource('admin/user', UserController::class)->names([
