@@ -18,6 +18,7 @@ use App\Http\Controllers\Admin\ExpenseChart;
 use App\Http\Controllers\Admin\IncomeChart;
 use App\Http\Controllers\Admin\ProfitChart;
 use App\Http\Controllers\Admin\IncomeController;
+use App\Http\Controllers\Admin\UserController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -105,6 +106,11 @@ Route::group(['middleware' => 'useradmin'], function () {
     Route::post('admin/orders/orderemail/{id}', [ReservationController::class, 'orderemail'])->name('admin.orders.orderemail');
     Route::post('admin/reservations/reservationemail/{id}', [ReservationController::class, 'reservationemail'])->name('admin.reservations.reservationemail');
 
+    Route::resource('admin/user', UserController::class)->names([
+        'index' => 'admin.user.index',
+        'destroy' => 'admin.user.destroy',
+    ]);
+
     //Admin Routes => Orders
     Route::get('/admin/order/shoppingcart', [AdminOrderController::class, 'showCart'])->name('admin.order.shoppingcart');
     Route::post('/admin/order/addToCart', [AdminOrderController::class, 'addToCart'])->name('admin.order.addToCart');
@@ -125,18 +131,11 @@ Route::group(['middleware' => 'usercustomer'], function () {
     Route::get('/customer', function () {
         return view('customer.index');
     })->name('customer.index');
-    // Customer Routes => Categories
-    // Route::resource('customer/categories', CustomerCategoryController::class)->names([
-    //     'index' => 'customer.categories.index',
-    //     'show' => 'customer.categories.show',
-    // ]);
-    // //Customer Routes => Menus
+
     Route::resource('customer/menus', CustomerMenuController::class)->names([
         'index' => 'customer.menus.index',
     ]);
-    // Route::resource('/customer', SpecialsController::class)->names([
-    //     'index' => 'customer.index',
-    // ]);
+
     Route::get('/thankyou', [ThankYouController::class, 'thankyou'])->name('thankyou');
 
     //Customer Routes => Reservations
@@ -162,8 +161,7 @@ Route::group(['middleware' => 'usercustomer'], function () {
     Route::resource('customer/historylist', HistoryListController::class)->only([
         'index' => 'customer.historylist.index',
     ]);
-    // Route::get('/customer/historylist/index', [HistoryListController::class, 'reservationlist'])->name('customer.historylist.index');
-    // Route::get('/customer/historylist/index', [HistoryListController::class, 'orderlist'])->name('customer.historylist.index');
+
     Route::get('/customer/historylist/index', [HistoryListController::class, 'index'])->name('customer.historylist.index');
     Route::get('/customer/customercontact', [ContactController::class, 'showForm'])->name('customer.customercontact');
     Route::get('/customer/terms', [ContactController::class, 'showTerms'])->name('customer.terms');

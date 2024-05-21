@@ -21,7 +21,7 @@
                         <x-dropdown align="right" width="48">
                             <x-slot name="trigger">
                                 <button
-                                    class="flex text-bbyellow text-sm border-2 border-transparent rounded-full focus:outline-none focus:border-pale transition">
+                                    class="flex text-bbyellow text-sm border-2 border-transparent rounded-full focus:outline-none transition">
                                     <div>Finance</div>
                                 </button>
                             </x-slot>
@@ -38,7 +38,7 @@
                         <x-dropdown align="right" width="48">
                             <x-slot name="trigger">
                                 <button
-                                    class="flex text-bbyellow text-sm border-2 border-transparent rounded-full focus:outline-none focus:border-pale transition">
+                                    class="flex text-bbyellow text-sm border-2 border-transparent rounded-full focus:outline-none transition">
                                     <div>Management</div>
                                 </button>
                             </x-slot>
@@ -54,12 +54,16 @@
                                 <x-dropdown-link href="{{ route('admin.tables.index') }}" :active="request()->routeIs('admin.tables.index')">
                                     {{ __('Tables') }}
                                 </x-dropdown-link>
+                                <div class="border-t border-pale w-40 m-auto"></div>
+                                <x-dropdown-link href="{{ route('admin.user.index') }}" :active="request()->routeIs('admin.user.index')">
+                                    {{ __('Users') }}
+                                </x-dropdown-link>
                             </x-slot>
                         </x-dropdown>
                         <x-dropdown align="right" width="48">
                             <x-slot name="trigger">
                                 <button
-                                    class="flex text-bbyellow text-sm border-2 border-transparent rounded-full focus:outline-none focus:border-pale transition">
+                                    class="flex text-bbyellow text-sm border-2 border-transparent rounded-full focus:outline-none transition">
                                     <div>Order</div>
                                 </button>
                             </x-slot>
@@ -189,6 +193,9 @@
                 </x-responsive-nav-link>
                 <x-responsive-nav-link href="{{ route('admin.tables.index') }}" :active="request()->routeIs('admin.tables.index')">
                     {{ __('Tables') }}
+                </x-responsive-nav-link>
+                <x-responsive-nav-link href="{{ route('admin.user.index') }}" :active="request()->routeIs('admin.user.index')">
+                    {{ __('Users') }}
                 </x-responsive-nav-link>
                 <x-responsive-nav-link href="{{ route('admin.reservations.index') }}" :active="request()->routeIs('admin.reservations.index')">
                     {{ __('Reservation') }}
