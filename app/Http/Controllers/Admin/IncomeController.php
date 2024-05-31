@@ -43,7 +43,7 @@ class IncomeController extends Controller
      */
     public function create()
     {
-        $menus = MenuModel::orderBy('created_at', 'desc')->paginate(10);
+        $menus = MenuModel::orderBy('created_at', 'desc')->get();
         return view('admin.incomes.create', ['menus' => $menus]);
     }
 

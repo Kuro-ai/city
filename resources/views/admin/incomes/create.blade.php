@@ -53,7 +53,7 @@
                         </div>
                         <div class="mb-5 mx-auto">
                             <label class="block text-pale text-sm font-bold mb-2" for="quantity[]">Quantity</label>
-                            <input class="shadow appearance-none rounded w-full py-2 px-3 text-pale bg-bgcyan border-2 border-pale leading-tight focus:outline-none focus:shadow-outline" id="quantity[]" type="number" name="quantity[]" class="quantity" onchange="calculateTotalPriceOG()">
+                            <input class="shadow appearance-none rounded w-full py-2 px-3 text-pale bg-bgcyan border-2 border-pale leading-tight focus:outline-none focus:shadow-outline" id="quantity[]" type="number" name="quantity[]" class="quantity" min='1' step="1" onchange="calculateTotalPriceOG()">
                         </div>
                         <div class="mb-5 mx-auto">
                             <label class="block text-pale text-sm font-bold mb-2" for="total_price[]">Total Price</label>
@@ -90,7 +90,7 @@
         const dateInput = document.getElementById('date');
         const today = new Date();
         const year = today.getFullYear();
-        const month = String(today.getMonth() + 1).padStart(2, '0'); // Months are 0-based, so we add 1
+        const month = String(today.getMonth() + 1).padStart(2, '0'); 
         const day = String(today.getDate()).padStart(2, '0');
         dateInput.value = `${year}-${month}-${day}`;
     });
@@ -132,31 +132,23 @@
     });
 
     function calculateTotalPriceOG() {
-    var menuSelect = document.querySelector('.menu_name');
-    var quantityInput = document.querySelector('.quantity');
-    var totalPriceInput = document.querySelector('.total_price');
+    var menuNames = Array.from(document.getElementsByName('menu_name[]'));
+    var quantities = Array.from(document.getElementsByName('quantity[]'));
+    var totalPrices = Array.from(document.getElementsByName('total_price[]'));
 
-    var selectedOption = menuSelect.options[menuSelect.selectedIndex];
-    var menuPrice = parseFloat(selectedOption.getAttribute('data-price'));
-    var quantity = parseFloat(quantityInput.value);
-
-    if (!isNaN(menuPrice) && !isNaN(quantity)) {
-        totalPriceInput.value = (menuPrice * quantity).toFixed(2);
-    }
+    menuNames.forEach((menuName, index) => {
+        var price = menuName.options[menuName.selectedIndex].getAttribute('data-price');
+        var quantity = quantities[index].value;
+        totalPrices[index].value = price * quantity;
+    });
 }
 
 function calculateTotalPrice(event) {
-    var parentDiv = event.target.parentNode.parentNode;
-    var menuSelect = parentDiv.querySelector('.menu_name');
-    var quantityInput = parentDiv.querySelector('.quantity');
-    var totalPriceInput = parentDiv.querySelector('.total_price');
+    var menuName = event.target;
+    var price = menuName.options[menuName.selectedIndex].getAttribute('data-price');
+    var quantity = menuName.parentElement.nextElementSibling.children[1].value;
+    var totalPrice = menuName.parentElement.nextElementSibling.nextElementSibling.children[1];
 
-    var selectedOption = menuSelect.options[menuSelect.selectedIndex];
-    var menuPrice = parseFloat(selectedOption.getAttribute('data-price'));
-    var quantity = parseFloat(quantityInput.value);
-
-    if (!isNaN(menuPrice) && !isNaN(quantity)) {
-        totalPriceInput.value = (menuPrice * quantity).toFixed(2);
-    }
+    totalPrice.value = price * quantity;
 }
 </script>
