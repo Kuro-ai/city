@@ -90,6 +90,15 @@
             <input class="shadow appearance-none rounded w-full py-2 px-3 text-pale bg-bgcyan border-2 border-pale leading-tight focus:outline-none focus:shadow-outline" id="total_price[]" type="number" step="0.01" name="total_price[]" class="total_price" readonly>
         </div>
         `;
+
+        const selectedMenuNames = Array.from(document.querySelectorAll('[name="menu_name[]"]')).map(select =>
+            select.value);
+        newIncomeItem.querySelectorAll('[name="menu_name[]"] option').forEach(option => {
+            if (selectedMenuNames.includes(option.value)) {
+                option.remove();
+            }
+        });
+
         incomeItems.appendChild(newIncomeItem);
     });
 
@@ -102,18 +111,6 @@
             quantity: quantities[index],
             total_price: totalPrices[index]
         }));
-        document.getElementById('items').value = JSON.stringify(incomeItems);
-    });
-
-    document.getElementById('incomeForm').addEventListener('submit', function(e) {
-        var menuNames = Array.from(document.getElementsByName('menu_name[]')).map(input => input.value);
-        var quantities = Array.from(document.getElementsByName('quantity[]')).map(input => input.value);
-        var totalPrices = Array.from(document.getElementsByName('total_price[]')).map(input => input.value);
-        var incomeItems = menuNames.map((menuName, index) => ({
-            menu_name: menuName,
-            quantity: quantities[index],
-            total_price: totalPrices[index]
-        })).filter(item => item.menu_name && item.quantity && item.total_price);
         document.getElementById('items').value = JSON.stringify(incomeItems);
     });
 

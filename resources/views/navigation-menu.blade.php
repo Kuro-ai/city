@@ -12,10 +12,10 @@
 
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                    @if (auth()->check() && auth()->user()->is_admin)
+                    @if (auth()->check() && auth()->user()->userRole == 'admin')
                     <div class="flex items-center space-x-8">
                         <x-nav-link href="{{ route('admin.index') }}" :active="request()->routeIs('admin.index')">
-                            {{ __('Admin Dashboard') }}
+                            {{ __('Chart Dashboard') }}
                         </x-nav-link>
                     
                         <x-dropdown align="right" width="48">
@@ -78,6 +78,74 @@
                             </x-slot>
                         </x-dropdown>
                     </div>
+                    @elseif (auth()->check() && auth()->user()->userRole == 'manager')
+                    <div class="flex items-center space-x-8">
+                        <x-nav-link href="{{ route('manager.index') }}" :active="request()->routeIs('manager.index')">
+                            {{ __('Chart Dashboard') }}
+                        </x-nav-link>
+                    
+                        <x-dropdown align="right" width="48">
+                            <x-slot name="trigger">
+                                <button
+                                    class="flex text-bbyellow text-sm border-2 border-transparent rounded-full focus:outline-none transition">
+                                    <div>Finance</div>
+                                </button>
+                            </x-slot>
+                            <x-slot name="content">
+                                <x-dropdown-link href="{{ route('manager.expenses.index') }}" :active="request()->routeIs('manager.expenses.index')">
+                                    {{ __('Expense') }}
+                                </x-dropdown-link>
+                                <div class="border-t border-pale w-40 m-auto"></div>
+                                <x-dropdown-link href="{{ route('manager.incomes.index') }}" :active="request()->routeIs('manager.incomes.index')">
+                                    {{ __('Income') }}
+                                </x-dropdown-link>
+                            </x-slot>
+                        </x-dropdown>
+                        <x-dropdown align="right" width="48">
+                            <x-slot name="trigger">
+                                <button
+                                    class="flex text-bbyellow text-sm border-2 border-transparent rounded-full focus:outline-none transition">
+                                    <div>Management</div>
+                                </button>
+                            </x-slot>
+                            <x-slot name="content">
+                                <x-dropdown-link href="{{ route('manager.categories.index') }}" :active="request()->routeIs('manager.categories.index')">
+                                    {{ __('Categories') }}
+                                </x-dropdown-link>
+                                <div class="border-t border-pale w-40 m-auto"></div>
+                                <x-dropdown-link href="{{ route('manager.menus.index') }}" :active="request()->routeIs('manager.menus.index')">
+                                    {{ __('Menu') }}
+                                </x-dropdown-link>
+                                <div class="border-t border-pale w-40 m-auto"></div>
+                                <x-dropdown-link href="{{ route('manager.tables.index') }}" :active="request()->routeIs('manager.tables.index')">
+                                    {{ __('Tables') }}
+                                </x-dropdown-link>
+                                <div class="border-t border-pale w-40 m-auto"></div>
+                                <x-dropdown-link href="{{ route('manager.user.index') }}" :active="request()->routeIs('manager.user.index')">
+                                    {{ __('Users') }}
+                                </x-dropdown-link>
+                            </x-slot>
+                        </x-dropdown>
+                        <x-dropdown align="right" width="48">
+                            <x-slot name="trigger">
+                                <button
+                                    class="flex text-bbyellow text-sm border-2 border-transparent rounded-full focus:outline-none transition">
+                                    <div>Order</div>
+                                </button>
+                            </x-slot>
+                            <x-slot name="content">
+                                <x-dropdown-link href="{{ route('manager.reservations.index') }}" :active="request()->routeIs('manager.reservations.index')">
+                                    {{ __('Reservation') }}
+                                </x-dropdown-link>
+                                <div class="border-t border-pale w-40 m-auto"></div>
+                                <x-dropdown-link href="{{ route('manager.orders.index') }}" :active="request()->routeIs('manager.orders.index')">
+                                    {{ __('Order List') }}
+                                </x-dropdown-link>
+                            </x-slot>
+                        </x-dropdown>
+                    </div>
+                    @elseif (auth()->check() && auth()->user()->userRole == 'cashier')
+                    @elseif (auth()->check() && auth()->user()->userRole == 'staff')
                     @else
                         <x-nav-link href="{{ route('customer.index') }}" :active="request()->routeIs('customer.index')">
                             {{ __('Home') }}

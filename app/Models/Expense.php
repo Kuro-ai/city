@@ -9,25 +9,33 @@ use Illuminate\Support\Facades\DB;
 class Expense extends Model
 {
     use HasFactory;
-    protected $fillable = ['name', 'quantity', 'total_price', 'date', 'remark'];
+    protected $fillable = ['items', 'date', 'remark'];
+
+    protected $casts = [
+        'items' => 'array',
+    ];
 
     public static function getMonthlyExpense()
     {
         $months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 
-        $expenses = self::select(DB::raw('SUM(total_price) as total'), DB::raw('EXTRACT(MONTH FROM date)::integer as month'))
-            ->groupBy(DB::raw('EXTRACT(MONTH FROM date)::integer'))
-            ->orderBy(DB::raw('EXTRACT(MONTH FROM date)::integer'), 'asc')
-            ->get()
-            ->mapWithKeys(function ($item) use ($months) {
-                return [$months[$item->month - 1] => $item->total];
-            });
-
-        $result = [];
-        foreach ($months as $month) {
-            $result[] = (object) ['month' => $month, 'total' => $expenses[$month] ?? 0];
+        $expenses = self::select(['items', DB::raw('EXTRACT(MONTH FROM date) as month')])->get();
+    
+        $monthlyExpenses = array_fill_keys($months, 0);
+    
+        foreach ($expenses as $expense) {
+            $items = is_array($expense->items) ? $expense->items : json_decode($expense->items, true);
+            $month = $months[$expense->month - 1];
+            foreach ($items as $item) {
+                $monthlyExpenses[$month] += floatval($item['total_price']);
+            }
         }
-
+    
+        $result = [];
+        foreach ($monthlyExpenses as $month => $total) {
+            $result[] = (object) ['month' => $month, 'total' => $total];
+        }
+    
         return collect($result);
     }
 }

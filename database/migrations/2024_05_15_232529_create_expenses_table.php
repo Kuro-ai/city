@@ -13,9 +13,7 @@ return new class extends Migration
     {
         Schema::create('expenses', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->integer('quantity');
-            $table->decimal('total_price', 8, 2);
+            $table->json('items');
             $table->date('date');
             $table->text('remark')->nullable();
             $table->timestamps();

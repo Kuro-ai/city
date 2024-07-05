@@ -22,7 +22,7 @@ class DatabaseSeeder extends Seeder
             'email' => "admin@gmail.com",
             'email_verified_at' => now(),
             'password' => Hash::make('password'),
-            'is_admin' => true,
+            'userRole' => 'admin',
             'two_factor_secret' => null,
             'two_factor_recovery_codes' => null,
             'remember_token' => Str::random(10),
@@ -31,11 +31,50 @@ class DatabaseSeeder extends Seeder
         ]);
 
         User::factory()->create([
-            'name' => 'Test User',
-            'email' => "testuser@gmail.com",
+            'name' => 'Manager',
+            'email' => "manager@gmail.com",
             'email_verified_at' => now(),
             'password' => Hash::make('password'),
-            'is_admin' => false,
+            'userRole' => 'manager',
+            'two_factor_secret' => null,
+            'two_factor_recovery_codes' => null,
+            'remember_token' => Str::random(10),
+            'profile_photo_path' => null,
+            'current_team_id' => null,
+        ]);
+
+        User::factory()->create([
+            'name' => 'Cashier',
+            'email' => "cashier@gmail.com",
+            'email_verified_at' => now(),
+            'password' => Hash::make('password'),
+            'userRole' => 'cashier',
+            'two_factor_secret' => null,
+            'two_factor_recovery_codes' => null,
+            'remember_token' => Str::random(10),
+            'profile_photo_path' => null,
+            'current_team_id' => null,
+        ]);
+
+        User::factory()->create([
+            'name' => 'Staff',
+            'email' => "staff@gmail.com",
+            'email_verified_at' => now(),
+            'password' => Hash::make('password'),
+            'userRole' => 'staff',
+            'two_factor_secret' => null,
+            'two_factor_recovery_codes' => null,
+            'remember_token' => Str::random(10),
+            'profile_photo_path' => null,
+            'current_team_id' => null,
+        ]);
+
+        User::factory()->create([
+            'name' => 'Customer',
+            'email' => "customer@gmail.com",
+            'email_verified_at' => now(),
+            'password' => Hash::make('password'),
+            'userRole' => 'customer',
             'two_factor_secret' => null,
             'two_factor_recovery_codes' => null,
             'remember_token' => Str::random(10),

@@ -32,9 +32,20 @@
             </span>
         </div>
     @endif
+    @if ($errors->any())
+        <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
+            <span class="block sm:inline">Please check the form for errors.</span>
+            <ul class="list-disc list-inside">
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <form class="max-w-sm mx-auto bg-bgcyan border-2 border-pale p-6 rounded-md" id="incomeForm" method="POST" action="{{ route('admin.incomes.store') }}">
+            <form class="max-w-sm mx-auto bg-bgcyan border-2 border-pale p-6 rounded-md" id="incomeForm" method="POST"
+                action="{{ route('admin.incomes.store') }}">
                 @csrf
                 <div class="flex justify-end">
                     <x-create-button href="{{ route('admin.incomes.index') }}">
@@ -45,34 +56,47 @@
                     <div class="incomeItem">
                         <div class="mb-5 mx-auto">
                             <label class="block text-pale text-sm font-bold mb-2" for="menu_name[]">Menu Name</label>
-                            <select  class="shadow appearance-none rounded w-full py-2 px-3 text-pale bg-bgcyan border-2 border-pale leading-tight focus:outline-none focus:shadow-outline" id="menu_name[]" name="menu_name[]" class="menu_name" onchange="calculateTotalPriceOG()">
+                            <select
+                                class="shadow appearance-none rounded w-full py-2 px-3 text-pale bg-bgcyan border-2 border-pale leading-tight focus:outline-none focus:shadow-outline"
+                                id="menu_name[]" name="menu_name[]" class="menu_name"
+                                onchange="calculateTotalPriceOG()">
                                 @foreach ($menus as $menu)
-                                    <option value="{{ $menu->name }}" data-price="{{ $menu->price }}">{{ $menu->name }}</option>
+                                    <option value="{{ $menu->name }}" data-price="{{ $menu->price }}">
+                                        {{ $menu->name }}</option>
                                 @endforeach
                             </select>
                         </div>
                         <div class="mb-5 mx-auto">
                             <label class="block text-pale text-sm font-bold mb-2" for="quantity[]">Quantity</label>
-                            <input class="shadow appearance-none rounded w-full py-2 px-3 text-pale bg-bgcyan border-2 border-pale leading-tight focus:outline-none focus:shadow-outline" id="quantity[]" type="number" name="quantity[]" class="quantity" min='1' step="1" onchange="calculateTotalPriceOG()">
+                            <input
+                                class="shadow appearance-none rounded w-full py-2 px-3 text-pale bg-bgcyan border-2 border-pale leading-tight focus:outline-none focus:shadow-outline"
+                                id="quantity[]" type="number" name="quantity[]" class="quantity" min='1'
+                                step="1" onchange="calculateTotalPriceOG()">
                         </div>
                         <div class="mb-5 mx-auto">
-                            <label class="block text-pale text-sm font-bold mb-2" for="total_price[]">Total Price</label>
-                            <input  class="shadow appearance-none rounded w-full py-2 px-3 text-pale bg-bgcyan border-2 border-pale leading-tight focus:outline-none focus:shadow-outline" id="total_price[]" type="number" step="0.01" name="total_price[]" class="total_price" readonly>
+                            <label class="block text-pale text-sm font-bold mb-2" for="total_price[]">Total
+                                Price</label>
+                            <input
+                                class="shadow appearance-none rounded w-full py-2 px-3 text-pale bg-bgcyan border-2 border-pale leading-tight focus:outline-none focus:shadow-outline"
+                                id="total_price[]" type="number" step="0.01" name="total_price[]"
+                                class="total_price" readonly>
                         </div>
                     </div>
                 </div>
                 <div class="flex justify-center">
-                    <button type="button" id="addIncomeItem"  class="bg-gradient-to-r from-bbyellow via-yellow-300 to-yellow-500 hover:bg-gradient-to-br text-bgcyan font-bold py-2 px-4 my-4 rounded m-auto">Add Another Item</button>
+                    <button type="button" id="addIncomeItem"
+                        class="bg-gradient-to-r from-bbyellow via-yellow-300 to-yellow-500 hover:bg-gradient-to-br text-bgcyan font-bold py-2 px-4 my-4 rounded m-auto">Add
+                        Another Item</button>
                 </div>
                 <div class="mb-3">
                     <label class="block text-pale text-sm font-bold mb-2" for="date">Date</label>
-                    <input 
-                    class="shadow appearance-none rounded w-full py-2 px-3 text-pale bg-bgcyan border-2 border-pale leading-tight focus:outline-none focus:shadow-outline"
+                    <input
+                        class="shadow appearance-none rounded w-full py-2 px-3 text-pale bg-bgcyan border-2 border-pale leading-tight focus:outline-none focus:shadow-outline"
                         id="date" type="date" name="date">
                 </div>
                 <div class="mb-5 mx-auto">
                     <label class="block text-pale text-sm font-bold mb-2" for="remark">Remark</label>
-                    <textarea class="bg-bgcyan text-pale w-full border-pale id="remark' name="remark" rows="4" cols="50"></textarea>
+                    <textarea class="bg-bgcyan text-pale w-full border-pale" id="remark" name="remark" rows="4" cols="50"></textarea>
                 </div>
                 <input type="hidden" id="items" name="items">
                 <div class="mb-5 mx-auto">
@@ -90,34 +114,44 @@
         const dateInput = document.getElementById('date');
         const today = new Date();
         const year = today.getFullYear();
-        const month = String(today.getMonth() + 1).padStart(2, '0'); 
+        const month = String(today.getMonth() + 1).padStart(2, '0');
         const day = String(today.getDate()).padStart(2, '0');
         dateInput.value = `${year}-${month}-${day}`;
     });
 
     document.getElementById('addIncomeItem').addEventListener('click', function() {
-    var incomeItems = document.getElementById('incomeItems');
-    var newIncomeItem = document.createElement('div');
-    newIncomeItem.innerHTML = `
-        <div class="mb-5 mx-auto">
-            <label class="block text-pale text-sm font-bold mb-2" for="menu_name[]">Menu Name</label>
-            <select class="shadow appearance-none rounded w-full py-2 px-3 text-pale bg-bgcyan border-2 border-pale leading-tight focus:outline-none focus:shadow-outline" id="menu_name[]" name="menu_name[]" class="menu_name" onchange="calculateTotalPrice(event)">
-                @foreach ($menus as $menu)
-                    <option value="{{ $menu->name }}" data-price="{{ $menu->price }}">{{ $menu->name }}</option>
-                @endforeach
-            </select>
-        </div>
-        <div class="mb-5 mx-auto">
-            <label class="block text-pale text-sm font-bold mb-2" for="quantity[]">Quantity</label>
-            <input class="shadow appearance-none rounded w-full py-2 px-3 text-pale bg-bgcyan border-2 border-pale leading-tight focus:outline-none focus:shadow-outline" id="quantity[]" type="number" name="quantity[]" min="1" step="1" class="quantity" onchange="calculateTotalPrice(event)">
-        </div>
-        <div class="mb-5 mx-auto">
-            <label class="block text-pale text-sm font-bold mb-2" for="total_price[]">Total Price</label>
-            <input class="shadow appearance-none rounded w-full py-2 px-3 text-pale bg-bgcyan border-2 border-pale leading-tight focus:outline-none focus:shadow-outline" id="total_price[]" type="number" step="0.01" name="total_price[]" class="total_price" readonly>
-        </div>
-    `;
-    incomeItems.appendChild(newIncomeItem);
-});
+        var incomeItems = document.getElementById('incomeItems');
+        var newIncomeItem = document.createElement('div');
+        newIncomeItem.innerHTML = `
+    <div class="mb-5 mx-auto">
+        <label class="block text-pale text-sm font-bold mb-2" for="menu_name[]">Menu Name</label>
+        <select class="shadow appearance-none rounded w-full py-2 px-3 text-pale bg-bgcyan border-2 border-pale leading-tight focus:outline-none focus:shadow-outline" id="menu_name[]" name="menu_name[]" class="menu_name" onchange="calculateTotalPrice(event)">
+            @foreach ($menus as $menu)
+                <option value="{{ $menu->name }}" data-price="{{ $menu->price }}">{{ $menu->name }}</option>
+            @endforeach
+        </select>
+    </div>
+    <div class="mb-5 mx-auto">
+        <label class="block text-pale text-sm font-bold mb-2" for="quantity[]">Quantity</label>
+        <input class="shadow appearance-none rounded w-full py-2 px-3 text-pale bg-bgcyan border-2 border-pale leading-tight focus:outline-none focus:shadow-outline" id="quantity[]" type="number" name="quantity[]" min="1" step="1" class="quantity" onchange="calculateTotalPrice(event)">
+    </div>
+    <div class="mb-5 mx-auto">
+        <label class="block text-pale text-sm font-bold mb-2" for="total_price[]">Total Price</label>
+        <input class="shadow appearance-none rounded w-full py-2 px-3 text-pale bg-bgcyan border-2 border-pale leading-tight focus:outline-none focus:shadow-outline" id="total_price[]" type="number" step="0.01" name="total_price[]" class="total_price" readonly>
+    </div>
+`;
+
+        // Remove already selected options
+        const selectedMenuNames = Array.from(document.querySelectorAll('[name="menu_name[]"]')).map(select =>
+            select.value);
+        newIncomeItem.querySelectorAll('[name="menu_name[]"] option').forEach(option => {
+            if (selectedMenuNames.includes(option.value)) {
+                option.remove();
+            }
+        });
+
+        incomeItems.appendChild(newIncomeItem);
+    });
 
     document.getElementById('incomeForm').addEventListener('submit', function(e) {
         var menuNames = Array.from(document.getElementsByName('menu_name[]')).map(input => input.value);
@@ -132,23 +166,23 @@
     });
 
     function calculateTotalPriceOG() {
-    var menuNames = Array.from(document.getElementsByName('menu_name[]'));
-    var quantities = Array.from(document.getElementsByName('quantity[]'));
-    var totalPrices = Array.from(document.getElementsByName('total_price[]'));
+        var menuNames = Array.from(document.getElementsByName('menu_name[]'));
+        var quantities = Array.from(document.getElementsByName('quantity[]'));
+        var totalPrices = Array.from(document.getElementsByName('total_price[]'));
 
-    menuNames.forEach((menuName, index) => {
+        menuNames.forEach((menuName, index) => {
+            var price = menuName.options[menuName.selectedIndex].getAttribute('data-price');
+            var quantity = quantities[index].value;
+            totalPrices[index].value = price * quantity;
+        });
+    }
+
+    function calculateTotalPrice(event) {
+        var menuName = event.target;
         var price = menuName.options[menuName.selectedIndex].getAttribute('data-price');
-        var quantity = quantities[index].value;
-        totalPrices[index].value = price * quantity;
-    });
-}
+        var quantity = menuName.parentElement.nextElementSibling.children[1].value;
+        var totalPrice = menuName.parentElement.nextElementSibling.nextElementSibling.children[1];
 
-function calculateTotalPrice(event) {
-    var menuName = event.target;
-    var price = menuName.options[menuName.selectedIndex].getAttribute('data-price');
-    var quantity = menuName.parentElement.nextElementSibling.children[1].value;
-    var totalPrice = menuName.parentElement.nextElementSibling.nextElementSibling.children[1];
-
-    totalPrice.value = price * quantity;
-}
+        totalPrice.value = price * quantity;
+    }
 </script>

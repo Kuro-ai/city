@@ -96,7 +96,6 @@
                     @else
                         <select name="table_id" id="table" class="bg-bgcyan text-pale border-2 border-pale w-full"
                             aria-describedby="helper-text-explanation-table">
-                            <option>Select The Table </option>
                             @foreach ($tables as $table)
                                 <option value="{{ $table->id }}" data-capacity="{{ $table->capacity }}">
                                     {{ $table->name }} ( Capacity - {{ $table->capacity }} ) (Location -

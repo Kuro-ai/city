@@ -20,7 +20,7 @@ class ProfitChart extends Controller
         $months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 
         $incomes = Income::select(['items', DB::raw('EXTRACT(MONTH FROM date) as month')])->get();
-        $expenses = Expense::select(['total_price', DB::raw('EXTRACT(MONTH FROM date) as month')])->get();
+        $expenses = Expense::select(['items', DB::raw('EXTRACT(MONTH FROM date) as month')])->get();
 
         $monthlyIncomes = array_fill_keys($months, 0);
         $monthlyExpenses = array_fill_keys($months, 0);
@@ -34,12 +34,16 @@ class ProfitChart extends Controller
         }
 
         foreach ($expenses as $expense) {
+            $items = is_array($expense->items) ? $expense->items : json_decode($expense->items, true);
             $month = $months[$expense->month - 1];
-            $monthlyExpenses[$month] += floatval($expense->total_price);
+            foreach ($items as $item) {
+                $monthlyExpenses[$month] += floatval($item['total_price']);
+            }
         }
-
+        
         $result = [];
         foreach ($months as $month) {
+            // Correct calculation of profit by subtracting expenses from incomes
             $profit = $monthlyIncomes[$month] - $monthlyExpenses[$month];
             $result[] = (object) ['month' => $month, 'profit' => $profit];
         }

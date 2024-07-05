@@ -16,7 +16,7 @@ class CustomerUserMiddleware
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (Auth::check() && !auth()->user()->is_admin) { 
+        if (Auth::check() && auth()->user()->userRole == 'customer') {
             return $next($request);
         } else {
             abort(403, 'Unauthorized access');

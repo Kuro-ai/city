@@ -10,7 +10,7 @@ class UserController extends Controller
 {
     public function index()
     {
-        $users = User::where('is_admin', 0)->paginate(10);
+        $users = User::where('userRole', '!=', 'Admin')->paginate(10);
         return view('admin.user.index', ['users' => $users]);
     }
 

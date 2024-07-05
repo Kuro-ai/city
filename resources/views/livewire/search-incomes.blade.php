@@ -65,8 +65,7 @@
                                         @php
                                             $rowTotalPrice = 0;
                                             foreach ($items as $item) {
-                                                $rowTotalPrice +=
-                                                    (float) $item['total_price'] * (int) $item['quantity'];
+                                                $rowTotalPrice += (float) $item['total_price'];
                                             }
                                         @endphp
 

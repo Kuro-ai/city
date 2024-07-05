@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Income;
-use App\Models\Expense;
+use Illuminate\Support\Facades\Validator;
 use App\Models\MenuModel;
 use Barryvdh\DomPDF\Facade\Pdf;
 
@@ -49,23 +49,28 @@ class IncomeController extends Controller
 
     public function store(Request $request)
     {
-        $request->validate([
-            'items' => 'required',
+        $validator = Validator::make($request->all(), [
+            'items' => 'required|json|min:1', 
             'date' => 'required|date',
             'remark' => 'nullable|string',
+            'menu_name.*' => 'required|string', 
+            'quantity.*' => 'required|integer|min:1', 
+            'total_price.*' => 'required|numeric|min:0', 
         ]);
-
-        $income = new Income();
-        $income->items = json_decode($request->items, true);
-        $income->date = $request->date;
-        $income->remark = $request->remark;
-        $income->save();
-
-        // Flash a success message to the session
-        session()->flash('status', 'Income is successfully added!');
-
-        // Redirect to a new page
-        return redirect()->route('admin.incomes.show', ['income' => $income->id]);
+        
+        if ($validator->fails()) {
+            session()->flash('error', 'Please add quantity for the menu items!.');
+            return redirect()->route('admin.incomes.create')->withErrors($validator)->withInput();
+        } else {
+            $income = new Income();
+            $income->items = json_decode($request->items, true);
+            $income->date = $request->date;
+            $income->remark = $request->remark;
+            $income->save();
+        
+            session()->flash('status', 'Income is successfully added!');
+            return redirect()->route('admin.incomes.show', ['income' => $income->id]);
+        }
     }
 
     public function download(string $id)
@@ -73,8 +78,7 @@ class IncomeController extends Controller
         $income = Income::findOrFail($id);
         $pdf = PDF::loadView('admin.invoice', ['income' => $income]);
 
-        // Flash a success message to the session
-        session()->flash('status', 'Income is successfully added!');
+        session()->flash('status', 'PDF is successfully generated!');
 
         // Download the PDF
         return $pdf->download('invoice.pdf')->withHeaders([

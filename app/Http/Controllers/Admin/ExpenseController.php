@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Expense;
+use Barryvdh\DomPDF\Facade\Pdf;
+use Illuminate\Support\Facades\Validator;
 class ExpenseController extends Controller
 {
     /**
@@ -21,26 +23,47 @@ class ExpenseController extends Controller
         return view('admin.expenses.create');
     }
 
+  
     public function store(Request $request)
     {
-        $validatedData = $request->validate([
-            'name' => 'required',
-            'quantity' => 'required|integer',
-            'total_price' => 'required|numeric',
+        $validator = Validator::make($request->all(), [
+            'items' => 'required|json|min:1', 
             'date' => 'required|date',
             'remark' => 'nullable|string',
+            'menu_name.*' => 'required|string', 
+            'quantity.*' => 'required|integer|min:1', 
+            'total_price.*' => 'required|numeric|min:0', 
         ]);
+        
+        if ($validator->fails()) {
+            session()->flash('error', 'Please add quantity for the menu items!.');
+            return redirect()->route('admin.expenses.create')->withErrors($validator)->withInput();
+        } else {
+            $expense = new Expense();
+            $expense->items = json_decode($request->items, true);
+            $expense->date = $request->date;
+            $expense->remark = $request->remark;
+            $expense->save();
+        
+            session()->flash('status', 'Expense is successfully added!');
+            return redirect()->route('admin.expenses.show', ['expense' => $expense->id]);
+        }
+    }
+    public function download(string $id)
+    {
+        $expense = Expense::findOrFail($id);
+        $pdf = PDF::loadView('admin.purchaseList', ['expense' => $expense]);
 
-        Expense::create($validatedData);
-
-        session()->flash('status', 'Expense is successfully added!');
-
-        return redirect()->route('admin.expenses.index');
+        session()->flash('status', 'PDF is successfully generated!');
+        return $pdf->download('purchaseList.pdf')->withHeaders([
+            'Refresh' => '3; url=' . route('admin.expenses.show', ['expense' => $expense->id]),
+        ]);
     }
 
-    public function show(Expense $expense)
+    public function show(string $id)
     {
-        return view('admin.expenses.show', compact('expense'));
+        $expense = Expense::findOrFail($id);
+        return view('admin.expenses.index', compact('expense'));
     }
 
     /**
@@ -55,20 +78,18 @@ class ExpenseController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Expense $expense)
-    {
-        $validatedData = $request->validate([
-            'name' => 'required|max:255',
-            'quantity' => 'required|integer|min:1',
-            'total_price' => 'required|numeric|min:0.01',
-            'date' => 'required|date',
-            'remark' => 'nullable|string',
-        ]);
 
-        $expense->update($validatedData);
+    public function update(Request $request, string $id)
+    {
+        $expense = Expense::findOrFail($id);
+
+        $expense->items = json_decode($request->items, true);
+        $expense->date = $request->date;
+        $expense->remark = $request->remark;
+
+        $expense->save();
 
         session()->flash('status', 'Expense is successfully updated!');
-
         return redirect()->route('admin.expenses.index');
     }
 
