@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-bbyellow leading-tight">
-            {{ __('Income') }}
+            {{ __('Expense') }}
         </h2>
     </x-slot>
     @if (session('status'))
@@ -19,8 +19,7 @@
         </div>
         <script>
             window.onload = function() {
-                // Start the download
-                window.location.href = "{{ route('manager.incomes.download', ['id' => $income->id]) }}";
+                window.location.href = "{{ route('cashier.expenses.download', ['id' => $expense->id]) }}";
             };
         </script>
     @endif
@@ -40,8 +39,8 @@
     @endif
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            
-            @livewire('manager-search-incomes')
+           
+            @livewire('cashier-search-expenses')
         </div>
     </div>
 </x-app-layout>

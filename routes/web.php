@@ -28,6 +28,18 @@ use App\Http\Controllers\Manager\ManagerProfitChart;
 use App\Http\Controllers\Manager\ManagerIncomeController;
 use App\Http\Controllers\Manager\ManagerUserController;
 
+use App\Http\Controllers\Cashier\CashierReservationController;
+use App\Http\Controllers\Cashier\CashierOrderController;
+use App\Http\Controllers\Cashier\CashierExpenseController;
+use App\Http\Controllers\Cashier\CashierExpenseChart;
+use App\Http\Controllers\Cashier\CashierIncomeChart;
+use App\Http\Controllers\Cashier\CashierProfitChart;
+use App\Http\Controllers\Cashier\CashierIncomeController;
+
+use App\Http\Controllers\Staff\StaffReservationController;
+use App\Http\Controllers\Staff\StaffOrderController;
+use App\Http\Controllers\Staff\StaffThankYouController;
+
 use App\Http\Controllers\Customer\CustomerMenuController;
 use App\Http\Controllers\Customer\CustomerReservationController;
 use App\Http\Controllers\Customer\OrderController;
@@ -248,6 +260,90 @@ Route::group(['middleware' => 'usermanager'], function () {
     Route::get('/manager/expenses/{id}/download', [ManagerExpenseController::class, 'download'])->name('manager.expenses.download');
 });
 
+Route::group(['middleware' => 'usercashier'], function () {
+    Route::get('/cashier', function () {
+        return view('cashier.index');
+    })->name('cashier.index');
+
+    //cashier Routes => Reservations
+    Route::resource('cashier/reservations', CashierReservationController::class)->names([
+        'index' => 'cashier.reservations.index',
+    ]);
+
+    Route::resource('cashier/expenses', CashierExpenseController::class)->names([
+        'index' => 'cashier.expenses.index',
+        'create' => 'cashier.expenses.create',
+        'show' => 'cashier.expenses.show',
+        'store' => 'cashier.expenses.store',
+        'edit' => 'cashier.expenses.edit',
+        'update' => 'cashier.expenses.update',
+        'destroy' => 'cashier.expenses.destroy',
+    ]);
+
+    Route::resource('cashier/chart', CashierExpenseChart::class)->names([
+        'index' => 'cashier.index',
+    ]);
+
+    Route::resource('cashier/chart', CashierIncomeChart::class)->names([
+        'index' => 'cashier.index',
+    ]);
+    Route::resource('cashier/chart', CashierProfitChart::class)->names([
+        'index' => 'cashier.index',
+    ]);
+
+    Route::resource('cashier/incomes', CashierIncomeController::class)->names([
+        'index' => 'cashier.incomes.index',
+        'create' => 'cashier.incomes.create',
+        'show' => 'cashier.incomes.show',
+        'store' => 'cashier.incomes.store',
+        'edit' => 'cashier.incomes.edit',
+        'update' => 'cashier.incomes.update',
+        'destroy' => 'cashier.incomes.destroy',
+    ]);
+
+    Route::resource('cashier/orders', CashierOrderController::class)->names([
+        'index' => 'cashier.orders.index',
+        'destroy' => 'cashier.orders.destroy',
+    ]);
+
+});
+
+Route::group(['middleware' => 'userstaff'], function () {
+    Route::get('/staff', function () {
+        return view('staff.index');
+    })->name('staff.index');
+   
+    //staff Routes => Reservations
+    Route::resource('staff/reservations', StaffReservationController::class)->names([
+        'index' => 'staff.reservations.index',
+        'create' => 'staff.reservations.create',
+        'store' => 'staff.reservations.store',
+        'edit' => 'staff.reservations.edit',
+        'update' => 'staff.reservations.update',
+        'destroy' => 'staff.reservations.destroy',
+    ]);
+
+    Route::resource('staff/orders', StaffOrderController::class)->names([
+        'index' => 'staff.orders.index',
+        'destroy' => 'staff.orders.destroy',
+    ]);
+    Route::post('staff/orders/orderemail/{id}', [StaffOrderController::class, 'orderemail'])->name('staff.orders.orderemail');
+    Route::post('staff/reservations/reservationemail/{id}', [StaffReservationController::class, 'reservationemail'])->name('staff.reservations.reservationemail');
+
+
+    //staff Routes => Orders
+    Route::get('/staff/order/shoppingcart', [StaffOrderController::class, 'showCart'])->name('staff.order.shoppingcart');
+    Route::post('/staff/order/addToCart', [StaffOrderController::class, 'addToCart'])->name('staff.order.addToCart');
+    Route::post('/staff/order/updateCart', [StaffOrderController::class, 'updateCart'])->name('staff.order.updateCart');
+    Route::post('/staff/order/clearCart', [StaffOrderController::class, 'clearCart'])->name('staff.order.clearCart');
+    Route::post('/staff/order/startOrder', [StaffOrderController::class, 'startOrder'])->name('staff.order.startOrder');
+    Route::post('/staff/order/cartToCheckout', [StaffOrderController::class, 'cartToCheckout'])->name('staff.order.cartToCheckout');
+    Route::get('/staff/order/checkout', [StaffOrderController::class, 'checkout'])->name('staff.order.checkout');
+    Route::post('/staff/order/checkout', [StaffOrderController::class, 'store'])->name('staff.order.checkout.store');
+
+    Route::get('/staff/thankyou', [StaffThankYouController::class, 'staffthankyou'])->name('staff.thankyou');
+});
+
 // Customer Routes
 Route::group(['middleware' => 'usercustomer'], function () {
     Route::get('/customer', function () {
@@ -297,10 +393,10 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified']
                 return redirect()->route('admin.index');
             case 'manager':
                 return redirect()->route('manager.index');
-            // case 'cashier':
-            //     return redirect()->route('cashier.index');
-            // case 'staff':
-            //     return redirect()->route('staff.index');
+            case 'cashier':
+                return redirect()->route('cashier.index');
+            case 'staff':
+                return redirect()->route('staff.reservations.index');
             case 'customer':
                 return view('customer.index');
             default:

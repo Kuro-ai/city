@@ -4,7 +4,7 @@
             <h1 class="mb-6 text-2xl font-bold tracking-tight text-bgcyan bg-pale p-4 rounded-t-lg">Thank you</h1>
             <p class="font-normal text-pale mb-3">Your reservation is ready.</p>
 
-            <form id="orderForm" method="POST" action="{{ route('manager.order.startOrder') }}">
+            <form id="orderForm" method="POST" action="{{ route('staff.order.startOrder') }}">
                 @csrf
                 <div class="mb-5 sm:col-span-6">
                     <label class="block mb-2 text-sm font-medium text-pale ">

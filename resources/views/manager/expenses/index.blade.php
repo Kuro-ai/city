@@ -19,7 +19,7 @@
         </div>
         <script>
             window.onload = function() {
-                window.location.href = "{{ route('admin.expenses.download', ['id' => $expense->id]) }}";
+                window.location.href = "{{ route('manager.expenses.download', ['id' => $expense->id]) }}";
             };
         </script>
     @endif

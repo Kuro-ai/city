@@ -20,7 +20,7 @@
         <script>
             window.onload = function() {
                 // Start the download
-                window.location.href = "{{ route('manager.incomes.download', ['id' => $income->id]) }}";
+                window.location.href = "{{ route('cashier.incomes.download', ['id' => $income->id]) }}";
             };
         </script>
     @endif
@@ -41,7 +41,7 @@
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             
-            @livewire('manager-search-incomes')
+            @livewire('cashier-search-incomes')
         </div>
     </div>
 </x-app-layout>
