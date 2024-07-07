@@ -12,8 +12,28 @@ class CashierProfitChart extends Controller
 {
     public function index()
     {
-        $data = $this->getMonthlyProfit();
-        return view('cashier.index', compact('data'));
+        $monthlyProfit = $this->getMonthlyProfit();
+        $weeklyProfit = $this->getWeeklyProfit();
+        $dailyProfit = $this->getDailyProfit();
+        
+        $monthlyIncomes = Income::getMonthlyIncome();
+        $monthlyExpenses = Expense::getMonthlyExpense();
+        $weeklyIncomes = Income::getWeeklyIncome();
+        $weeklyExpenses = Expense::getWeeklyExpense();
+        $dailyIncomes = Income::getDailyIncome();
+        $dailyExpenses = Expense::getDailyExpense();
+
+        return view('cashier.index', compact(
+            'monthlyProfit',
+            'weeklyProfit',
+            'dailyProfit',
+            'monthlyIncomes',
+            'monthlyExpenses',
+            'weeklyIncomes',
+            'weeklyExpenses',
+            'dailyIncomes',
+            'dailyExpenses'
+        ));
     }
     public function getMonthlyProfit()
     {
@@ -40,7 +60,7 @@ class CashierProfitChart extends Controller
                 $monthlyExpenses[$month] += floatval($item['total_price']);
             }
         }
-        
+
         $result = [];
         foreach ($months as $month) {
             // Correct calculation of profit by subtracting expenses from incomes
@@ -49,5 +69,36 @@ class CashierProfitChart extends Controller
         }
 
         return collect($result);
+    }
+    public function getWeeklyProfit()
+    {
+        $weeklyIncomes = Income::getWeeklyIncome();
+        $weeklyExpenses = Expense::getWeeklyExpense();
+
+        $weeklyProfits = [];
+
+        foreach ($weeklyIncomes as $weeklyIncome) {
+            $weeklyExpense = $weeklyExpenses->firstWhere('week', $weeklyIncome->week);
+            $profit = $weeklyIncome->total - ($weeklyExpense ? $weeklyExpense->total : 0);
+            $weeklyProfits[] = (object) ['week' => $weeklyIncome->week, 'profit' => $profit];
+        }
+
+        return collect($weeklyProfits);
+    }
+
+    public function getDailyProfit()
+    {
+        $dailyIncomes = Income::getDailyIncome();
+        $dailyExpenses = Expense::getDailyExpense();
+
+        $dailyProfits = [];
+
+        foreach ($dailyIncomes as $dailyIncome) {
+            $dailyExpense = $dailyExpenses->firstWhere('day', $dailyIncome->day);
+            $profit = $dailyIncome->total - ($dailyExpense ? $dailyExpense->total : 0);
+            $dailyProfits[] = (object) ['day' => $dailyIncome->day, 'profit' => $profit];
+        }
+
+        return collect($dailyProfits);
     }
 }
