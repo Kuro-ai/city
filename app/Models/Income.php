@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
+use Carbon\Carbon;
 
 class Income extends Model
 {
@@ -34,6 +35,62 @@ class Income extends Model
         $result = [];
         foreach ($monthlyIncomes as $month => $total) {
             $result[] = (object) ['month' => $month, 'total' => $total];
+        }
+    
+        return collect($result);
+    }
+
+    public static function getWeeklyIncome()
+    {
+        $incomes = self::select(['items', DB::raw('EXTRACT(WEEK FROM date) as week_number')])
+            ->get();
+    
+        $weeklyIncomes = [];
+    
+        foreach ($incomes as $income) {
+            $weekNumber = $income->week_number;
+            $items = is_array($income->items) ? $income->items : json_decode($income->items, true);
+            
+            if (!isset($weeklyIncomes[$weekNumber])) {
+                $weeklyIncomes[$weekNumber] = 0;
+            }
+    
+            foreach ($items as $item) {
+                $weeklyIncomes[$weekNumber] += floatval($item['total_price']);
+            }
+        }
+    
+        $result = [];
+        foreach ($weeklyIncomes as $week => $total) {
+            $result[] = (object) ['week' => $week, 'total' => $total];
+        }
+    
+        return collect($result);
+    }
+
+    public static function getDailyIncome()
+    {
+        $incomes = self::select(['items', DB::raw('date::date as day')])
+            ->get();
+    
+        $dailyIncomes = [];
+    
+        foreach ($incomes as $income) {
+            $day = $income->day;
+            $items = is_array($income->items) ? $income->items : json_decode($income->items, true);
+            
+            if (!isset($dailyIncomes[$day])) {
+                $dailyIncomes[$day] = 0;
+            }
+    
+            foreach ($items as $item) {
+                $dailyIncomes[$day] += floatval($item['total_price']);
+            }
+        }
+    
+        $result = [];
+        foreach ($dailyIncomes as $day => $total) {
+            $result[] = (object) ['day' => $day, 'total' => $total];
         }
     
         return collect($result);
