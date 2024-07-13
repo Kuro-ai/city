@@ -41,7 +41,7 @@ class AdminNotification extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Admin Notification',
+            subject: 'Reservation Notification',
         );
     }
 

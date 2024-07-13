@@ -218,7 +218,7 @@ class OrderController extends Controller
             $orderItem->save();
         }
 
-        $adminUsers = User::where('is_admin', true)->get();
+        $adminUsers = User::whereIn('userRole', ['admin', 'manager'])->get();
 
             // Send an email to each admin user
             foreach ($adminUsers as $admin) {

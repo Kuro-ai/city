@@ -42,7 +42,7 @@ class AdminOrderNotification extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Admin Order Notification',
+            subject: 'Order Notification',
         );
     }
 

@@ -85,7 +85,7 @@
         <p>Customer's mail: {{ $details['email'] }}</p>
     </div>
     <div>
-        <p>Dear Coordinator,</p>
+        <p>Dear Admin,</p>
         <p class="indent-8">{{ $details['message'] }}</p>
         <p class="text-right">Thank you.</p>
     </div>

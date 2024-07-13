@@ -27,7 +27,7 @@ class ContactController extends Controller
             'message' => $request->message,
         ];
 
-        $adminUsers = User::where('is_admin', true)->get();
+        $adminUsers = User::whereIn('userRole', ['admin', 'manager'])->get();
 
         // Send an email to each admin user
         foreach ($adminUsers as $admin) {

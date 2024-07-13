@@ -84,7 +84,7 @@ class CustomerReservationController extends Controller
             session(['reservation' => $reservation]);
 
             // Get all admin users
-            $adminUsers = User::where('is_admin', true)->get();
+            $adminUsers = User::whereIn('userRole', ['admin', 'manager'])->get();
 
             // Send an email to each admin user
             foreach ($adminUsers as $admin) {
