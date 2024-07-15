@@ -9,20 +9,15 @@ class OrderModel extends Model
 {
     use HasFactory;
     protected $table = 'orders';
-    protected $fillable = [
-        'first_name',
-        'last_name',
-        'phone',
-        'email',
-        'address',
-        'order_date',
-        'total',
-        'reservation_id',
-        'user_id',
-    ];
+    protected $fillable = ['first_name', 'last_name', 'phone', 'email', 'address', 'order_date', 'total', 'reservation_id', 'user_id'];
 
     public function orderItems()
     {
         return $this->hasMany(OrderItemModel::class);
     }
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+    
 }

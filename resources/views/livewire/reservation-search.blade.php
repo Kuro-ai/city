@@ -2,14 +2,15 @@
     <div class="flex justify-between">
         <div id="search-bar">
             <form class="d-flex" role="search">
-                <input wire:model.live="search" class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                <input wire:model.live="search" class="form-control me-2" type="search" placeholder="Search"
+                    aria-label="Search">
             </form>
         </div>
         <x-create-button href="{{ route('admin.reservations.create') }}">
             New Reservation
         </x-create-button>
     </div>
-    
+
     <div class="h-[55rem] overflow-x-scroll relative shadow-md sm:rounded-lg">
         <table class="w-max text-sm rtl:text-right text-pale text-center m-auto">
             <thead class="text-xs text-bbyellow uppercase bg-bgcyan border-2 border-pale">
@@ -89,7 +90,7 @@
                                         <button type="submit"><img src="{{ asset('others/delete.png') }}"
                                                 class="w-8 h-8"></button>
                                     </form>
-                                    @if (!$reservation->email_sent)
+                                    @if (!$reservation->email_sent && !$reservation->user->hasRole(['admin', 'manager', 'staff']))
                                         <form class="px-2 py-3 hover:bg-blue-400 rounded-lg text-white"
                                             action="{{ route('admin.reservations.reservationemail', $reservation->id) }}"
                                             method="POST"

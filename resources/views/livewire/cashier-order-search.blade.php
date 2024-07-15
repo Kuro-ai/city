@@ -36,9 +36,7 @@
                     <th scope="col" class="px-6 py-3">
                         Order Date
                     </th>
-                    <th scope="col" class="px-6 py-3">
-                        Action
-                    </th>
+
                 </tr>
             </thead>
             <tbody>
@@ -89,31 +87,7 @@
                             <td scope="row" class="px-6 py-4 font-medium whitespace-nowrap">
                                 {{ $order_date }}
                             </td>
-                            <td data-id="{{ $order->id }}" scope="row"
-                                class="px-6 py-4 font-medium whitespace-nowrap">
-                                <div class="email-form-delete flex space-x-2 justify-center items-center">
-                                    <form class="px-2 py-3 hover:bg-red-400 rounded-lg text-white"
-                                        action="{{ route('cashier.orders.destroy', $order->id) }}" method="POST"
-                                        onsubmit="return confirm('Are you sure?')">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit"><img src="{{ asset('others/delete.png') }}"
-                                                class="w-8 h-8"></button>
-                                    </form>
-                                    @if (!$order->email_sent)
-                                        <div class="email-form flex space-x-2 justify-center items-center">
-                                            <form class="px-2 py-3 hover:bg-blue-400 rounded-lg text-white"
-                                                action="{{ route('cashier.orders.orderemail', $order->id) }}"
-                                                method="POST"
-                                                onsubmit="return confirm('Are you sure you want to send an email to this customer?')">
-                                                @csrf
-                                                <button type="submit"><img src="{{ asset('others/gmail.png') }}"
-                                                        class="w-8 h-8"></button>
-                                            </form>
-                                        </div>
-                                    @endif
-                                </div>
-                            </td>
+                           
                         </tr>
                         @php
                             $total = null;

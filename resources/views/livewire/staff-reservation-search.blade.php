@@ -89,7 +89,7 @@
                                         <button type="submit"><img src="{{ asset('others/delete.png') }}"
                                                 class="w-8 h-8"></button>
                                     </form>
-                                    @if (!$reservation->email_sent)
+                                    @if (!$reservation->email_sent && !$reservation->user->hasRole(['admin', 'manager', 'staff']))
                                         <form class="px-2 py-3 hover:bg-blue-400 rounded-lg text-white"
                                             action="{{ route('staff.reservations.reservationemail', $reservation->id) }}"
                                             method="POST"
@@ -99,6 +99,7 @@
                                                     class="w-8 h-8"></button>
                                         </form>
                                     @endif
+                                    
                                 </div>
                             </td>
                         </tr>
